@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { loadCustomers } from '../../actions/customer.actions';
-import * as fromCustomers from '../../selectors/customer.selectors';
+import { loadCustomers } from '../../state/actions/customer.actions';
+import * as fromCustomers from '../../state/selectors/customer.selectors';
 
 @Component({
   selector: 'app-customers-page',

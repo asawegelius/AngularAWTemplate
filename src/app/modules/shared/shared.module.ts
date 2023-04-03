@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ModalModule } from './features/modal/modal.module';
 
 
 
@@ -19,6 +20,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     EditCellComponent
   ],
   imports: [
+    ModalModule,
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
@@ -31,6 +33,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatPaginatorModule
   ],
   exports: [
+    ModalModule,
     TableWithEditCellComponent,
     EditCellComponent
   ],

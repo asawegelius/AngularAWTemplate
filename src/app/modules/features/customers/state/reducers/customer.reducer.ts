@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { ICustomer } from '../models/customer.interface';
+import { ICustomer } from '../../models/customer.interface';
 import * as CustomerActions from '../actions/customer.actions'
 
 

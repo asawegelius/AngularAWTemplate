@@ -5,7 +5,7 @@ import {
 import { environment } from '../../environments/environment';
 import * as fromRouter from '@ngrx/router-store';
 import { routerReducer } from '@ngrx/router-store';
-import * as custReducer from '../modules/features/customers/reducers/customer.reducer';
+import * as custReducer from '../modules/features/customers/state/reducers/customer.reducer';
 
 
 
