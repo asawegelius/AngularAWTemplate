@@ -1,0 +1,33 @@
+<div class="mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort *ngIf="isDataLoaded">
+
+        <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns;let i = index; trackBy: trackByFn;">
+
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{headers[i].name}} </mat-header-cell>
+            <mat-cell *matCellDef="let data">
+                <div *ngIf="!tableColumns[i].icon && col!='toggleRow'">
+                    <a (click)="openDialog(data, col, $event, i)" *ngIf="dataTable.isEditable(col)">
+                        <div class="editable">{{ data[col] }}</div>
+                    </a>
+                    <a *ngIf="!dataTable.isEditable(col)"
+                        [routerLink]="dataTable.hasLink(col) ? null : dataTable.columnLinks.get(col)">
+                        {{ data[col] }} {{dataTable.columnLinks.get(col)}}
+                    </a>
+                </div>
+                <a (click)="iconClicked(data[col])" *ngIf="tableColumns[i].icon">
+                    <mat-icon color="primary" class="icon-btn icon-md" svgIcon="{{displayedColumns[i]}}"></mat-icon>
+                </a>
+                <div class="rowToggleBtn md-collapse" [hidden]="col!='toggleRow'"
+                    *ngIf="!tableColumns[i].icon && col=='toggleRow'">
+                    <mat-icon class="more-icon fill-inherit primary-text" svgIcon="menu-more"></mat-icon>
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSizeOptions]=" [5, 10, 25, 100]">
+    </mat-paginator>
+</div>

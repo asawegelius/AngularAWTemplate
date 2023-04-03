@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+div {
+    overflow: inherit;
+}
+
+a{
+    text-decoration: none;
+    font-size: 110%;
+    white-space: normal;
+}
+
+button{
+    font-size: 110%;
+    min-width: min-content;
+}
+
