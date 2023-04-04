@@ -17,16 +17,14 @@ export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   @Output() clicked: EventEmitter<T> = new EventEmitter<T>();
   @Output() update: EventEmitter<EditRowInfo> = new EventEmitter<EditRowInfo>();
-  @Input()
-  table!: Table<T>;
+  @Input() table!: Table<T>;
   tableColumns: TableColumn[] = [];
   displayedColumns: string[] = [];
   headers: TableHeader[] = [];
-  dataSource: MatTableDataSource<T> = new MatTableDataSource<T>([]);;
+  dataSource: MatTableDataSource<T> = new MatTableDataSource<T>([]);
   tabledata: T[] = [];
   dataTable!: Table<T>;
   isDataLoaded = false;
-  data: any;
   @ViewChild(MatPaginator, { static: true })
   paginator!: MatPaginator;
   @ViewChild(MatSort, { static: false })

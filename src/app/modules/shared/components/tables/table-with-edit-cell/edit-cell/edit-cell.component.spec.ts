@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { EditCellComponent } from './edit-cell.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 describe('EditCellComponent', () => {
   let component: EditCellComponent;
@@ -17,6 +18,10 @@ describe('EditCellComponent', () => {
         FormsModule
       ],
       declarations: [EditCellComponent],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MatDialog, useValue: {} }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     })
       .compileComponents();

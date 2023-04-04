@@ -3,6 +3,8 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
 import { CustomerEffects } from './customer.effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { Endpoints } from 'src/app/modules/core/constants/endpoints';
 
 describe('CustomerEffects', () => {
   let actions$: Observable<any>;
@@ -10,7 +12,9 @@ describe('CustomerEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
+        Endpoints,
         CustomerEffects,
         provideMockActions(() => actions$)
       ]
