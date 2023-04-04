@@ -13,13 +13,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { Endpoints } from './modules/core/constants/endpoints';
 import { CoreModule } from './modules/core/core.module';
-import { SidenavService } from './modules/core/services/sidenav.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterSerializer } from './reducers/router-serializer';
 import { CustomersModule } from './modules/features/customers/customers.module';
-import { AccountsPageComponent } from './modules/features/accounts/pages/accounts-page/accounts-page.component';
+import { AccountsPageComponent } from './modules/features/accounts/components/accounts-page/accounts-page.component';
 import { AccountsComponent } from './modules/features/accounts/components/accounts/accounts.component';
+import { MatListModule } from '@angular/material/list';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { AccountsComponent } from './modules/features/accounts/components/accoun
     AccountsComponent,
   ],
   imports: [
+    MatListModule,
     BrowserModule,
     AppRoutingModule,
     SharedModule,
@@ -46,7 +48,7 @@ import { AccountsComponent } from './modules/features/accounts/components/accoun
       serializer: RouterSerializer,
     }),
   ],
-  providers: [Endpoints, SidenavService],
+  providers: [Endpoints],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

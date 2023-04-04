@@ -2,8 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EditRowInfo } from 'src/app/modules/shared/models/edit-row-info';
 import { Table, TableColumn, TableHeader } from 'src/app/modules/shared/models/table';
-import { CustomersTableService } from 'src/app/modules/shared/services/tables/customers-table.service';
 import { ICustomer } from '../../models/customer.interface';
+import { CustomersTableService } from '../../services/customers-table.service';
 
 @Component({
   selector: 'app-customers',
