@@ -14,7 +14,7 @@ export class EditCellComponent implements OnInit {
   constructor(
     private fb: UntypedFormBuilder,
     private dialogRef: MatDialogRef<EditCellComponent>,
-    //@Optional() is used to prevent error if no data is passed
+    //this is used to prevent error if no data is passed
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
     this.local_data = { ...data };
   }

@@ -1,30 +1,23 @@
-import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-
+import { MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormBuilder } from '@angular/forms';
 import { EditCellComponent } from './edit-cell.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 describe('EditCellComponent', () => {
   let component: EditCellComponent;
   let fixture: ComponentFixture<EditCellComponent>;
+  let dialogRef: jasmine.SpyObj<MatDialogRef<EditCellComponent>>;
 
   beforeEach(async () => {
+    dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        ReactiveFormsModule,
-        FormsModule
-      ],
-      declarations: [EditCellComponent],
+      declarations: [ EditCellComponent ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
-        { provide: MatDialog, useValue: {} }
-      ],
-      schemas: [NO_ERRORS_SCHEMA]
+        { provide: MatDialogRef, useValue: dialogRef },
+        UntypedFormBuilder
+      ]
     })
-      .compileComponents();
+    .compileComponents();
   });
 
   beforeEach(() => {
@@ -33,7 +26,14 @@ describe('EditCellComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should close the dialog on close()', () => {
+    component.close();
+    expect(dialogRef.close).toHaveBeenCalled();
+  });
+
+  it('should close the dialog and return form value on save()', () => {
+    component.form.setValue({ data: 'new test' });
+    component.save();
+    expect(dialogRef.close).toHaveBeenCalledWith({ data: 'new test' });
   });
 });

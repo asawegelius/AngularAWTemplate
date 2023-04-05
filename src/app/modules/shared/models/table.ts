@@ -11,11 +11,11 @@ export class Table<T> {
         this.headers = headers;
         this.columns = columns;
         this.data = data;
-        this.getColumnValues();
+        this.setColumnValues();
         this.editableColumns = (editableColumns) ? editableColumns : [];
     }
 
-    getColumnValues() {
+    setColumnValues() {
         this.displayedColumns = [];
         for (const col of this.columns) {
             this.displayedColumns.push(col.name);
