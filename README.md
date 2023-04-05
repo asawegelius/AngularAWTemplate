@@ -38,7 +38,7 @@ AngularAWTemplate includes a suite of unit tests that can be run with the follow
 
 - `npm run test` to run unit tests.
 
-##Deployment
+## Deployment
 To deploy AngularAWTemplate to a production environment, follow these steps:
 
 1. Build the application with ng build.
