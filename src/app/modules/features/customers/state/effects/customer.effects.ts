@@ -21,10 +21,10 @@ export class CustomerEffects {
         ofType(CustomerAction.loadCustomers),
         mergeMap(() =>
           this.customerService$.getAll().pipe(
-            map(customers =>
-              CustomerAction.loadCustomersSuccess({ customers })
+            map(data =>
+              CustomerAction.loadCustomersSuccess({ data })
             ),
-            catchError(error => of(CustomerAction.loadCustomersFailure({ error: error.message })))
+            catchError(error => of(CustomerAction.loadCustomersFailure({ errorMsg: error.message })))
           )
         )
       ));

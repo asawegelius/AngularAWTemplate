@@ -14,7 +14,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   styleUrls: ['./table-with-edit-cell.component.scss']
 })
 export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
+  subscriptions: Subscription = new Subscription();
   @Output() clicked: EventEmitter<T> = new EventEmitter<T>();
   @Output() update: EventEmitter<EditRowInfo> = new EventEmitter<EditRowInfo>();
   @Input() table!: Table<T>;
@@ -42,29 +42,34 @@ export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
 
   }
 
-  public openDialog(row: any, col: string, event: MouseEvent, i: number) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.position = {
+  private getDialogConfig(row: any, col: string, event: MouseEvent): MatDialogConfig {
+    const position = {
       top: event.screenY - 225 + 'px',
       left: event.screenX + 35 + 'px'
     };
+    const data = row[col];
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.position = position;
     dialogConfig.height = '150px';
     dialogConfig.data = {
-      data: row[col],
+      data,
       top: event.screenY,
       left: event.screenX
     };
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
+    return dialogConfig;
+  }
 
+  public openDialog(row: any, col: string, event: MouseEvent, i: number) {
+    const dialogConfig = this.getDialogConfig(row, col, event);
     const dialogRef = this.dialog.open(EditCellComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(
-      output => {
-        if (output) {
-          const data: any = output.data;
-          this.update.emit({ row, col, data });
-        }
-      });
+    dialogRef.afterClosed().subscribe(output => {
+      if (output) {
+        const data: any = output.data;
+        this.update.emit({ row, col, data });
+      }
+    });
   }
 
   trackByFn(index: any, item: any) {
@@ -86,28 +91,16 @@ export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-
-    this.unsubscribe();
-
+    this.subscriptions.unsubscribe();
   }
 
 
   private subscribe() {
-    this.table.data.getData().subscribe(data => {
+    this.subscriptions.add(this.table.data.getData().subscribe(data => {
       this.tabledata = data;
       this.dataSource.data = data;
       this.isDataLoaded = true;
-    });
+    }));
   }
 
-
-  private unsubscribe() {
-
-    this.subscriptions.forEach(subscription => {
-
-      subscription.unsubscribe();
-
-    });
-
-  }
 }

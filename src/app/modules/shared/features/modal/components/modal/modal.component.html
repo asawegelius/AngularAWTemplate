@@ -3,7 +3,7 @@
 
         <div class="modal-content">
             <div class="modal-header primary-color">
-                <span class="close" (click)="closeModal($event)">&times;</span>
+                <span class="close" (click)="closeModal()">&times;</span>
                 <h3>
                     <ng-content select="[modal-header]"></ng-content>
                 </h3>
@@ -17,4 +17,4 @@
         </div>
     </div>
 </div>
-<div id="overlay" (click)="closeModal($event)"></div>
+<div id="overlay" (click)="closeModal()"></div>

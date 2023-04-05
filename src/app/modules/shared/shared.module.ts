@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ModalModule } from './features/modal/modal.module';
+import { ResponsiveSideNavigationModule } from './layouts/responsive-side-navigation/responsive-side-navigation.module';
 
 
 
@@ -20,6 +21,7 @@ import { ModalModule } from './features/modal/modal.module';
     EditCellComponent
   ],
   imports: [
+    ResponsiveSideNavigationModule,
     ModalModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -33,6 +35,7 @@ import { ModalModule } from './features/modal/modal.module';
     MatPaginatorModule
   ],
   exports: [
+    ResponsiveSideNavigationModule,
     ModalModule,
     TableWithEditCellComponent,
     EditCellComponent

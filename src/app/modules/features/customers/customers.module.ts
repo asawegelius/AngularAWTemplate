@@ -4,7 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromCustomer from './state/reducers/customer.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './state/effects/customer.effects';
-import { CustomersPageComponent } from './pages/customers-page/customers-page.component';
+import { CustomersPageComponent } from './components/customers-page/customers-page.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { SharedModule } from '../../shared/shared.module';
 
