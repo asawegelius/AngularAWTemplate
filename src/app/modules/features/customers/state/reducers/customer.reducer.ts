@@ -22,17 +22,17 @@ export const customersReducer = createReducer(
   ),
   on(
     CustomerActions.loadCustomersSuccess,
-    (state, { customers }) => ({
+    (state, { data }) => ({
       ...state,
-      customers,
+      data,
       callState: LoadingState.LOADED
     })
   ),
   on(
     CustomerActions.loadCustomersFailure,
-    (state, { error }) => ({
+    (state, { errorMsg }) => ({
       ...state,
-      callState: error
+      callState: errorMsg
     })
   )
 );

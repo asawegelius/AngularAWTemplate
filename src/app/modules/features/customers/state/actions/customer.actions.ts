@@ -7,10 +7,10 @@ export const loadCustomers = createAction(
 
 export const loadCustomersSuccess = createAction(
   '[Customer] Load Customers Success',
-  props<{ customers: ICustomer[] }>()
+  props<{ data: ICustomer[] }>()
 );
 
 export const loadCustomersFailure = createAction(
   '[Customer] Load Customers Failure',
-  props<{ error: any }>()
+  props<{ errorMsg: any }>()
 );
