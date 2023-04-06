@@ -13,11 +13,10 @@ AngularAWTemplate is an Angular application template that provides a starting po
   - [Deployment](#deployment)
   - [Core features](#core-features)
     - [QueryStringParameters](#querystringparameters)
-      - [Properties](#properties)
       - [Example usage of QueryStringParameters](#example-usage-of-querystringparameters)
+    - [UrlBuilder](#urlbuilder)
+      - [Usage of UrlBuilder](#usage-of-urlbuilder)
     - [Resource Service](#resource-service)
-      - [Usage of ResourceService](#usage-of-resourceservice)
-      - [Examples](#examples)
     - [Using UrlBuilder, QueryStringParameters, and ResourceService](#using-urlbuilder-querystringparameters-and-resourceservice)
       - [Example usage](#example-usage)
   - [License](#license)
@@ -62,12 +61,6 @@ There are some core features in the core package.
 ### QueryStringParameters
 The *QueryStringParameters* class is used to represent the query string parameters that can be sent in a HTTP GET request to the API endpoint. This class is used in API Services to build the URL for the HTTP request.
 
-#### Properties
-
-- *searchText*: string: The search text to use in the query.
-- *pageNumber*: number: The page number to retrieve.
-- *pageSize*: number: The number of results to retrieve per page.
-
 #### Example usage of QueryStringParameters
 ```typescript
 import { QueryStringParameters } from './data-service';
@@ -86,99 +79,29 @@ import { QueryStringParameters } from './data-service';
 ```
 In the example above, we create a new instance of the *QueryStringParameters* class, set its properties to define the search parameters we want to use, and then use it to build the URL for the HTTP request.
 
+### UrlBuilder
+The *UrlBuilder* class is a utility class that helps construct URLs for API requests by concatenating base URLs and query string parameters.
+
+#### Usage of UrlBuilder
+To use the *UrlBuilder* class, simply create a new instance and call the *build()* method with the base URL and query string parameters:
+
+```typescript
+import { UrlBuilder } from 'src/app/modules/core/features/API/classes/url-builder';
+
+const baseUrl = 'https://example.com';
+const queryParams = new QueryStringParameters();
+queryParams.pushOrReplace('category', 'fiction');
+
+const urlBuilder = new UrlBuilder(baseUrl, 'books', queryParams);
+const url = urlBuilder.toString();
+console.log(url); // Output: 'http://example.com/books?category=fiction'
+
+```
+
 ### Resource Service
 The *ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors and retries automatically.
-#### Usage of ResourceService
-To use the *ResourceService*, you first need to import it into your component or service:
-```typescript
-import { ResourceService } from './services/resource.service';
 
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-  styleUrls: ['./my-component.component.scss']
-})
-export class MyComponent implements OnInit {
-
-  constructor(private resourceService: ResourceService) { }
-
-  ngOnInit() {
-    // Call a resource method
-  }
-
-}
-
-```
-Once you have imported the *ResourceService*, you can call any of its resource methods:
-```typescript
-this.resourceService.get<T>(url, options?)
-this.resourceService.post<T>(url, body, options?)
-this.resourceService.put<T>(url, body, options?)
-this.resourceService.patch<T>(url, body, options?)
-this.resourceService.delete<T>(url, options?)
-
-```
-All of these methods return an *Observable* of type *T* (or any if no type is specified). They take the following arguments:
-
-- *url*: The URL of the resource to interact with.
-- *body* (optional): The request body to send with the request (only applicable for POST, PUT, and PATCH requests).
-- *options* (optional): An object containing additional options for the request (e.g. headers, query parameters, etc.).
-
-#### Examples
-Here are some examples of how to use the *ResourceService* to interact with a RESTful API:
-```typescript
-import { ResourceService } from './services/resource.service';
-
-@Component({
-  selector: 'app-my-component',
-  templateUrl: './my-component.component.html',
-  styleUrls: ['./my-component.component.scss']
-})
-export class MyComponent implements OnInit {
-
-  constructor(private resourceService: ResourceService) { }
-
-  ngOnInit() {
-    // Call a GET request
-    this.resourceService.get<MyModel>('https://my-api.com/models/1').subscribe(model => {
-      console.log('Model:', model);
-    }, error => {
-      console.error('Error:', error);
-    });
-
-    // Call a POST request
-    const newModel: MyModel = {
-      name: 'New Model',
-      description: 'A new model'
-    };
-    this.resourceService.post<MyModel>('https://my-api.com/models', newModel).subscribe(model => {
-      console.log('New model created:', model);
-    }, error => {
-      console.error('Error:', error);
-    });
-
-    // Call a PUT request
-    const updatedModel: MyModel = {
-      id: 1,
-      name: 'Updated Model',
-      description: 'An updated model'
-    };
-    this.resourceService.put<MyModel>('https://my-api.com/models/1', updatedModel).subscribe(model => {
-      console.log('Model updated:', model);
-    }, error => {
-      console.error('Error:', error);
-    });
-
-    // Call a DELETE request
-    this.resourceService.delete<MyModel>('https://my-api.com/models/1').subscribe(() => {
-      console.log('Model deleted');
-    }, error => {
-      console.error('Error:', error);
-    });
-  }
-
-}
-```
+It has an abstract method *getResourceUrl()*. The API services that extends *ResourceService* overrides this method so it returns the URL to use.
 
 ### Using UrlBuilder, QueryStringParameters, and ResourceService<T>
 To make it easier to call the API endpoints, you can use the *UrlBuilder*, *QueryStringParameters*, and *ResourceService<T>* classes provided in this template. The *UrlBuilder* class is used to build the URL for the API endpoint, while the *QueryStringParameters* class is used to specify the query string parameters for a GET request. The *ResourceService<T>* class is used to call the API endpoints and handle the HTTP response.
@@ -222,13 +145,12 @@ In this example, we will create a service to retrieve a list of products from th
    ```typescript
    getProducts(category: string): Observable<Product[]> {
         // Build the URL for the API endpoint
-        let queryParams: QueryStringParameters = new QueryStringParameters();
+        const queryParams = new QueryStringParameters();
         queryParams.pushOrReplace('category', category);
-        this.url =  = new UrlBuilder(this.getResourceUrl())
-        .withQueryParams(queryParams)
-        .build();
+        this.url = new UrlBuilder(baseUrl, 'products', queryParams).toString();
 
         // Call the API endpoint and return the HTTP response
+        // getAll will get the url via the method getResourceUrl() that returns this.url
         return this.getAll();
     }
     ```
