@@ -5,20 +5,46 @@ import { ICustomer } from '../models/customer.interface';
 import { ResourceService } from 'src/app/modules/core/features/API/services/resource.service';
 import { CreateUrlService } from 'src/app/modules/core/features/API/services/create-url.service';
 
+/**
+ * A service to handle HTTP requests to the customer API endpoint.
+ */
 @Injectable({
   providedIn: 'root'
 })
-export class CustomerApiService extends ResourceService<ICustomer>{
+export class CustomerApiService extends ResourceService<ICustomer> {
 
+  /** The base URL for the customer API endpoint. */
+  url: string = this.setBaseUrl();
 
+  /**
+   * Creates an instance of the `CustomerApiService` class.
+   * @param httpClient The `HttpClient` module to handle HTTP requests.
+   * @param endpoints The `Endpoints` module to provide the API endpoint URLs.
+   * @param urls The `CreateUrlService` module to create the complete API endpoint URL.
+   */
   constructor(
     protected httpClient: HttpClient,
     private endpoints: Endpoints,
     private urls: CreateUrlService) {
     super(httpClient);
   }
+
+  /**
+   * Gets the URL for the customer API endpoint.
+   * @returns The URL for the customer API endpoint.
+   */
   getResourceUrl(): string {
-    return this.urls?.createUrl(this.endpoints?.CUSTOMERS);
+    return this.url;
+  }
+
+  /**
+   * Sets the base URL for the customer API endpoint using the `CreateUrlService`.
+   * @returns The base URL for the customer API endpoint.
+   */
+  setBaseUrl(): string {
+    // set base url
+    return this.url = this.urls?.createUrl(this.endpoints?.CUSTOMERS);
   }
 
 }
+

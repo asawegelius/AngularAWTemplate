@@ -15,6 +15,8 @@ AngularAWTemplate is an Angular application template that provides a starting po
     - [Resource Service](#resource-service)
       - [Usage of ResourceService](#usage-of-resourceservice)
       - [Examples](#examples)
+    - [Using UrlBuilder, QueryStringParameters, and ResourceService](#using-urlbuilder-querystringparameters-and-resourceservice)
+      - [Example usage](#example-usage)
   - [License](#license)
 
 
@@ -55,7 +57,7 @@ To deploy AngularAWTemplate to a production environment, follow these steps:
 
 There are some core features in the core package.
 ### Resource Service
-The **ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors and retries automatically.
+The *ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors and retries automatically.
 #### Usage of ResourceService
 To use the *ResourceService*, you first need to import it into your component or service:
 ```typescript
@@ -147,6 +149,62 @@ export class MyComponent implements OnInit {
 
 }
 ```
+
+### Using UrlBuilder, QueryStringParameters, and ResourceService<T>
+To make it easier to call the API endpoints, you can use the *UrlBuilder*, *QueryStringParameters*, and *ResourceService<T>* classes provided in this template. The *UrlBuilder* class is used to build the URL for the API endpoint, while the *QueryStringParameters* class is used to specify the query string parameters for a GET request. The *ResourceService<T>* class is used to call the API endpoints and handle the HTTP response.
+
+#### Example usage
+In this example, we will create a service to retrieve a list of products from the API endpoint.
+
+1. First, import the necessary classes and modules:
+   ```typescript
+    import { Injectable } from '@angular/core';
+    import { HttpClient } from '@angular/common/http';
+    import { ResourceService, UrlBuilder } from './shared';
+    import { QueryStringParameters } from './data-service';
+    import { Observable } from 'rxjs';
+    import { Product } from './product';
+   ```
+2. Create a new service and extend the *ResourceService<Product>* class:
+   ```typescript
+    @Injectable({
+    providedIn: 'root'
+    })
+    export class ProductService extends ResourceService<Product> {
+        url:string = this.setBaseUrl();
+
+        constructor(http: HttpClient) {
+            super(http);
+        }
+
+        protected getResourceUrl(): string {
+            return this.url;
+        }
+
+        setBaseUrl(): string {
+            // set base url
+            return this.url = this.urls?.createUrl('https://example.com/api/products');
+        }
+    }
+   ```
+   In this service, we extend the *ResourceService<Product>* class and override the *getResourceUrl()* method to return the URL for the API endpoint. We also inject the *HttpClient* module through the constructor of the *ResourceService<Product>*.
+3. Create a method to retrieve a list of products:
+   ```typescript
+   getProducts(category: string): Observable<Product[]> {
+        // Build the URL for the API endpoint
+        let queryParams: QueryStringParameters = new QueryStringParameters();
+        queryParams.pushOrReplace('category', category);
+        this.url =  = new UrlBuilder(this.getResourceUrl())
+        .withQueryParams(queryParams)
+        .build();
+
+        // Call the API endpoint and return the HTTP response
+        return this.getAll();
+    }
+    ```
+    In this method, we use the *UrlBuilder* and *QueryStringParameters* classes to build the URL for the API endpoint, and then call the getAll() method provided by the *ResourceService<Product>* class to retrieve the list of products from the API.
+
+
 
 ## License
 AngularAWTemplate is licensed under the MIT License
