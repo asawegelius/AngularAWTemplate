@@ -83,7 +83,7 @@ In the example above, we create a new instance of the *QueryStringParameters* cl
 The *UrlBuilder* class is a utility class that helps construct URLs for API requests by concatenating base URLs and query string parameters.
 
 #### Usage of UrlBuilder
-To use the *UrlBuilder* class, simply create a new instance and call the *build()* method with the base URL and query string parameters:
+To use the *UrlBuilder* class, simply create a new instance with the base URL, resource string, and query string parameters and call the *toString()* method:
 
 ```typescript
 import { UrlBuilder } from 'src/app/modules/core/features/API/classes/url-builder';
@@ -99,7 +99,7 @@ console.log(url); // Output: 'http://example.com/books?category=fiction'
 ```
 
 ### Resource Service
-The *ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors and retries automatically.
+The *ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors automatically.
 
 It has an abstract method *getResourceUrl()*. The API services that extends *ResourceService* overrides this method so it returns the URL to use.
 
@@ -113,8 +113,8 @@ In this example, we will create a service to retrieve a list of products from th
    ```typescript
     import { Injectable } from '@angular/core';
     import { HttpClient } from '@angular/common/http';
-    import { ResourceService, UrlBuilder } from './shared';
-    import { QueryStringParameters } from './data-service';
+    import { ResourceService} from 'src/app/modules/core/features/API/services/resource.service';
+    import { QueryStringParameters, UrlBuilder } from 'src/app/modules/core/features/API/utils';
     import { Observable } from 'rxjs';
     import { Product } from './product';
    ```

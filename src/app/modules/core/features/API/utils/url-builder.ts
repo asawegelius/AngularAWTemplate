@@ -18,15 +18,15 @@ export class UrlBuilder {
     /**
     * Creates a new instance of UrlBuilder.
     * @param baseUrl The base URL string used to build the URL.
-    * @param action The action string used to build the URL.
+    * @param resource The resource string used to build the URL.
     * @param queryString An optional QueryStringParameters object containing query string parameters.
     */
     constructor(
         private baseUrl: string,
-        private action: string,
+        private resource: string,
         queryString?: QueryStringParameters
     ) {
-        this.url = [this.baseUrl, this.action].join('/');
+        this.url = [this.baseUrl, this.resource].join('/');
         this.queryString = queryString || new QueryStringParameters();
     }
 
