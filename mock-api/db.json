@@ -1,0 +1,41 @@
+{
+    "customers": [
+      {
+        "customerId": 1,
+        "firstName": "John",
+        "lastName": "Doe",
+        "phoneNumber": "+1-555-555-5555",
+        "emailAddress": "john.doe@example.com",
+        "startDate": "2022-03-01T00:00:00.000Z",
+        "type": {
+          "type": "Regular",
+          "description": "Regular customer"
+        }
+      },
+      {
+        "customerId": 2,
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "phoneNumber": "+1-555-555-5555",
+        "emailAddress": "jane.doe@example.com",
+        "startDate": "2021-01-01T00:00:00.000Z",
+        "type": {
+          "type": "Premium",
+          "description": "Premium customer"
+        }
+      },
+      {
+        "customerId": 3,
+        "firstName": "Bob",
+        "lastName": "Smith",
+        "phoneNumber": "+1-555-555-5555",
+        "emailAddress": "bob.smith@example.com",
+        "startDate": "2021-05-01T00:00:00.000Z",
+        "type": {
+          "type": "Regular",
+          "description": "Regular customer"
+        }
+      }
+    ]
+  }
+  

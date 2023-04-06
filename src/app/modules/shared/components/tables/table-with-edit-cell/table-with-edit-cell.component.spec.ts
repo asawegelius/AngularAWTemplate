@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TableWithEditCellComponent } from './table-with-edit-cell.component';
-import { TestType } from 'src/app/modules/core/services/resource.service.spec';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Table } from '../../../models/table';
 import { TableService } from '../../../services/tables/table.service';
 import { of } from 'rxjs';
+import { TestType } from 'src/app/modules/core/features/API/services/resource.service.spec';
 
 describe('TableWithEditCellComponent', () => {
   let component: TableWithEditCellComponent<TestType>;

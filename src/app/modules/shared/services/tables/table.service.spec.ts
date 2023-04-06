@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TableService } from './table.service';
-import { TestType } from 'src/app/modules/core/services/resource.service.spec';
+import { TestType } from 'src/app/modules/core/features/API/services/resource.service.spec';
 
 
 describe('TableService', () => {
