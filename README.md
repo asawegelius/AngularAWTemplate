@@ -12,6 +12,9 @@ AngularAWTemplate is an Angular application template that provides a starting po
   - [Testing](#testing)
   - [Deployment](#deployment)
   - [Core features](#core-features)
+    - [QueryStringParameters](#querystringparameters)
+      - [Properties](#properties)
+      - [Example usage of QueryStringParameters](#example-usage-of-querystringparameters)
     - [Resource Service](#resource-service)
       - [Usage of ResourceService](#usage-of-resourceservice)
       - [Examples](#examples)
@@ -56,6 +59,33 @@ To deploy AngularAWTemplate to a production environment, follow these steps:
 ## Core features
 
 There are some core features in the core package.
+### QueryStringParameters
+The *QueryStringParameters* class is used to represent the query string parameters that can be sent in a HTTP GET request to the API endpoint. This class is used in API Services to build the URL for the HTTP request.
+
+#### Properties
+
+- *searchText*: string: The search text to use in the query.
+- *pageNumber*: number: The page number to retrieve.
+- *pageSize*: number: The number of results to retrieve per page.
+
+#### Example usage of QueryStringParameters
+```typescript
+import { QueryStringParameters } from './data-service';
+
+    // Create a new instance of the QueryStringParameters class
+    const params = new QueryStringParameters();
+
+    // Set the properties of the QueryStringParameters instance
+    queryParams.pushOrReplace('searchText', 'example');
+    queryParams.pushOrReplace('pageNumber', 1);
+    queryParams.pushOrReplace('pageSize', 10);
+
+    // Use the QueryStringParameters instance to build the URL for the HTTP request
+    const url = `${'https://example.com/api/search'}?${params.toString()}`;
+
+```
+In the example above, we create a new instance of the *QueryStringParameters* class, set its properties to define the search parameters we want to use, and then use it to build the URL for the HTTP request.
+
 ### Resource Service
 The *ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors and retries automatically.
 #### Usage of ResourceService
