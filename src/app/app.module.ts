@@ -16,24 +16,24 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterSerializer } from './reducers/router-serializer';
 import { CustomersModule } from './modules/features/customers/customers.module';
-import { AccountsPageComponent } from './modules/features/accounts/components/accounts-page/accounts-page.component';
-import { AccountsComponent } from './modules/features/accounts/components/accounts/accounts.component';
 import { MatListModule } from '@angular/material/list';
 import { Endpoints } from './modules/core/features/API/utils/endpoints';
+import { AccountsModule } from './modules/features/accounts/accounts.module';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccountsPageComponent,
-    AccountsComponent,
   ],
   imports: [
+    MatButtonModule,
     MatListModule,
     BrowserModule,
     AppRoutingModule,
     SharedModule,
     CustomersModule,
+    AccountsModule,
     CoreModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({

@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -41,6 +41,7 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Classes</li>
   <li >UrlBuilder</li>
@@ -61,10 +62,20 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/core/utils/url-builder.ts</code>
+            <code>src/app/modules/core/features/API/utils/url-builder.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A utility class for building URLs with query string parameters for HTTP requests.
+The toString method is used to return the built URL as a string. It first checks if a query string is present by calling the toString method of the queryString object.
+If a query string is present, it concatenates the URL and query string with a question mark. Otherwise, it simply returns the URL.
+Overall, this class provides a simple way to construct URL strings with query string parameters for HTTP requests in a clean and organized manner.</p>
+
+            </p>
 
 
 
@@ -123,17 +134,19 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(baseUrl: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, action: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, queryString?: <a href="../classes/QueryStringParameters.html" target="_self">QueryStringParameters</a>)</code>
+<code>constructor(baseUrl: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, resource: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, queryString?: <a href="../classes/QueryStringParameters.html" target="_self">QueryStringParameters</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/modules/core/utils/url-builder.ts:5</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/modules/core/features/API/utils/url-builder.ts:16</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Creates a new instance of UrlBuilder.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -142,6 +155,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -156,9 +170,13 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The base URL string used to build the URL.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
-                                                        <td>action</td>
+                                                        <td>resource</td>
                                                   
                                                         <td>
                                                                         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
@@ -168,6 +186,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The resource string used to build the URL.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>queryString</td>
@@ -180,6 +202,10 @@
                                                             Yes
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>An optional QueryStringParameters object containing query string parameters.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -215,10 +241,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/modules/core/utils/url-builder.ts:5</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/modules/core/features/API/utils/url-builder.ts:16</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The query string parameters object used by the UrlBuilder.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -242,10 +274,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/modules/core/utils/url-builder.ts:4</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/modules/core/features/API/utils/url-builder.ts:12</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The URL string built by the UrlBuilder.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -278,17 +316,25 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app/modules/core/utils/url-builder.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/app/modules/core/features/API/utils/url-builder.ts:37</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Returns the URL string built by the UrlBuilder, including any query string parameters.</p>
+</div>
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The URL string built by the UrlBuilder.</p>
 
                     </div>
                 </td>
@@ -306,20 +352,41 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { QueryStringParameters } from &quot;./query-string-parameters&quot;;
-
+/**
+ * A utility class for building URLs with query string parameters for HTTP requests.
+ * The toString method is used to return the built URL as a string. It first checks if a query string is present by calling the toString method of the queryString object. 
+ * If a query string is present, it concatenates the URL and query string with a question mark. Otherwise, it simply returns the URL.
+ * Overall, this class provides a simple way to construct URL strings with query string parameters for HTTP requests in a clean and organized manner.
+ */
 export class UrlBuilder {
+    /**
+    * The URL string built by the UrlBuilder.
+    */
     public url: string;
+    /**
+     * The query string parameters object used by the UrlBuilder.
+     */
     public queryString: QueryStringParameters;
 
+    /**
+    * Creates a new instance of UrlBuilder.
+    * @param baseUrl The base URL string used to build the URL.
+    * @param resource The resource string used to build the URL.
+    * @param queryString An optional QueryStringParameters object containing query string parameters.
+    */
     constructor(
         private baseUrl: string,
-        private action: string,
+        private resource: string,
         queryString?: QueryStringParameters
     ) {
-        this.url &#x3D; [baseUrl, action].join(&#x27;/&#x27;);
+        this.url &#x3D; [this.baseUrl, this.resource].join(&#x27;/&#x27;);
         this.queryString &#x3D; queryString || new QueryStringParameters();
     }
 
+    /**
+    * Returns the URL string built by the UrlBuilder, including any query string parameters.
+    * @returns The URL string built by the UrlBuilder.
+    */
     public toString(): string {
         const qs: string &#x3D; this.queryString ? this.queryString.toString() : &#x27;&#x27;;
         return qs ? &#x60;${this.url}?${qs}&#x60; : this.url;
@@ -328,6 +395,7 @@ export class UrlBuilder {
 </code></pre>
     </div>
 </div>
+
 
 
 
@@ -349,6 +417,15 @@ export class UrlBuilder {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

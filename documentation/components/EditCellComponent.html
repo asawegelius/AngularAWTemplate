@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -80,7 +80,7 @@
 
 <section>
     <h3>Metadata</h3>
-    <table class="table table-sm table-hover">
+    <table class="table table-sm table-hover metadata">
         <tbody>
 
 
@@ -125,6 +125,27 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#data" >data</a>
+                            </li>
+                            <li>
+                                <a href="#form" >form</a>
+                            </li>
+                            <li>
+                                <a href="#local_data" >local_data</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -135,7 +156,13 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#close" >close</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#save" >save</a>
                             </li>
                         </ul>
                     </td>
@@ -155,15 +182,69 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor()</code>
+<code>constructor(fb: UntypedFormBuilder, dialogRef: <a href="../components/EditCellComponent.html" target="_self">MatDialogRef&lt;EditCellComponent&gt;</a>, data: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:13</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>UntypedFormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialogRef</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../components/EditCellComponent.html" target="_self" >MatDialogRef&lt;EditCellComponent&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>data</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -177,6 +258,43 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="close"></a>
+                    <span class="name">
+                        <span ><b>close</b></span>
+                        <a href="#close"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>close()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:31</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -197,8 +315,45 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:22</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="save"></a>
+                    <span class="name">
+                        <span ><b>save</b></span>
+                        <a href="#save"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>save()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:27</a></div>
                 </td>
             </tr>
 
@@ -215,12 +370,108 @@
         </tbody>
     </table>
 </section>
+    <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="data"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>data</b></span>
+                        <a href="#data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @Optional()<br />@Inject(MAT_DIALOG_DATA)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="form"></a>
+                    <span class="name">
+                        <span ><b>form</b></span>
+                        <a href="#form"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>UntypedFormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:12</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="local_data"></a>
+                    <span class="name">
+                        <span ><b>local_data</b></span>
+                        <a href="#local_data"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:13</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit, Optional } from &#x27;@angular/core&#x27;;
+import { UntypedFormBuilder, UntypedFormGroup } from &#x27;@angular/forms&#x27;;
+import { MAT_DIALOG_DATA, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
 
 @Component({
   selector: &#x27;app-edit-cell&#x27;,
@@ -229,9 +480,27 @@
 })
 export class EditCellComponent implements OnInit {
 
-  constructor() { }
+  form!: UntypedFormGroup;
+  local_data: any;
+  constructor(
+    private fb: UntypedFormBuilder,
+    private dialogRef: MatDialogRef&lt;EditCellComponent&gt;,
+    //this is used to prevent error if no data is passed
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.local_data &#x3D; { ...data };
+  }
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.form &#x3D; this.fb.group({
+      data: [this.local_data.data, []]
+    });
+  }
+  save() {
+    this.dialogRef.close(this.form.value);
+  }
+
+  close() {
+    this.dialogRef.close();
   }
 
 }
@@ -239,8 +508,16 @@ export class EditCellComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;p&gt;edit-cell works!&lt;/p&gt;
-</code></pre>
+        <pre class="line-numbers"><code class="language-html">&lt;mat-dialog-content [formGroup]&#x3D;&quot;form&quot; *ngIf&#x3D;&quot;form&quot;&gt;
+    &lt;mat-form-field&gt;
+        &lt;input matInput placeholder&#x3D;&quot;To edit&quot; formControlName&#x3D;&quot;data&quot;&gt;
+    &lt;/mat-form-field&gt;
+&lt;/mat-dialog-content&gt;
+
+&lt;mat-dialog-actions&gt;
+    &lt;button class&#x3D;&quot;mat-button&quot; (click)&#x3D;&quot;close()&quot;&gt;Close&lt;/button&gt;
+    &lt;button class&#x3D;&quot;mat-button mat-primary&quot; (click)&#x3D;&quot;save()&quot;&gt;Save&lt;/button&gt;
+&lt;/mat-dialog-actions&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -275,12 +552,14 @@ export class EditCellComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p>edit-cell works!</p></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'EditCellComponent', 'selector': 'app-edit-cell'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'ReservationComponent', 'selector': 'app-reservation'},{'name': 'TableWithEditCellComponent', 'selector': 'app-table-with-edit-cell'}];
+        var COMPONENT_TEMPLATE = '<div><mat-dialog-content [formGroup]="form" *ngIf="form">    <mat-form-field>        <input matInput placeholder="To edit" formControlName="data">    </mat-form-field></mat-dialog-content><mat-dialog-actions>    <button class="mat-button" (click)="close()">Close</button>    <button class="mat-button mat-primary" (click)="save()">Save</button></mat-dialog-actions></div>'
+    var COMPONENTS = [{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AccountsPageComponent', 'selector': 'app-accounts-page'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CustomersComponent', 'selector': 'app-customers'},{'name': 'CustomersPageComponent', 'selector': 'app-customers-page'},{'name': 'EditCellComponent', 'selector': 'app-edit-cell'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'SideNavigationComponent', 'selector': 'app-side-navigation'},{'name': 'TableWithEditCellComponent', 'selector': 'app-table-with-edit-cell'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'EditCellComponent'};
 </script>
 <script src="../js/tree.js"></script>
+
+
 
 
 
@@ -309,6 +588,15 @@ export class EditCellComponent implements OnInit {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

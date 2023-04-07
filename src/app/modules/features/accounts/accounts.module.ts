@@ -1,17 +1,27 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { CustomersPageComponent } from '../customers/components/customers-page/customers-page.component';
-import { CustomersComponent } from '../customers/components/customers/customers.component';
+import { AccountDetailsComponent } from './components/account-details/account-details.component';
+import { AccountsRoutingModule } from './accounts-routing.module';
+import { SharedModule } from '../../shared/shared.module';
+import { MatButtonModule } from '@angular/material/button';
+import { AccountsPageComponent } from './components/accounts-page/accounts-page.component';
+import { AccountsComponent } from './components/accounts/accounts.component';
 
 
 
 @NgModule({
   declarations: [
-    CustomersPageComponent,
-    CustomersComponent
+    AccountDetailsComponent,
+    AccountsPageComponent,
+    AccountsComponent,
   ],
   imports: [
-    CommonModule
+    MatButtonModule,
+    MatButtonModule,
+    AccountsRoutingModule,
+    SharedModule
+  ],
+  exports: [
+    AccountDetailsComponent
   ]
 })
 export class AccountsModule { }

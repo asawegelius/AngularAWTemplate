@@ -8,10 +8,14 @@ import { ModalEffects } from './state/effects/modal.effects';
 
 @NgModule({
   declarations: [
-    ModalComponent,],
+    ModalComponent,
+  ],
   imports: [
     CommonModule,
     EffectsModule.forFeature([ModalEffects]),
+  ],
+  exports: [
+    ModalComponent
   ]
 })
 export class ModalModule { }

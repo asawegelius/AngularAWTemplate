@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -75,16 +75,41 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
 
-const routes: Routes &#x3D; [];
+/**
+ * Represents the routes of the application.
+ * Each route contains the path to the feature module&#x27;s route configuration.
+ * @constant {Routes}
+ * */
+const routes: Routes &#x3D; [
+  {
+    path: &#x27;customers&#x27;,
+    loadChildren: () &#x3D;&gt; &quot;import(&#x27;./modules/features/customers/customers-routing.module&#x27;).then(m &#x3D;&gt; m.CustomersRoutingModule)&quot;
+  },
+  {
+    path: &#x27;accounts&#x27;,
+    loadChildren: () &#x3D;&gt; &quot;import(&#x27;./modules/features/accounts/accounts-routing.module&#x27;).then(m &#x3D;&gt; m.AccountsRoutingModule)&quot;
+  }
+];
 
+/**
+ * NgModule that declares the application&#x27;s routing configuration.
+ */
 @NgModule({
+  /**
+  * Configures the router with the provided routes.
+  */
   imports: [RouterModule.forRoot(routes)],
+  /**
+  * Export the configured router module to make it available for use in other modules.
+  */
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
 </code></pre>
     </div>
 </div>
+
+
 
 
 
@@ -113,6 +138,15 @@ export class AppRoutingModule { }
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

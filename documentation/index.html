@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 	   <link rel="stylesheet" href="./styles/style.css">
-        <link rel="stylesheet" href="./styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="./styles/dark.css">
     </head>
     <body>
 
@@ -31,20 +31,182 @@
                <div class="content getting-started">
                    <div class="content-data">
 
-<h1 id="angulartemplate">AngularTemplate</h1>
-<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 12.2.6.</p>
-<h2 id="development-server">Development server</h2>
-<p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
-<h2 id="code-scaffolding">Code scaffolding</h2>
-<p>Run <code>ng generate component component-name</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
-<h2 id="build">Build</h2>
-<p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory.</p>
-<h2 id="running-unit-tests">Running unit tests</h2>
-<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
-<h2 id="running-end-to-end-tests">Running end-to-end tests</h2>
-<p>Run <code>ng e2e</code> to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.</p>
-<h2 id="further-help">Further help</h2>
-<p>To get more help on the Angular CLI use <code>ng help</code> or go check out the <a href="https://angular.io/cli">Angular CLI Overview and Command Reference</a> page.</p>
+<h1 id="angularawtemplate">AngularAWTemplate</h1>
+<p>AngularAWTemplate is an Angular application template that provides a starting point for building enterprise-level applications. It is designed to be scalable, maintainable, and flexible, with a focus on best practices and modular architecture.</p>
+<h1 id="table-of-contents">Table of Contents</h1>
+<ul>
+<li><a href="#angularawtemplate">AngularAWTemplate</a></li>
+<li><a href="#table-of-contents">Table of Contents</a><ul>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#usage">Usage</a></li>
+<li><a href="#technologies">Technologies</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#deployment">Deployment</a></li>
+<li><a href="#core-features">Core features</a><ul>
+<li><a href="#querystringparameters">QueryStringParameters</a><ul>
+<li><a href="#example-usage-of-querystringparameters">Example usage of QueryStringParameters</a></li>
+</ul>
+</li>
+<li><a href="#urlbuilder">UrlBuilder</a><ul>
+<li><a href="#usage-of-urlbuilder">Usage of UrlBuilder</a></li>
+</ul>
+</li>
+<li><a href="#createurlservice">CreateUrlService</a><ul>
+<li><a href="#usage-of-createurlservice">Usage of CreateUrlService</a></li>
+<li><a href="#creating-a-url-to-an-api-endpoint-with-no-parameters">Creating a URL to an API endpoint with no parameters</a></li>
+<li><a href="#creating-a-url-to-an-api-endpoint-with-query-parameters">Creating a URL to an API endpoint with query parameters</a></li>
+<li><a href="#creating-a-url-to-an-api-endpoint-with-path-parameters">Creating a URL to an API endpoint with path parameters</a></li>
+</ul>
+</li>
+<li><a href="#resource-service">Resource Service</a></li>
+<li><a href="#using-createurlservice-and-resourceservice-to-create-your-api-services">Using CreateUrlService, and ResourceService to create your api services</a><ul>
+<li><a href="#example-usage">Example usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="installation">Installation</h2>
+<p>To install AngularAWTemplate, follow these steps:</p>
+<ol>
+<li>Clone this repository to your local machine.</li>
+<li>Run npm install to install dependencies.</li>
+<li>Run ng serve to start the application.</li>
+</ol>
+<h2 id="usage">Usage</h2>
+<p>AngularAWTemplate provides a clean and organized codebase that you can use to build your own Angular applications. It includes a set of reusable components, services, and modules that can be easily customized to fit your needs.</p>
+<p>To use AngularAWTemplate, you can start by exploring the codebase and making modifications to fit your specific requirements. You can also build your own components and services on top of the existing codebase, using the provided modules and libraries.</p>
+<h2 id="technologies">Technologies</h2>
+<p>AngularAWTemplate is built with the following technologies:</p>
+<ul>
+<li>Angular</li>
+<li>RxJS</li>
+<li>NgRx</li>
+<li>Bootstrap</li>
+<li>Sass</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<p>AngularAWTemplate includes a suite of unit tests that can be run with the following command:</p>
+<ul>
+<li><code>npm run test</code> to run unit tests.</li>
+</ul>
+<h2 id="deployment">Deployment</h2>
+<p>To deploy AngularAWTemplate to a production environment, follow these steps:</p>
+<ol>
+<li>Build the application with ng build.</li>
+<li>Copy the contents of the dist folder to your web server.</li>
+<li>Configure your web server to serve the index.html file as the entry point.</li>
+</ol>
+<h2 id="core-features">Core features</h2>
+<p>There are some core features in the core package.</p>
+<h3 id="querystringparameters">QueryStringParameters</h3>
+<p>The <em>QueryStringParameters</em> class is used to represent the query string parameters that can be sent in a HTTP GET request to the API endpoint. This class is used in API Services to build the URL for the HTTP request.</p>
+<h4 id="example-usage-of-querystringparameters">Example usage of QueryStringParameters</h4>
+<div><pre class="line-numbers"><code class="language-typescript">import { QueryStringParameters } from &#39;./data-service&#39;;
+
+    // Create a new instance of the QueryStringParameters class
+    const params = new QueryStringParameters();
+
+    // Set the properties of the QueryStringParameters instance
+    queryParams.pushOrReplace(&#39;searchText&#39;, &#39;example&#39;);
+    queryParams.pushOrReplace(&#39;pageNumber&#39;, 1);
+    queryParams.pushOrReplace(&#39;pageSize&#39;, 10);
+
+    // Use the QueryStringParameters instance to build the URL for the HTTP request
+    const url = `${&#39;https://example.com/api/search&#39;}?${params.toString()}`;
+</code></pre></div><p>In the example above, we create a new instance of the <em>QueryStringParameters</em> class, set its properties to define the search parameters we want to use, and then use it to build the URL for the HTTP request.</p>
+<h3 id="urlbuilder">UrlBuilder</h3>
+<p>The <em>UrlBuilder</em> class is a utility class that helps construct URLs for API requests by concatenating base URLs and query string parameters.</p>
+<h4 id="usage-of-urlbuilder">Usage of UrlBuilder</h4>
+<p>To use the <em>UrlBuilder</em> class, simply create a new instance with the base URL, resource string, and query string parameters and call the <em>toString()</em> method:</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { UrlBuilder } from &#39;src/app/modules/core/features/API/classes/url-builder&#39;;
+
+const baseUrl = &#39;https://example.com&#39;;
+const queryParams = new QueryStringParameters();
+queryParams.pushOrReplace(&#39;category&#39;, &#39;fiction&#39;);
+
+const urlBuilder = new UrlBuilder(baseUrl, &#39;books&#39;, queryParams);
+const url = urlBuilder.toString();
+console.log(url); // Output: &#39;http://example.com/books?category=fiction&#39;
+</code></pre></div><h3 id="createurlservice">CreateUrlService</h3>
+<p><em>CreateUrlService</em> is an Angular service that allows you to create URLs to API endpoints using the base URL specified in environment, the endpoint name, and any additional parameters. It uses <em>UrlBuilder</em> and <em>QueryStringParameters</em> to achieve that.</p>
+<h4 id="usage-of-createurlservice">Usage of CreateUrlService</h4>
+<p>To use <em>CreateUrlService</em>, you need to import it into your component or service:</p>
+<div><pre class="line-numbers"><code class="language-typescript">import { CreateUrlService } from &#39;src/app/modules/core/features/API/services/create-url.service&#39;;
+</code></pre></div><p>Then, you can inject <em>CreateUrlService</em> into your component or service&#39;s constructor:</p>
+<div><pre class="line-numbers"><code class="language-typescript">constructor(private createUrlService: CreateUrlService) { }</code></pre></div><h4 id="creating-a-url-to-an-api-endpoint-with-no-parameters">Creating a URL to an API endpoint with no parameters</h4>
+<p>To create a URL to an API endpoint with no parameters, call the <em>createUrl</em> method of <em>CreateUrlService</em> and pass the endpoint name as the first argument:</p>
+<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrl(&#39;my-endpoint&#39;);</code></pre></div><p>By default, <em>createUrl</em> uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the second argument:</p>
+<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrl(&#39;my-endpoint&#39;, true);</code></pre></div><h4 id="creating-a-url-to-an-api-endpoint-with-query-parameters">Creating a URL to an API endpoint with query parameters</h4>
+<p>To create a URL to an API endpoint with query parameters, call the <em>createUrlWithQueryParameters</em> method of <em>CreateUrlService</em> and pass the endpoint name as the first argument and a callback function that modifies the <em>QueryStringParameters</em> object as the second argument:</p>
+<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithQueryParameters(&#39;my-endpoint&#39;, (queryStringParameters) =&gt; {
+  queryStringParameters.pushOrReplace(&#39;filter&#39;, &#39;some-filter&#39;);
+});</code></pre></div><p>The callback function receives a <em>QueryStringParameters</em> object, which you can use to set query parameters. In the example above, we set the filter query parameter to &#39;some-filter&#39;.</p>
+<p>By default, <em>createUrlWithQueryParameters</em> uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the third argument:</p>
+<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithQueryParameters(&#39;my-endpoint&#39;, (queryStringParameters) =&gt; {
+  queryStringParameters.set(&#39;filter&#39;, &#39;some-filter&#39;);
+}, true);
+</code></pre></div><h4 id="creating-a-url-to-an-api-endpoint-with-path-parameters">Creating a URL to an API endpoint with path parameters</h4>
+<p>To create a URL to an API endpoint with path parameters, call the <em>createUrlWithPathVariables</em> method of <em>CreateUrlService</em> and pass the endpoint name as the first argument and an array of path variables as the second argument:</p>
+<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithPathVariables(&#39;my-endpoint&#39;, [123, &#39;abc&#39;]);
+</code></pre></div><p>The array of path variables is used to replace placeholders in the endpoint name. In the example above, we replace the first placeholder with 123 and the second placeholder with &#39;abc&#39;.</p>
+<p>By default, <em>createUrlWithPathVariables</em> uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the third argument:</p>
+<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithPathVariables(&#39;my-endpoint&#39;, [123, &#39;abc&#39;], true);
+</code></pre></div><h3 id="resource-service">Resource Service</h3>
+<p>The <em>ResourceService</em> is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors automatically.</p>
+<p>It has an abstract method <em>getResourceUrl()</em>. The API services that extends <em>ResourceService</em> overrides this method so it returns the URL to use.</p>
+<h3 id="using-createurlservice-and-resourceservice-to-create-your-api-services">Using CreateUrlService, and ResourceService<T> to create your api services</h3>
+<p>To make it easier to call the API endpoints, you can use the <em>CreateUrlService</em>, and <em>ResourceService<T></em> classes provided in this template. The <em>ResourceService<T></em> is a reusable Angular service that provides generic CRUD (Create, Read, Update, Delete) operations for API resources. This service is designed to be extended by other services that provide specific functionality for a particular API resource.</p>
+<p>To use the <em>ResourceService<T></em>, you need to create a new service that extends it and implements the <em>getResourceUrl()</em> method. This method should return the base URL of the API resource that this service will be working with.</p>
+<h4 id="example-usage">Example usage</h4>
+<p>In this example, we will create a service to retrieve a list of products from the API endpoint.</p>
+<ol>
+<li>First, import the necessary classes and modules:<div><pre class="line-numbers"><code class="language-typescript"> import { Injectable } from &#39;&#64;angular/core&#39;;
+ import { HttpClient } from &#39;&#64;angular/common/http&#39;;
+ import { ResourceService } from &#39;src/app/modules/core/features/API/services/resource.service&#39;;
+ import { CreateUrlService } from &#39;src/app/modules/core/features/API/services/create-url.service&#39;;
+ import { Observable } from &#39;rxjs&#39;;
+ import { Product } from &#39;./product&#39;;</code></pre></div></li>
+<li>Create a new service and extend the <em>ResourceService<Product></em> class:<div><pre class="line-numbers"><code class="language-typescript"> &#64;Injectable({
+ providedIn: &#39;root&#39;
+ })
+ export class ProductService extends ResourceService&lt;Product&gt; {
+     url!:string;
+
+     constructor(
+       http: HttpClient,
+       private urls: CreateUrlService) {
+         super(http);
+         this.setBaseUrl();
+     }
+
+     protected getResourceUrl(): string {
+         return this.url;
+     }
+
+     setBaseUrl() {
+         // set base url
+         this.url = this.urls?.createUrl(&#39;https://example.com/api/products&#39;);
+     }
+ }</code></pre></div>In this service, we extend the <em>ResourceService<Product></em> class and override the <em>getResourceUrl()</em> method to return the URL for the API endpoint. We also inject the <em>HttpClient</em> module through the constructor of the <em>ResourceService<Product></em>.</li>
+<li>Create a method to retrieve a list of products:<div><pre class="line-numbers"><code class="language-typescript">getProducts(category: string): Observable&lt;Product[]&gt; {
+     // Build the URL for the API endpoint
+     this.url = this.createUrlService.createUrlWithQueryParameters(&#39;products&#39;, (queryStringParameters) =&gt; {
+         queryStringParameters.pushOrReplace(&#39;category&#39;, category);
+     });
+
+     // Call the API endpoint and return the HTTP response
+     // getAll will get the url via the method getResourceUrl() that returns this.url
+     return this.getAll();
+ }</code></pre></div> In this method, we use the <em>CreateUrlService</em> class to build the URL for the API endpoint to set the url, and then call the getAll() method provided by the <em>ResourceService<Product></em> class to retrieve the list of products from the API using the url we set.</li>
+</ol>
+<h2 id="license">License</h2>
+<p>AngularAWTemplate is licensed under the MIT License</p>
+
+
 
 
 
@@ -77,6 +239,15 @@
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 0;

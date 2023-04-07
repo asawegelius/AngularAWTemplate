@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -37,6 +37,7 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
   <li >CreateUrlService</li>
@@ -57,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/core/services/create-url.service.ts</code>
+            <code>src/app/modules/core/features/API/services/create-url.service.ts</code>
         </p>
 
 
@@ -65,8 +66,8 @@
                 <h3>Description</h3>
             </p>
             <p class="comment">
-                <p>Creates URLs to API endpoints using the base URL you find here <a href="environments">environments</a>, the endpoint you find here <a href="../injectables/Endpoints.html">Endpoints</a>
-and possible parameters</p>
+                <p>A service for creating URLs to API endpoints using the base URL specified in <code>environment</code>,
+the endpoint name, and any additional parameters.</p>
 
             </p>
 
@@ -120,7 +121,7 @@ and possible parameters</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/modules/core/services/create-url.service.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/core/features/API/services/create-url.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -155,15 +156,15 @@ and possible parameters</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/modules/core/services/create-url.service.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/app/modules/core/features/API/services/create-url.service.ts:25</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Creates the URL to an API endpoint with no parameters.</p>
+                    <div class="io-description"><p>Creates a URL to an API endpoint with no parameters.</p>
 </div>
 
                     <div class="io-description">
@@ -194,7 +195,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>The endpoint part of the URL.</p>
+                                        <ul>
+<li>The endpoint part of the URL.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -213,7 +216,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>If true, uses the mock base URL. False is default.</p>
+                                        <ul>
+<li>If true, uses the mock base URL. False is default.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -256,15 +261,15 @@ and possible parameters</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">src/app/modules/core/services/create-url.service.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="70"
+                            class="link-to-prism">src/app/modules/core/features/API/services/create-url.service.ts:70</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Creates the url to an API endpoint with path parameters</p>
+                    <div class="io-description"><p>Creates a URL to an API endpoint with path parameters.</p>
 </div>
 
                     <div class="io-description">
@@ -295,7 +300,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>The endpoint part of the URL.</p>
+                                        <ul>
+<li>The endpoint part of the URL.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -314,7 +321,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>An array with the path variables</p>
+                                        <ul>
+<li>An array with the path variables.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -333,7 +342,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>If true, uses the mock base URL. False is default.</p>
+                                        <ul>
+<li>If true, uses the mock base URL. False is default.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -376,15 +387,16 @@ and possible parameters</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="37"
-                            class="link-to-prism">src/app/modules/core/services/create-url.service.ts:37</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/app/modules/core/features/API/services/create-url.service.ts:43</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>Creates the url to an API endpoint with query parameters.</p>
+                    <div class="io-description"><p>Creates a URL to an API endpoint with query parameters.</p>
+<p>the <code>QueryStringParameters</code> object before it is added to the URL.</p>
 </div>
 
                     <div class="io-description">
@@ -415,7 +427,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>The endpoint part of the URL.</p>
+                                        <ul>
+<li>The endpoint part of the URL.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -433,6 +447,11 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
+                                        <ul>
+<li>A callback function that modifies 
+the <code>QueryStringParameters</code> object before it is added to the URL.</li>
+</ul>
+
                                     </td>
                                 </tr>
                                 <tr>
@@ -450,7 +469,9 @@ and possible parameters</p>
                                     </td>
 
                                     <td>
-                                        <p>If true, uses the mock base URL. False is default.</p>
+                                        <ul>
+<li>If true, uses the mock base URL. False is default.</li>
+</ul>
 
                                     </td>
                                 </tr>
@@ -479,11 +500,12 @@ and possible parameters</p>
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { environment } from &#x27;src/environments/environment&#x27;;
-import { QueryStringParameters } from &#x27;../utils/query-string-parameters&#x27;;
 import { UrlBuilder } from &#x27;../utils/url-builder&#x27;;
+import { QueryStringParameters } from &#x27;../utils/query-string-parameters&#x27;;
+
 /**
- * Creates URLs to API endpoints using the base URL you find here {@link environments}, the endpoint you find here {@link Endpoints}
- * and possible parameters
+ * A service for creating URLs to API endpoints using the base URL specified in &#x60;environment&#x60;, 
+ * the endpoint name, and any additional parameters.
  */
 @Injectable({
   providedIn: &#x27;root&#x27;
@@ -493,10 +515,12 @@ export class CreateUrlService {
   constructor() { }
 
   /**
-   * Creates the URL to an API endpoint with no parameters. 
-   * @param endpoint The endpoint part of the URL.
-   * @param isMockAPI If true, uses the mock base URL. False is default.
-   * @returns The URL to the API endpoint.
+   * Creates a URL to an API endpoint with no parameters.
+   * 
+   * @param {string} endpoint - The endpoint part of the URL.
+   * @param {boolean} isMockAPI - If true, uses the mock base URL. False is default.
+   * 
+   * @returns {string} The URL to the API endpoint.
    */
   public createUrl(endpoint: string, isMockAPI: boolean &#x3D; false): string {
     const urlBuilder: UrlBuilder &#x3D; new UrlBuilder(
@@ -507,41 +531,61 @@ export class CreateUrlService {
   }
 
   /**
-   * Creates the url to an API endpoint with query parameters.
-   * @param endpoint The endpoint part of the URL.
-   * @param isMockAPI If true, uses the mock base URL. False is default.
-   * @param queryStringHandler 
-   * @returns The URL to the API endpoint.
+   * Creates a URL to an API endpoint with query parameters.
+   * 
+   * @param {string} endpoint - The endpoint part of the URL.
+   * @param {(queryStringParameters: QueryStringParameters) &#x3D;&gt; void} queryStringHandler - A callback function that modifies 
+   * the &#x60;QueryStringParameters&#x60; object before it is added to the URL.
+   * @param {boolean} isMockAPI - If true, uses the mock base URL. False is default.
+   * 
+   * @returns {string} The URL to the API endpoint.
    */
-  public createUrlWithQueryParameters(endpoint: string, queryStringHandler?: (queryStringParameters: QueryStringParameters) &#x3D;&gt; void, isMockAPI: boolean &#x3D; false): string {
+  public createUrlWithQueryParameters(
+    endpoint: string, 
+    queryStringHandler?: (queryStringParameters: QueryStringParameters) &#x3D;&gt; void, 
+    isMockAPI: boolean &#x3D; false
+  ): string {
     const urlBuilder: UrlBuilder &#x3D; new UrlBuilder(
       isMockAPI ? environment.mockApiUrl : environment.apiUrl,
-      endpoint);
+      endpoint
+    );
+
     // Push extra query string params
     if (queryStringHandler) {
       queryStringHandler(urlBuilder.queryString);
     }
+
     return urlBuilder.toString();
   }
 
   /**
-   * Creates the url to an API endpoint with path parameters
-   * @param endpoint  The endpoint part of the URL.
-   * @param isMockAPI If true, uses the mock base URL. False is default.
-   * @param pathVariables An array with the path variables
-   * @returns The URL to the API endpoint.
+   * Creates a URL to an API endpoint with path parameters.
+   * 
+   * @param {string} endpoint - The endpoint part of the URL.
+   * @param {any[]} pathVariables - An array with the path variables.
+   * @param {boolean} isMockAPI - If true, uses the mock base URL. False is default.
+   * 
+   * @returns {string} The URL to the API endpoint.
    */
-  public createUrlWithPathVariables(endpoint: string, pathVariables: any[] &#x3D; [], isMockAPI: boolean &#x3D; false): string {
+  public createUrlWithPathVariables(
+    endpoint: string, 
+    pathVariables: any[] &#x3D; [], 
+    isMockAPI: boolean &#x3D; false
+  ): string {
     let encodedPathVariablesUrl: string &#x3D; &#x27;&#x27;;
+
     // Push extra path variables
     for (const pathVariable of pathVariables) {
       if (pathVariable !&#x3D;&#x3D; null) {
         encodedPathVariablesUrl +&#x3D; &#x60;/${encodeURIComponent(pathVariable.toString())}&#x60;;
       }
     }
+
     const urlBuilder: UrlBuilder &#x3D; new UrlBuilder(
       isMockAPI ? environment.mockApiUrl : environment.apiUrl,
-      &#x60;${endpoint}${encodedPathVariablesUrl}&#x60;);
+      &#x60;${endpoint}${encodedPathVariablesUrl}&#x60;
+    );
+
     return urlBuilder.toString();
   }
 }
@@ -549,6 +593,7 @@ export class CreateUrlService {
     </div>
 
 </div>
+
 
 
 
@@ -574,6 +619,15 @@ export class CreateUrlService {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

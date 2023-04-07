@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -37,6 +37,7 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
   <li >ResourceService</li>
@@ -57,10 +58,17 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/core/services/resource.service.ts</code>
+            <code>src/app/modules/core/features/API/services/resource.service.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>A generic service that provides CRUD operations for a RESTful resource.</p>
+
+            </p>
 
 
 
@@ -68,22 +76,6 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <h6><b>Properties</b></h6>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <ul class="index-list">
-                            <li>
-                                    <span class="modifier">Private</span>
-                                    <span class="modifier">Readonly</span>
-                                <a href="#APIUrl" >APIUrl</a>
-                            </li>
-                        </ul>
-                    </td>
-                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -104,6 +96,9 @@
                             </li>
                             <li>
                                 <a href="#get" >get</a>
+                            </li>
+                            <li>
+                                <a href="#getAll" >getAll</a>
                             </li>
                             <li>
                                 <a href="#getList" >getList</a>
@@ -145,7 +140,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/modules/core/services/resource.service.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -208,14 +203,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="46"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:46</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="95"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:95</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Adds a new resource.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -226,6 +223,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -240,6 +238,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The resource to add.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -251,7 +253,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>An observable that emits the response from the server.</p>
+
                     </div>
                 </td>
             </tr>
@@ -277,14 +280,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="53"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:53</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="108"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:108</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Deletes a resource by ID.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -295,6 +300,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -309,6 +315,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The ID of the resource to delete.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -320,7 +330,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>An observable that emits the response from the server.</p>
+
                     </div>
                 </td>
             </tr>
@@ -346,14 +357,17 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:40</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Converts the server-side model object to the client-side model object.
+By default, this method returns the JSON object as is.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -364,6 +378,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -378,6 +393,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The server-side model object.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -389,7 +408,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>The client-side model object.</p>
+
                     </div>
                 </td>
             </tr>
@@ -415,14 +435,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="38"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:38</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="81"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:81</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets a single resource by ID.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -433,6 +455,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -447,6 +470,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The ID of the resource to retrieve.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -458,7 +485,53 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>An observable that emits a single resource.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAll"></a>
+                    <span class="name">
+                        <span ><b>getAll</b></span>
+                        <a href="#getAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAll()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="67"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:67</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Gets all resources.</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;T[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>An observable that emits an array of resources.</p>
+
                     </div>
                 </td>
             </tr>
@@ -484,14 +557,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:26</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:50</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets a list of resources with pagination support.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -502,6 +577,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -516,6 +592,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The number of resources to return in a single page.</p>
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>page</td>
@@ -528,6 +608,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The page number to retrieve.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -539,7 +623,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>An observable that emits an array of resources.</p>
+
                     </div>
                 </td>
             </tr>
@@ -567,17 +652,25 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:22</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets the URL of the RESTful resource.</p>
+</div>
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>The URL of the RESTful resource.</p>
 
                     </div>
                 </td>
@@ -606,8 +699,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="67"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:67</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="129"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:129</a></div>
                 </td>
             </tr>
 
@@ -675,14 +768,17 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:30</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Converts the client-side model object to the server-side model object.
+By default, this method returns the entity object as is.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -693,6 +789,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -707,6 +804,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The client-side model object.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -718,7 +819,8 @@
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>The server-side model object.</p>
+
                     </div>
                 </td>
             </tr>
@@ -737,21 +839,23 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>update(resource: T)</code>
+<code>update(resource: T, id: string | number)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="60"
-                            class="link-to-prism">src/app/modules/core/services/resource.service.ts:60</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="121"
+                            class="link-to-prism">src/app/modules/core/features/API/services/resource.service.ts:121</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Updates a resource.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -762,6 +866,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -776,6 +881,24 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The resource to update.</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                            <code>string | number</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                    <td>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -783,47 +906,15 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
 
                     </div>
                     <div class="io-description">
-                        
+                        <p>An observable that emits the response from the server.</p>
+
                     </div>
                 </td>
             </tr>
-        </tbody>
-    </table>
-</section>
-            <section>
-    
-    <h3 id="inputs">
-        Properties
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="APIUrl"></a>
-                    <span class="name">
-                            <span class="modifier">Private</span>
-                            <span class="modifier">Readonly</span>
-                        <span ><b>APIUrl</b></span>
-                        <a href="#APIUrl"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>environment.apiUrl + this.getResourceUrl()</code>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/modules/core/services/resource.service.ts:11</a></div>
-                        </td>
-                    </tr>
-
-
         </tbody>
     </table>
 </section>
@@ -836,77 +927,138 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from &#x27;@angular/common/http&#x27;;
 import { Observable, throwError } from &#x27;rxjs&#x27;;
 import { catchError, map } from &#x27;rxjs/operators&#x27;;
-import { environment } from &#x27;src/environments/environment&#x27;;
 
+/**
+ * A generic service that provides CRUD operations for a RESTful resource.
+ * @template T The type of the resource.
+ */
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export abstract class ResourceService&lt;T&gt; {
-  private readonly APIUrl &#x3D; environment.apiUrl + this.getResourceUrl();
 
   constructor(protected httpClient: HttpClient) {
   }
 
+  /**
+   * Gets the URL of the RESTful resource.
+   * @returns The URL of the RESTful resource.
+   */
   abstract getResourceUrl(): string;
 
+  /**
+   * Converts the client-side model object to the server-side model object.
+   * By default, this method returns the entity object as is.
+   * @param entity The client-side model object.
+   * @returns The server-side model object.
+   */
   toServerModel(entity: T): any {
     return entity;
   }
 
+  /**
+   * Converts the server-side model object to the client-side model object.
+   * By default, this method returns the JSON object as is.
+   * @param json The server-side model object.
+   * @returns The client-side model object.
+   */
   fromServerModel(json: any): T {
     return json;
   }
 
+  /**
+   * Gets a list of resources with pagination support.
+   * @param index The number of resources to return in a single page.
+   * @param page The page number to retrieve.
+   * @returns An observable that emits an array of resources.
+   */
   getList(index: number, page: number): Observable&lt;T[]&gt; {
+    const url &#x3D; this.getResourceUrl();
     let params &#x3D; new HttpParams()
       .set(&#x27;limit&#x27;, index.toString())
       .set(&#x27;offset&#x27;, page.toString());
 
-    return this.httpClient.get&lt;T[]&gt;(&#x60;/${this.APIUrl}?${params.toString()}&#x60;)
+    return this.httpClient.get&lt;T[]&gt;(&#x60;/${url}?${params.toString()}&#x60;)
       .pipe(
         map((list) &#x3D;&gt; list.map((item) &#x3D;&gt; this.fromServerModel(item))),
         catchError(this.handleError)
       );
   }
 
+  /**
+   * Gets all resources.
+   * @returns An observable that emits an array of resources.
+   */
+  getAll(): Observable&lt;T[]&gt; {
+    const url &#x3D; this.getResourceUrl();
+    return this.httpClient.get&lt;T[]&gt;(url)
+      .pipe(
+        map((list) &#x3D;&gt; list.map((item) &#x3D;&gt; this.fromServerModel(item))),
+        catchError(this.handleError)
+      );
+  }
+
+  /**
+   * Gets a single resource by ID.
+   * @param id The ID of the resource to retrieve.
+   * @returns An observable that emits a single resource.
+   */
   get(id: string | number): Observable&lt;T&gt; {
-    return this.httpClient.get&lt;T&gt;(&#x60;/${this.APIUrl}/${id}&#x60;)
+    const url &#x3D; this.getResourceUrl();
+    return this.httpClient.get&lt;T&gt;(&#x60;/${url}/${id}&#x60;)
       .pipe(
         map((json) &#x3D;&gt; this.fromServerModel(json)),
         catchError(this.handleError)
       );
   }
 
+  /**
+   * Adds a new resource.
+   * @param resource The resource to add.
+   * @returns An observable that emits the response from the server.
+   */
   add(resource: T): Observable&lt;any&gt; {
-    return this.httpClient.post(&#x60;/${this.APIUrl}&#x60;, this.toServerModel(resource))
+    const url &#x3D; this.getResourceUrl();
+    return this.httpClient.post(&#x60;/${url}&#x60;, this.toServerModel(resource))
       .pipe(
         catchError(this.handleError)
       );
   }
 
+  /**
+   * Deletes a resource by ID.
+   * @param id The ID of the resource to delete.
+   * @returns An observable that emits the response from the server.
+   */
   delete(id: string | number): Observable&lt;any&gt; {
-    return this.httpClient.delete(&#x60;/${this.APIUrl}/${id}&#x60;)
+    const url &#x3D; this.getResourceUrl();
+    return this.httpClient.delete(&#x60;/${url}/${id}&#x60;)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  update(resource: T) {
-    return this.httpClient.put(&#x60;/${this.APIUrl}&#x60;, this.toServerModel(resource))
+    /**
+   * Updates a resource.
+   * @param resource The resource to update.
+   * @returns An observable that emits the response from the server.
+   */
+  update(resource: T, id: string | number): Observable&lt;any&gt; {
+    const url &#x3D; this.getResourceUrl();
+    return this.httpClient.put(&#x60;/${url}/${id}&#x60;, resource)
       .pipe(
         catchError(this.handleError)
       );
   }
 
   protected handleError(error: HttpErrorResponse) {
-    // Handle the HTTP error here
-    return throwError(&#x27;Something wrong happened&#x27;);
+    return throwError(() &#x3D;&gt; new Error(error.message));
   }
-
 }</code></pre>
     </div>
 
 </div>
+
 
 
 
@@ -932,6 +1084,15 @@ export abstract class ResourceService&lt;T&gt; {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

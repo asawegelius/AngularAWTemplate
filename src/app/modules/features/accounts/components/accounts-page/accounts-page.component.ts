@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { openModals } from 'src/app/modules/shared/features/modal/state/actions/modal.actions';
 
 @Component({
   selector: 'app-accounts-page',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccountsPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private store: Store,) { }
 
   ngOnInit(): void {
+  }
+  openAccountDetails() {
+    this.store.dispatch(openModals({path: 'account-details'}));
   }
 
 }

@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -30,6 +30,7 @@
                <!-- START CONTENT -->
                <div class="content class">
                    <div class="content-data">
+
 
 
 
@@ -65,6 +66,13 @@
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents a header for a table column.</p>
+
+            </p>
 
 
 
@@ -111,12 +119,14 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/modules/shared/models/table.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/modules/shared/models/table.ts:102</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>Constructs a new table header with the specified name and sorting flag.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -125,6 +135,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -139,6 +150,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>The name of the header.</p>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>sorting</td>
@@ -151,6 +166,10 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <p>Whether the column should be sorted.</p>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -185,10 +204,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/modules/shared/models/table.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">src/app/modules/shared/models/table.ts:96</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The name of the header.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -211,10 +236,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/modules/shared/models/table.ts:36</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/modules/shared/models/table.ts:102</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Whether the column should be sorted.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -230,62 +261,140 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TableService } from &quot;../services/table.service&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TableService } from &quot;../services/tables/table.service&quot;;
 
+/**
+ * Represents a generic table that can display a list of items.
+ * @template T The type of the data items in the table.
+ */
 export class Table&lt;T&gt; {
+    /**
+     * The headers for the table.
+     * @type {TableHeader[]}
+     */
     headers: TableHeader[] &#x3D; [];
+
+    /**
+     * The columns for the table.
+     * @type {TableColumn[]}
+     */
     columns: TableColumn[] &#x3D; [];
+
+    /**
+     * The list of columns to be displayed in the table.
+     * @type {string[]}
+     */
     displayedColumns: string[] &#x3D; [];
+
+    /**
+     * The list of columns that are editable.
+     * @type {string[]}
+     */
     editableColumns: string[] &#x3D; [];
+
+    /**
+     * A map that contains links associated with each column.
+     * @type {Map&lt;string, string&gt;}
+     */
     columnLinks: Map&lt;string, string&gt; &#x3D; new Map&lt;string, string&gt;();
-    data;
+
+    /**
+     * The data service that provides the data for the table.
+     * @type {TableService&lt;T&gt;}
+     */
+    data: TableService&lt;T&gt;;
+
+    /**
+     * Constructs a new table with the specified headers, columns, and data service.
+     * @param {TableHeader[]} headers The headers for the table.
+     * @param {TableColumn[]} columns The columns for the table.
+     * @param {TableService&lt;T&gt;} data The data service that provides the data for the table.
+     * @param {string[]} [editableColumns] The list of columns that are editable.
+     */
     constructor(headers: TableHeader[], columns: TableColumn[], data: TableService&lt;T&gt;, editableColumns?: string[]) {
         this.headers &#x3D; headers;
         this.columns &#x3D; columns;
         this.data &#x3D; data;
-        this.getColumnValues();
+        this.setColumnValues();
         this.editableColumns &#x3D; (editableColumns) ? editableColumns : [];
     }
 
-    getColumnValues() {
+    /**
+     * Sets the displayed columns for the table.
+     */
+    setColumnValues() {
         this.displayedColumns &#x3D; [];
         for (const col of this.columns) {
             this.displayedColumns.push(col.name);
         }
     }
 
+    /**
+     * Checks whether a given column has a link associated with it.
+     * @param {string} col The name of the column.
+     * @returns {boolean} True if the column has a link associated with it, false otherwise.
+     */
     hasLink(col: string): boolean {
         return this.columnLinks.has(col);
     }
 
+    /**
+     * Checks whether a given column is editable.
+     * @param {string} col The name of the column.
+     * @returns {boolean} True if the column is editable, false otherwise.
+     */
     isEditable(col: string): boolean {
         return this.editableColumns.includes(col);
     }
 }
 
+/**
+ * Represents a header for a table column.
+ */
 export class TableHeader {
+    /**
+     * The name of the header.
+     * @type {string}
+     */
     name: string;
+
+    /**
+     * Whether the column should be sorted.
+     * @type {boolean}
+     */
     sorting: boolean;
+
+    /**
+     * Constructs a new table header with the specified name and sorting flag.
+     * @param {string} name The name of the header.
+     * @param {boolean} sorting Whether the column should be sorted.
+     */
     constructor(name: string, sorting: boolean) {
         this.name &#x3D; name;
         this.sorting &#x3D; sorting;
     }
 }
 
+/**
+ * Represents a column in a table.
+ */
 export class TableColumn {
+    /**
+     * The name of the column.
+     * @type {string}
+     */
     name: string;
-    link?: string;
-    editable: boolean;
     icon: boolean;
-    constructor(name: string, editable: boolean, icon: boolean, link?: string) {
+    link?: string;
+    constructor(name: string, icon: boolean, link?: string) {
         this.name &#x3D; name;
         this.link &#x3D; link;
-        this.editable &#x3D; editable;
         this.icon &#x3D; icon;
     }
 }</code></pre>
     </div>
 </div>
+
 
 
 
@@ -307,6 +416,15 @@ export class TableColumn {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

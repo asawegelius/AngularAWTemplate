@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -37,6 +37,7 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
   <li >TableService</li>
@@ -57,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/shared/services/table.service.ts</code>
+            <code>src/app/modules/shared/services/tables/table.service.ts</code>
         </p>
 
 
@@ -109,24 +110,6 @@
     </table>
 </section>
 
-            <section>
-    <h3 id="constructor">Constructor</h3>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-<code>constructor()</code>
-                    </td>
-                </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/modules/shared/services/table.service.ts:8</a></div>
-                            </td>
-                        </tr>
-
-            </tbody>
-        </table>
-</section>
 
             <section>
     
@@ -153,17 +136,25 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app/modules/shared/services/table.service.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">src/app/modules/shared/services/tables/table.service.ts:26</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Gets the data source as an observable.</p>
+</div>
 
+                    <div>
+                    </div>
                     <div class="io-description">
                         <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>An observable of the data source.</p>
 
                     </div>
                 </td>
@@ -190,14 +181,16 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/modules/shared/services/table.service.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/app/modules/shared/services/tables/table.service.ts:18</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Sets the data for the table.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -208,6 +201,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -222,6 +216,10 @@
                                     </td>
 
 
+                                    <td>
+                                        <p>The data to set.</p>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -263,10 +261,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/modules/shared/services/table.service.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/modules/shared/services/tables/table.service.ts:11</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The observable data source for the table.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -283,14 +287,24 @@ import { BehaviorSubject } from &#x27;rxjs&#x27;;
   providedIn: &#x27;root&#x27;
 })
 export class TableService&lt;T&gt; {
+  /**
+   * The observable data source for the table.
+   * */
   dataSource &#x3D; new BehaviorSubject&lt;T[]&gt;([]);
 
-  constructor() { }
 
+  /**
+   * Sets the data for the table.
+   * @param data The data to set.
+   * */
   setData(data: T[]) {
     this.dataSource.next(data);
   }
 
+  /**
+   * Gets the data source as an observable.
+   * @returns An observable of the data source.
+   * */
   getData() {
     return this.dataSource.asObservable();
   }
@@ -299,6 +313,7 @@ export class TableService&lt;T&gt; {
     </div>
 
 </div>
+
 
 
 
@@ -324,6 +339,15 @@ export class TableService&lt;T&gt; {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

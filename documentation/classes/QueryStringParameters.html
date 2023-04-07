@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -41,6 +41,7 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Classes</li>
   <li >QueryStringParameters</li>
@@ -61,10 +62,18 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/core/utils/query-string-parameters.ts</code>
+            <code>src/app/modules/core/features/API/utils/query-string-parameters.ts</code>
         </p>
 
 
+            <p class="comment">
+                <h3>Description</h3>
+            </p>
+            <p class="comment">
+                <p>Represents a collection of query string parameters.
+Provides methods for pushing new parameters or replacing the values of existing parameters.</p>
+
+            </p>
 
 
 
@@ -103,7 +112,7 @@
                         <ul class="index-list">
                             <li>
                                     <span class="modifier">Public</span>
-                                <a href="#push" >push</a>
+                                <a href="#pushOrReplace" >pushOrReplace</a>
                             </li>
                         </ul>
                     </td>
@@ -128,10 +137,16 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/app/modules/core/utils/query-string-parameters.ts:2</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/modules/core/features/API/utils/query-string-parameters.ts:6</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Initializes a new instance of the QueryStringParameters class.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -161,7 +176,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/app/modules/core/utils/query-string-parameters.ts:2</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/modules/core/features/API/utils/query-string-parameters.ts:6</a></div>
                         </td>
                     </tr>
 
@@ -187,10 +202,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/core/utils/query-string-parameters.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/modules/core/features/API/utils/query-string-parameters.ts:39</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Returns the query string representation of the parameters in this QueryStringParameters instance.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -205,32 +226,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="push"></a>
+                    <a name="pushOrReplace"></a>
                     <span class="name">
                         <span class="modifier">Public</span>
-                        <span ><b>push</b></span>
-                        <a href="#push"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>pushOrReplace</b></span>
+                        <a href="#pushOrReplace"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>push(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank">Object</a>)</code>
+                    <code>pushOrReplace(key: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank">Object</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="8"
-                            class="link-to-prism">src/app/modules/core/utils/query-string-parameters.ts:8</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="20"
+                            class="link-to-prism">src/app/modules/core/features/API/utils/query-string-parameters.ts:20</a></div>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                    <div class="io-description"><p>Adds a new parameter with the given key and value, or replaces the value of the existing key if it already exists.</p>
+</div>
 
                     <div class="io-description">
                         <b>Parameters :</b>
@@ -241,6 +264,7 @@
                                     <td>Name</td>
                                     <td>Type</td>
                                     <td>Optional</td>
+                                    <td>Description</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -255,6 +279,12 @@
                                     </td>
 
 
+                                    <td>
+                                        <ul>
+<li>The key of the parameter to add or replace.</li>
+</ul>
+
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>value</td>
@@ -267,6 +297,12 @@
                                     </td>
 
 
+                                    <td>
+                                        <ul>
+<li>The value of the parameter to add or replace.</li>
+</ul>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -296,21 +332,44 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class QueryStringParameters {
     private paramsAndValues: string[];
-
+  
+    /**
+     * Initializes a new instance of the QueryStringParameters class.
+     */
     constructor() {
-        this.paramsAndValues &#x3D; [];
+      this.paramsAndValues &#x3D; [];
     }
-
-    public push(key: string, value: Object): void {
-        value &#x3D; encodeURIComponent(value.toString());
+  
+    /**
+     * Adds a new parameter with the given key and value, or replaces the value of the existing key if it already exists.
+     * @param key - The key of the parameter to add or replace.
+     * @param value - The value of the parameter to add or replace.
+     */
+    public pushOrReplace(key: string, value: Object): void {
+      value &#x3D; encodeURIComponent(value.toString());
+  
+      // Check if key already exists
+      const existingIndex &#x3D; this.paramsAndValues.findIndex((param) &#x3D;&gt; param.startsWith(&#x60;${key}&#x3D;&#x60;));
+  
+      if (existingIndex &gt;&#x3D; 0) {
+        // Replace the value of the existing parameter
+        this.paramsAndValues[existingIndex] &#x3D; [key, value].join(&#x27;&#x3D;&#x27;);
+      } else {
+        // Add a new parameter
         this.paramsAndValues.push([key, value].join(&#x27;&#x3D;&#x27;));
+      }
     }
-
+  
+    /**
+     * Returns the query string representation of the parameters in this QueryStringParameters instance.
+     * @returns The query string representation of the parameters.
+     */
     public toString &#x3D; (): string &#x3D;&gt; this.paramsAndValues.join(&#x27;&amp;&#x27;);
-}
-</code></pre>
+  }
+  </code></pre>
     </div>
 </div>
+
 
 
 
@@ -332,6 +391,15 @@
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;

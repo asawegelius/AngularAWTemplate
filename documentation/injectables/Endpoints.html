@@ -9,7 +9,7 @@
 
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
-        <link rel="stylesheet" href="../styles/dark.css" media="(prefers-color-scheme: dark)">
+        <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
 
@@ -37,6 +37,7 @@
 
 
 
+
 <ol class="breadcrumb">
   <li>Injectables</li>
   <li >Endpoints</li>
@@ -57,7 +58,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/core/constants/endpoints.ts</code>
+            <code>src/app/modules/core/features/API/utils/endpoints.ts</code>
         </p>
 
 
@@ -88,12 +89,12 @@ You use the <a href="../injectables/CreateUrlService.html">CreateUrlService</a> 
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#GUESTS" >GUESTS</a>
+                                <a href="#ACCOUNTS" >ACCOUNTS</a>
                             </li>
                             <li>
                                     <span class="modifier">Public</span>
                                     <span class="modifier">Readonly</span>
-                                <a href="#RESERVATIONS" >RESERVATIONS</a>
+                                <a href="#CUSTOMERS" >CUSTOMERS</a>
                             </li>
                         </ul>
                     </td>
@@ -119,12 +120,12 @@ You use the <a href="../injectables/CreateUrlService.html">CreateUrlService</a> 
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="GUESTS"></a>
+                    <a name="ACCOUNTS"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
                             <span class="modifier">Readonly</span>
-                        <span ><b>GUESTS</b></span>
-                        <a href="#GUESTS"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>ACCOUNTS</b></span>
+                        <a href="#ACCOUNTS"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -136,12 +137,12 @@ You use the <a href="../injectables/CreateUrlService.html">CreateUrlService</a> 
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;/guests&#x27;</code>
+                        <i>Default value : </i><code>&#x27;accounts&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/modules/core/constants/endpoints.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/modules/core/features/API/utils/endpoints.ts:10</a></div>
                         </td>
                     </tr>
 
@@ -152,12 +153,12 @@ You use the <a href="../injectables/CreateUrlService.html">CreateUrlService</a> 
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="RESERVATIONS"></a>
+                    <a name="CUSTOMERS"></a>
                     <span class="name">
                             <span class="modifier">Public</span>
                             <span class="modifier">Readonly</span>
-                        <span ><b>RESERVATIONS</b></span>
-                        <a href="#RESERVATIONS"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>CUSTOMERS</b></span>
+                        <a href="#CUSTOMERS"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -169,12 +170,12 @@ You use the <a href="../injectables/CreateUrlService.html">CreateUrlService</a> 
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;/reservations&#x27;</code>
+                        <i>Default value : </i><code>&#x27;customers&#x27;</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/modules/core/constants/endpoints.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/modules/core/features/API/utils/endpoints.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -196,13 +197,14 @@ You use the <a href="../injectables/CreateUrlService.html">CreateUrlService</a> 
 @Injectable()
 export class Endpoints {
 
-    public readonly GUESTS: string &#x3D; &#x27;/guests&#x27;;
-    public readonly RESERVATIONS: string &#x3D; &#x27;/reservations&#x27;;
+    public readonly ACCOUNTS: string &#x3D; &#x27;accounts&#x27;;
+    public readonly CUSTOMERS: string &#x3D; &#x27;customers&#x27;;
 }
 </code></pre>
     </div>
 
 </div>
+
 
 
 
@@ -228,6 +230,15 @@ export class Endpoints {
                <!-- END CONTENT -->
            </div>
        </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
