@@ -14,7 +14,7 @@ import { Endpoints } from 'src/app/modules/core/features/API/utils/endpoints';
 export class CustomerApiService extends ResourceService<ICustomer> {
 
   /** The base URL for the customer API endpoint. */
-  url: string = this.setBaseUrl();
+  url!: string;
 
   /**
    * Creates an instance of the `CustomerApiService` class.
@@ -27,6 +27,7 @@ export class CustomerApiService extends ResourceService<ICustomer> {
     private endpoints: Endpoints,
     private urls: CreateUrlService) {
     super(httpClient);
+    this.setBaseUrl();
   }
 
   /**
@@ -39,11 +40,10 @@ export class CustomerApiService extends ResourceService<ICustomer> {
 
   /**
    * Sets the base URL for the customer API endpoint using the `CreateUrlService`.
-   * @returns The base URL for the customer API endpoint.
    */
-  setBaseUrl(): string {
+  setBaseUrl() {
     // set base url
-    return this.url = this.urls?.createUrl(this.endpoints?.CUSTOMERS);
+    this.url = this.urls?.createUrl(this.endpoints?.CUSTOMERS);
   }
 
 }

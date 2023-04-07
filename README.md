@@ -196,7 +196,7 @@ In this example, we will create a service to retrieve a list of products from th
             return this.url;
         }
 
-        setBaseUrl(): string {
+        setBaseUrl() {
             // set base url
             this.url = this.urls?.createUrl('https://example.com/api/products');
         }

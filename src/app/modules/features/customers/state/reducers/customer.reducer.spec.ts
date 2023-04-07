@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { reducer, initialState, customersReducer } from './customer.reducer';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { loadCustomers, loadCustomersFailure, loadCustomersSuccess } from '../actions/customer.actions';
-import { LoadingState, getError } from 'src/app/modules/core/utils/call-state';
+import { LoadingState } from 'src/app/modules/core/utils/call-state';
 import { MockCustomer } from '../mock-models';
 
 describe('Customer Reducer', () => {
