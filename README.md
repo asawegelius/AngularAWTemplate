@@ -172,8 +172,8 @@ In this example, we will create a service to retrieve a list of products from th
    ```typescript
     import { Injectable } from '@angular/core';
     import { HttpClient } from '@angular/common/http';
-    import { ResourceService} from 'src/app/modules/core/features/API/services/resource.service';
-    import { QueryStringParameters, UrlBuilder } from 'src/app/modules/core/features/API/utils';
+    import { ResourceService } from 'src/app/modules/core/features/API/services/resource.service';
+    import { CreateUrlService } from 'src/app/modules/core/features/API/services/create-url.service';
     import { Observable } from 'rxjs';
     import { Product } from './product';
    ```
@@ -183,10 +183,13 @@ In this example, we will create a service to retrieve a list of products from th
     providedIn: 'root'
     })
     export class ProductService extends ResourceService<Product> {
-        url:string = this.setBaseUrl();
+        url!:string;
 
-        constructor(http: HttpClient) {
+        constructor(
+          http: HttpClient,
+          private urls: CreateUrlService) {
             super(http);
+            this.setBaseUrl();
         }
 
         protected getResourceUrl(): string {
@@ -195,7 +198,7 @@ In this example, we will create a service to retrieve a list of products from th
 
         setBaseUrl(): string {
             // set base url
-            return this.url = this.urls?.createUrl('https://example.com/api/products');
+            this.url = this.urls?.createUrl('https://example.com/api/products');
         }
     }
    ```
