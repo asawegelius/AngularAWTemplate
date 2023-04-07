@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Endpoints } from 'src/app/modules/core/constants/endpoints';
 import { ICustomer } from '../models/customer.interface';
 import { ResourceService } from 'src/app/modules/core/features/API/services/resource.service';
 import { CreateUrlService } from 'src/app/modules/core/features/API/services/create-url.service';
+import { Endpoints } from 'src/app/modules/core/features/API/utils/endpoints';
 
 /**
  * A service to handle HTTP requests to the customer API endpoint.

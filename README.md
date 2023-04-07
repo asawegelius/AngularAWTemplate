@@ -16,8 +16,13 @@ AngularAWTemplate is an Angular application template that provides a starting po
       - [Example usage of QueryStringParameters](#example-usage-of-querystringparameters)
     - [UrlBuilder](#urlbuilder)
       - [Usage of UrlBuilder](#usage-of-urlbuilder)
+    - [CreateUrlService](#createurlservice)
+      - [Usage of CreateUrlService](#usage-of-createurlservice)
+      - [Creating a URL to an API endpoint with no parameters](#creating-a-url-to-an-api-endpoint-with-no-parameters)
+      - [Creating a URL to an API endpoint with query parameters](#creating-a-url-to-an-api-endpoint-with-query-parameters)
+      - [Creating a URL to an API endpoint with path parameters](#creating-a-url-to-an-api-endpoint-with-path-parameters)
     - [Resource Service](#resource-service)
-    - [Using UrlBuilder, QueryStringParameters, and ResourceService](#using-urlbuilder-querystringparameters-and-resourceservice)
+    - [Using CreateUrlService, and ResourceService to create your api services](#using-createurlservice-and-resourceservice-to-create-your-api-services)
       - [Example usage](#example-usage)
   - [License](#license)
 
@@ -97,14 +102,68 @@ const url = urlBuilder.toString();
 console.log(url); // Output: 'http://example.com/books?category=fiction'
 
 ```
+### CreateUrlService
+*CreateUrlService* is an Angular service that allows you to create URLs to API endpoints using the base URL specified in environment, the endpoint name, and any additional parameters. It uses *UrlBuilder* and *QueryStringParameters* to achieve that.
+
+#### Usage of CreateUrlService
+To use *CreateUrlService*, you need to import it into your component or service:
+```typescript
+import { CreateUrlService } from 'src/app/modules/core/features/API/services/create-url.service';
+
+```
+Then, you can inject *CreateUrlService* into your component or service's constructor:
+```typescript
+constructor(private createUrlService: CreateUrlService) { }
+```
+#### Creating a URL to an API endpoint with no parameters
+To create a URL to an API endpoint with no parameters, call the *createUrl* method of *CreateUrlService* and pass the endpoint name as the first argument:
+```typescript
+const url = this.createUrlService.createUrl('my-endpoint');
+```
+
+By default, *createUrl* uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the second argument:
+```typescript
+const url = this.createUrlService.createUrl('my-endpoint', true);
+```
+#### Creating a URL to an API endpoint with query parameters
+To create a URL to an API endpoint with query parameters, call the *createUrlWithQueryParameters* method of *CreateUrlService* and pass the endpoint name as the first argument and a callback function that modifies the *QueryStringParameters* object as the second argument:
+```typescript
+const url = this.createUrlService.createUrlWithQueryParameters('my-endpoint', (queryStringParameters) => {
+  queryStringParameters.pushOrReplace('filter', 'some-filter');
+});
+```
+The callback function receives a *QueryStringParameters* object, which you can use to set query parameters. In the example above, we set the filter query parameter to 'some-filter'.
+
+By default, *createUrlWithQueryParameters* uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the third argument:
+```typescript
+const url = this.createUrlService.createUrlWithQueryParameters('my-endpoint', (queryStringParameters) => {
+  queryStringParameters.set('filter', 'some-filter');
+}, true);
+
+```
+#### Creating a URL to an API endpoint with path parameters
+To create a URL to an API endpoint with path parameters, call the *createUrlWithPathVariables* method of *CreateUrlService* and pass the endpoint name as the first argument and an array of path variables as the second argument:
+```typescript
+const url = this.createUrlService.createUrlWithPathVariables('my-endpoint', [123, 'abc']);
+
+```
+The array of path variables is used to replace placeholders in the endpoint name. In the example above, we replace the first placeholder with 123 and the second placeholder with 'abc'.
+
+By default, *createUrlWithPathVariables* uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the third argument:
+```typescript
+const url = this.createUrlService.createUrlWithPathVariables('my-endpoint', [123, 'abc'], true);
+
+```
 
 ### Resource Service
 The *ResourceService* is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors automatically.
 
 It has an abstract method *getResourceUrl()*. The API services that extends *ResourceService* overrides this method so it returns the URL to use.
 
-### Using UrlBuilder, QueryStringParameters, and ResourceService<T>
-To make it easier to call the API endpoints, you can use the *UrlBuilder*, *QueryStringParameters*, and *ResourceService<T>* classes provided in this template. The *UrlBuilder* class is used to build the URL for the API endpoint, while the *QueryStringParameters* class is used to specify the query string parameters for a GET request. The *ResourceService<T>* class is used to call the API endpoints and handle the HTTP response.
+### Using CreateUrlService, and ResourceService<T> to create your api services
+To make it easier to call the API endpoints, you can use the *CreateUrlService*, and *ResourceService<T>* classes provided in this template. The *ResourceService<T>* is a reusable Angular service that provides generic CRUD (Create, Read, Update, Delete) operations for API resources. This service is designed to be extended by other services that provide specific functionality for a particular API resource.
+
+To use the *ResourceService<T>*, you need to create a new service that extends it and implements the *getResourceUrl()* method. This method should return the base URL of the API resource that this service will be working with.
 
 #### Example usage
 In this example, we will create a service to retrieve a list of products from the API endpoint.
@@ -145,16 +204,16 @@ In this example, we will create a service to retrieve a list of products from th
    ```typescript
    getProducts(category: string): Observable<Product[]> {
         // Build the URL for the API endpoint
-        const queryParams = new QueryStringParameters();
-        queryParams.pushOrReplace('category', category);
-        this.url = new UrlBuilder(baseUrl, 'products', queryParams).toString();
+        this.url = this.createUrlService.createUrlWithQueryParameters('products', (queryStringParameters) => {
+            queryStringParameters.pushOrReplace('category', category);
+        });
 
         // Call the API endpoint and return the HTTP response
         // getAll will get the url via the method getResourceUrl() that returns this.url
         return this.getAll();
     }
     ```
-    In this method, we use the *UrlBuilder* and *QueryStringParameters* classes to build the URL for the API endpoint, and then call the getAll() method provided by the *ResourceService<Product>* class to retrieve the list of products from the API.
+    In this method, we use the *CreateUrlService* class to build the URL for the API endpoint to set the url, and then call the getAll() method provided by the *ResourceService<Product>* class to retrieve the list of products from the API using the url we set.
 
 
 

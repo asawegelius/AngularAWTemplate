@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { CustomerApiService } from './customer-api.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Endpoints } from 'src/app/modules/core/constants/endpoints';
+import { Endpoints } from 'src/app/modules/core/features/API/utils/endpoints';
 
 describe('CustomerApiService', () => {
   let service: CustomerApiService;
