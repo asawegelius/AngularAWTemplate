@@ -217,7 +217,22 @@ In this example, we will create a service to retrieve a list of products from th
     }
     ```
     In this method, we use the *CreateUrlService* class to build the URL for the API endpoint to set the url, and then call the getAll() method provided by the *ResourceService<Product>* class to retrieve the list of products from the API using the url we set.
+4. In the NgRx effect where the API call is made you need to reset the base URL after the call:
+   ```typescript
 
+     loadProducts$ = createEffect(() =>
+       this.actions$.pipe(
+         ofType(loadProducts),
+         switchMap((action) =>
+           from(this.productsService.getProducts(action.data)).pipe(
+             map((data) => loadProductsSuccess({ data })),
+             catchError((error) => of(loadProductsFailure({ error }))),
+             tap(() =>this.productsService.setBaseUrl())
+           )
+         )
+       ),
+     );
+   ```
 
 
 ## License
