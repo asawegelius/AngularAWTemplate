@@ -11,12 +11,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { CoreModule } from './modules/core/core.module';
-import { MatSidenavModule } from '@angular/material/sidenav';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { RouterSerializer } from './reducers/router-serializer';
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
-import { SharedModule } from './modules/shared/shared.module';
+import { ResponsiveSideNavigationModule } from './modules/shared/features/layouts/responsive-side-navigation/responsive-side-navigation.module';
 
 
 @NgModule({
@@ -24,11 +21,9 @@ import { SharedModule } from './modules/shared/shared.module';
     AppComponent,
   ],
   imports: [
-    MatButtonModule,
-    MatListModule,
     BrowserModule,
     AppRoutingModule,
-    SharedModule,
+    ResponsiveSideNavigationModule,
     CoreModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({
@@ -38,7 +33,6 @@ import { SharedModule } from './modules/shared/shared.module';
     BrowserAnimationsModule,
     EffectsModule.forRoot([]),
     HttpClientModule,
-    MatSidenavModule,
     StoreRouterConnectingModule.forRoot({
       serializer: RouterSerializer,
     }),

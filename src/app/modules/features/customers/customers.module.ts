@@ -6,8 +6,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { CustomerEffects } from './state/effects/customer.effects';
 import { CustomersPageComponent } from './components/customers-page/customers-page.component';
 import { CustomersComponent } from './components/customers/customers.component';
-import { SharedModule } from '../../shared/shared.module';
 import { CustomersRoutingModule } from './customers-routing.module';
+import { TableWithEditCellModule } from '../../shared/components/tables/table-with-edit-cell/table-with-edit-cell.module';
 
 
 
@@ -17,8 +17,8 @@ import { CustomersRoutingModule } from './customers-routing.module';
     CustomersPageComponent
   ],
   imports: [
-    SharedModule,
     CommonModule,
+    TableWithEditCellModule,
     CustomersRoutingModule,
     StoreModule.forFeature(fromCustomer.customerFeatureKey, fromCustomer.reducer),
     EffectsModule.forFeature([CustomerEffects])
