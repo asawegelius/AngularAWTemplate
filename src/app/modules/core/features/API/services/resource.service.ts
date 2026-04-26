@@ -63,7 +63,7 @@ export abstract class ResourceService<T> {
       .set('limit', index.toString())
       .set('offset', page.toString());
 
-    return this.httpClient.get<T[]>(`${url}?${params.toString()}`)
+    return this.httpClient.get<T[]>(url, { params })
       .pipe(
         map((list) => list.map((item) => this.fromServerModel(item))),
         catchError(this.handleError)

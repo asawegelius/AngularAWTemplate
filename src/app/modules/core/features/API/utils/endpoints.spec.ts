@@ -1,7 +1,7 @@
-import { Endpoints } from './endpoints';
+import { API_ENDPOINTS } from './endpoints';
 
-describe('Endpoints', () => {
-  it('should create an instance', () => {
-    expect(new Endpoints()).toBeTruthy();
+describe('API_ENDPOINTS', () => {
+  it('should expose the sample records endpoint', () => {
+    expect(API_ENDPOINTS.sampleRecords).toBe('sample-records');
   });
 });

@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   apiUrl: 'http://my-prod-url',
-  mockApiUrl: 'http://my-mock-url'
 };
 
 /*

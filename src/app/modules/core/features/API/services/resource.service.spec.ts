@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Observable, lastValueFrom, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ResourceService } from './resource.service';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import type { Mocked } from 'vitest';
 
@@ -68,7 +68,11 @@ describe('ResourceService', () => {
     resourceService.getList(index, page).subscribe(resources => {
       expect(resources).toEqual(list);
       expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
-      expect(httpClientSpy.get).toHaveBeenCalledWith(`${url}?limit=${index}&offset=${page}`);
+      expect(httpClientSpy.get).toHaveBeenCalledWith(url, {
+        params: new HttpParams()
+          .set('limit', index.toString())
+          .set('offset', page.toString())
+      });
     });
   });
 
@@ -89,7 +93,11 @@ describe('ResourceService', () => {
     } catch (error) {
       expect(error).toEqual(new Error(errorResponse.message));
       expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
-      expect(httpClientSpy.get).toHaveBeenCalledWith(`${url}?limit=${index}&offset=${page}`);
+      expect(httpClientSpy.get).toHaveBeenCalledWith(url, {
+        params: new HttpParams()
+          .set('limit', index.toString())
+          .set('offset', page.toString())
+      });
     }
   });
   
