@@ -10,15 +10,15 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'customers'
+    redirectTo: 'sample-records'
   },
   {
-    path: 'customers',
-    loadChildren: () => import('./modules/features/customers/customers.module').then(m => m.CustomersModule)
+    path: 'sample-records',
+    loadChildren: () => import('./modules/features/sample-records/sample-records.module').then(m => m.SampleRecordsModule)
   },
   {
     path: '**',
-    redirectTo: 'customers'
+    redirectTo: 'sample-records'
   }
 ];
 
