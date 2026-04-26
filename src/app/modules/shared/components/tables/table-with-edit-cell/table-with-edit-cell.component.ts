@@ -1,16 +1,29 @@
+import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { MatSortModule } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { EditRowInfo } from '../../../models/edit-row-info';
 import { Table, TableColumn, TableHeader } from '../../../models/table';
 import { EditCellComponent } from './edit-cell/edit-cell.component';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-table-with-edit-cell',
-  standalone: false,
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatDialogModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
+  ],
   templateUrl: './table-with-edit-cell.component.html',
   styleUrls: ['./table-with-edit-cell.component.scss']
 })

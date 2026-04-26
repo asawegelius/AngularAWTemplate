@@ -6,7 +6,6 @@ import { Table } from '../../../models/table';
 import { TableService } from '../../../services/tables/table.service';
 import { of } from 'rxjs';
 import { TestType } from 'src/app/modules/core/features/API/services/resource.service.spec';
-import { TableWithEditCellModule } from './table-with-edit-cell.module';
 
 describe('TableWithEditCellComponent', () => {
   let component: TableWithEditCellComponent<TestType>;
@@ -19,7 +18,7 @@ describe('TableWithEditCellComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        TableWithEditCellModule
+        TableWithEditCellComponent
       ],
       providers: [
         { provide: MatDialog, useClass: MatDialogMock }  

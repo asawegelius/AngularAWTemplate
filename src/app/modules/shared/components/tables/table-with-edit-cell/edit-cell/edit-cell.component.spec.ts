@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { UntypedFormBuilder } from '@angular/forms';
-import { TableWithEditCellModule } from '../table-with-edit-cell.module';
 import { EditCellComponent } from './edit-cell.component';
 import type { Mocked } from 'vitest';
 
@@ -17,7 +16,7 @@ describe('EditCellComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        TableWithEditCellModule
+        EditCellComponent
       ],
       providers: [
         { provide: MatDialogRef, useValue: dialogRef },

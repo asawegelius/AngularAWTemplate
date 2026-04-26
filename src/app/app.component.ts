@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResponsiveSideNavigationModule } from './modules/shared/features/layouts/responsive-side-navigation/responsive-side-navigation.module';
+import { SideNavigationComponent } from './modules/shared/features/layouts/responsive-side-navigation/side-navigation.component';
 
 /**
  * The root component of the application.
@@ -8,7 +8,7 @@ import { ResponsiveSideNavigationModule } from './modules/shared/features/layout
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ResponsiveSideNavigationModule],
+  imports: [SideNavigationComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
