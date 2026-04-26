@@ -3,12 +3,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { EditRowInfo } from 'src/app/modules/shared/models/edit-row-info';
 import { Table, TableColumn, TableHeader } from 'src/app/modules/shared/models/table';
+import { TableWithEditCellModule } from 'src/app/modules/shared/components/tables/table-with-edit-cell/table-with-edit-cell.module';
 import { SampleRecord } from '../../models/sample-record.interface';
 import { SampleRecordsTableService } from '../../services/sample-records-table.service';
 
 @Component({
   selector: 'app-sample-records',
-  standalone: false,
+  standalone: true,
+  imports: [TableWithEditCellModule],
   templateUrl: './sample-records.component.html',
   styleUrls: ['./sample-records.component.scss']
 })

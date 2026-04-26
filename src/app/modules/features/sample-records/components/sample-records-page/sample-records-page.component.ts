@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { SampleRecordsComponent } from '../sample-records/sample-records.component';
 import { loadSampleRecords } from '../../state/actions/sample-record.actions';
 import * as fromSampleRecords from '../../state/selectors/sample-record.selectors';
 
@@ -10,7 +11,8 @@ import * as fromSampleRecords from '../../state/selectors/sample-record.selector
  */
 @Component({
   selector: 'app-sample-records-page',
-  standalone: false,
+  standalone: true,
+  imports: [SampleRecordsComponent],
   templateUrl: './sample-records-page.component.html',
   styleUrls: ['./sample-records-page.component.scss']
 })

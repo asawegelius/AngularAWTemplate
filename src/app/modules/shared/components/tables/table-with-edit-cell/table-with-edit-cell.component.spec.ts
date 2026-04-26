@@ -1,30 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
 import { TableWithEditCellComponent } from './table-with-edit-cell.component';
 import { MatDialog } from '@angular/material/dialog';
-import { NgModule } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTableModule } from '@angular/material/table';
-import { RouterTestingModule } from '@angular/router/testing';
 import { Table } from '../../../models/table';
 import { TableService } from '../../../services/tables/table.service';
 import { of } from 'rxjs';
 import { TestType } from 'src/app/modules/core/features/API/services/resource.service.spec';
-
-@NgModule({
-  declarations: [TableWithEditCellComponent],
-  imports: [
-    CommonModule,
-    RouterTestingModule,
-    MatIconModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatTableModule
-  ]
-})
-class TableWithEditCellTestModule {}
+import { TableWithEditCellModule } from './table-with-edit-cell.module';
 
 describe('TableWithEditCellComponent', () => {
   let component: TableWithEditCellComponent<TestType>;
@@ -36,7 +18,8 @@ describe('TableWithEditCellComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        TableWithEditCellTestModule
+        RouterTestingModule,
+        TableWithEditCellModule
       ],
       providers: [
         { provide: MatDialog, useClass: MatDialogMock }  

@@ -1,21 +1,17 @@
-import { Component, Input, NgModule } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { SampleRecordsComponent } from '../sample-records/sample-records.component';
 import { SampleRecordsPageComponent } from './sample-records-page.component';
 
 @Component({
   selector: 'app-sample-records',
-  standalone: false,
+  standalone: true,
   template: ''
 })
 export class SampleRecordsStubComponent {
   @Input() data: unknown;
 }
-
-@NgModule({
-  declarations: [SampleRecordsPageComponent, SampleRecordsStubComponent]
-})
-class SampleRecordsPageTestModule {}
 
 describe('SampleRecordsPageComponent', () => {
   let component: SampleRecordsPageComponent;
@@ -23,11 +19,21 @@ describe('SampleRecordsPageComponent', () => {
   let store: MockStore;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SampleRecordsPageTestModule],
+    const testBed = TestBed.configureTestingModule({
+      imports: [SampleRecordsPageComponent, SampleRecordsStubComponent],
       providers: [provideMockStore()]
-    })
-    .compileComponents();
+    });
+
+    testBed.overrideComponent(SampleRecordsPageComponent, {
+      remove: {
+        imports: [SampleRecordsComponent]
+      },
+      add: {
+        imports: [SampleRecordsStubComponent]
+      }
+    });
+
+    await testBed.compileComponents();
   });
 
   beforeEach(() => {
