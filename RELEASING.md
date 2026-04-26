@@ -22,6 +22,12 @@ If you need a shareable tagged snapshot before `test` and `main` exist, use a pr
 - `v0.3.0-beta.1`
 - `v0.3.0-rc.1`
 
+## Current preview milestone
+
+The first release milestone for the modernized template is `v0.1.0-beta.1`.
+
+Use this as a preview release from `develop` while the repository is still in the phase 1 workflow.
+
 ## GitHub releases
 
 When you create a tagged milestone, prefer GitHub Releases with auto-generated release notes. That keeps dependency upgrades, fixes, and template changes easy to review later.
