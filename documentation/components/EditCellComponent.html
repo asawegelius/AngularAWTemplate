@@ -12,10 +12,75 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">angular-template documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">angular-template documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -24,7 +89,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -34,33 +99,42 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li>Components</li>
-  <li
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
   >
   EditCellComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
-        <li class="active">
-            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
         </li>
-        <li >
-            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
         </li>
-        <li >
-            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
-        <li >
-            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
         </li>
-        <li >
-            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
     <h3>File</h3>
 </p>
 <p class="comment">
@@ -78,7 +152,7 @@
     </p>
 
 
-<section>
+<section data-compodoc="block-metadata">
     <h3>Metadata</h3>
     <table class="table table-sm table-hover metadata">
         <tbody>
@@ -93,9 +167,26 @@
 
 
 
+
             <tr>
                 <td class="col-md-3">selector</td>
                 <td class="col-md-9"><code>app-edit-cell</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                                <code><a href="https://angular.io/api/common/CommonModule" target="_blank" >CommonModule</a></code>
+                                <code><a href="https://angular.io/api/forms/ReactiveFormsModule" target="_blank" >ReactiveFormsModule</a></code>
+                            <code>MatDialogModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                </td>
             </tr>
 
             <tr>
@@ -121,7 +212,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -134,6 +225,8 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier"></span>
                                     <span class="modifier">Public</span>
                                 <a href="#data" >data</a>
                             </li>
@@ -176,7 +269,7 @@
     </table>
 </section>
 
-    <section>
+    <section data-compodoc="block-constructor">
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
@@ -187,7 +280,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:25</a></div>
                             </td>
                         </tr>
 
@@ -253,7 +346,7 @@
 
 
 
-    <section>
+    <section data-compodoc="block-methods">
     
     <h3 id="methods">
         Methods
@@ -276,21 +369,21 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="31"
-                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:31</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="43"
+                                    class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:43</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -313,21 +406,21 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:22</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="34"
+                                    class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:34</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
@@ -350,27 +443,27 @@
             </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:27</a></div>
-                </td>
-            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="39"
+                                    class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:39</a></div>
+                        </td>
+                    </tr>
 
 
             <tr>
                 <td class="col-md-4">
 
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
-                    </div>
+                        </div>
                 </td>
             </tr>
         </tbody>
     </table>
 </section>
-    <section>
+    <section data-compodoc="block-properties">
     
     <h3 id="inputs">
         Properties
@@ -381,6 +474,8 @@
                 <td class="col-md-4">
                     <a name="data"></a>
                     <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier"></span>
                             <span class="modifier">Public</span>
                         <span ><b>data</b></span>
                         <a href="#data"><span class="icon ion-ios-link"></span></a>
@@ -404,7 +499,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -430,7 +525,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -456,7 +551,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="25" class="link-to-prism">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts:25</a></div>
                         </td>
                     </tr>
 
@@ -468,13 +563,25 @@
 </div>
 
 
-    <div class="tab-pane fade  tab-source-code" id="c-source">
+    <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit, Optional } from &#x27;@angular/core&#x27;;
-import { UntypedFormBuilder, UntypedFormGroup } from &#x27;@angular/forms&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
 import { MAT_DIALOG_DATA, MatDialogRef } from &#x27;@angular/material/dialog&#x27;;
+import { MatDialogModule } from &#x27;@angular/material/dialog&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
 
 @Component({
   selector: &#x27;app-edit-cell&#x27;,
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
   templateUrl: &#x27;./edit-cell.component.html&#x27;,
   styleUrls: [&#x27;./edit-cell.component.scss&#x27;]
 })
@@ -507,7 +614,7 @@ export class EditCellComponent implements OnInit {
 </code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-templateData">
+    <div class="tab-pane fade " id="templateData">
         <pre class="line-numbers"><code class="language-html">&lt;mat-dialog-content [formGroup]&#x3D;&quot;form&quot; *ngIf&#x3D;&quot;form&quot;&gt;
     &lt;mat-form-field&gt;
         &lt;input matInput placeholder&#x3D;&quot;To edit&quot; formControlName&#x3D;&quot;data&quot;&gt;
@@ -520,14 +627,14 @@ export class EditCellComponent implements OnInit {
 &lt;/mat-dialog-actions&gt;</code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-styleData">
+    <div class="tab-pane fade " id="styleData">
                 <p class="comment">
                     <code>./edit-cell.component.scss</code>
                 </p>
                 <pre class="line-numbers"><code class="language-scss"></code></pre>
     </div>
 
-    <div class="tab-pane fade " id="c-tree">
+    <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
         <div class="tree-legend">
             <div class="title">
@@ -548,12 +655,12 @@ export class EditCellComponent implements OnInit {
     
 </div>
 
-<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/vis-network.min.js"></script>
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><mat-dialog-content [formGroup]="form" *ngIf="form">    <mat-form-field>        <input matInput placeholder="To edit" formControlName="data">    </mat-form-field></mat-dialog-content><mat-dialog-actions>    <button class="mat-button" (click)="close()">Close</button>    <button class="mat-button mat-primary" (click)="save()">Save</button></mat-dialog-actions></div>'
-    var COMPONENTS = [{'name': 'AccountsComponent', 'selector': 'app-accounts'},{'name': 'AccountsPageComponent', 'selector': 'app-accounts-page'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CustomersComponent', 'selector': 'app-customers'},{'name': 'CustomersPageComponent', 'selector': 'app-customers-page'},{'name': 'EditCellComponent', 'selector': 'app-edit-cell'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'ModalComponent', 'selector': 'app-modal'},{'name': 'SideNavigationComponent', 'selector': 'app-side-navigation'},{'name': 'TableWithEditCellComponent', 'selector': 'app-table-with-edit-cell'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'EditCellComponent', 'selector': 'app-edit-cell'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'SampleRecordsComponent', 'selector': 'app-sample-records'},{'name': 'SampleRecordsPageComponent', 'selector': 'app-sample-records-page'},{'name': 'SideNavigationComponent', 'selector': 'app-side-navigation'},{'name': 'TableWithEditCellComponent', 'selector': 'app-table-with-edit-cell'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'EditCellComponent'};
 </script>
@@ -605,6 +712,19 @@ export class EditCellComponent implements OnInit {
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
 
@@ -616,7 +736,6 @@ export class EditCellComponent implements OnInit {
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 

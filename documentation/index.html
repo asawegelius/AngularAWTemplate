@@ -12,10 +12,75 @@
         <link rel="stylesheet" href="./styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="./" class="navbar-brand">angular-template documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">angular-template documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -24,187 +89,156 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content getting-started">
+               <div class="content readme">
                    <div class="content-data">
 
-<h1 id="angularawtemplate">AngularAWTemplate</h1>
-<p>AngularAWTemplate is an Angular application template that provides a starting point for building enterprise-level applications. It is designed to be scalable, maintainable, and flexible, with a focus on best practices and modular architecture.</p>
-<h1 id="table-of-contents">Table of Contents</h1>
+
+<h1>AngularAWTemplate</h1>
+<p>AngularAWTemplate is an Angular 20 template for enterprise-style applications. It is designed for larger, long-lived systems where consistency, explicit structure, and maintainable feature patterns matter more than minimal setup.</p>
+<p>The template is intentionally opinionated:</p>
+<ul>
+<li>standalone Angular application bootstrap</li>
+<li>route-based lazy loading</li>
+<li>Angular Material for UI building blocks</li>
+<li>NgRx Store, Effects, Entity, Router Store, and DevTools for application state</li>
+<li>Vitest-based unit testing</li>
+<li>a mock API workflow for local development</li>
+</ul>
+<h2>Table of Contents</h2>
 <ul>
 <li><a href="#angularawtemplate">AngularAWTemplate</a></li>
-<li><a href="#table-of-contents">Table of Contents</a><ul>
-<li><a href="#installation">Installation</a></li>
-<li><a href="#usage">Usage</a></li>
-<li><a href="#technologies">Technologies</a></li>
+<li><a href="#table-of-contents">Table of Contents</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#available-scripts">Available Scripts</a></li>
+<li><a href="#architecture">Architecture</a></li>
+<li><a href="#state-management">State Management</a></li>
+<li><a href="#api-layer">API Layer</a></li>
 <li><a href="#testing">Testing</a></li>
+<li><a href="#generated-documentation">Generated Documentation</a></li>
 <li><a href="#deployment">Deployment</a></li>
-<li><a href="#core-features">Core features</a><ul>
-<li><a href="#querystringparameters">QueryStringParameters</a><ul>
-<li><a href="#example-usage-of-querystringparameters">Example usage of QueryStringParameters</a></li>
-</ul>
-</li>
-<li><a href="#urlbuilder">UrlBuilder</a><ul>
-<li><a href="#usage-of-urlbuilder">Usage of UrlBuilder</a></li>
-</ul>
-</li>
-<li><a href="#createurlservice">CreateUrlService</a><ul>
-<li><a href="#usage-of-createurlservice">Usage of CreateUrlService</a></li>
-<li><a href="#creating-a-url-to-an-api-endpoint-with-no-parameters">Creating a URL to an API endpoint with no parameters</a></li>
-<li><a href="#creating-a-url-to-an-api-endpoint-with-query-parameters">Creating a URL to an API endpoint with query parameters</a></li>
-<li><a href="#creating-a-url-to-an-api-endpoint-with-path-parameters">Creating a URL to an API endpoint with path parameters</a></li>
-</ul>
-</li>
-<li><a href="#resource-service">Resource Service</a></li>
-<li><a href="#using-createurlservice-and-resourceservice-to-create-your-api-services">Using CreateUrlService, and ResourceService to create your api services</a><ul>
-<li><a href="#example-usage">Example usage</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li><a href="#license">License</a></li>
 </ul>
-</li>
-</ul>
-<h2 id="installation">Installation</h2>
-<p>To install AngularAWTemplate, follow these steps:</p>
-<ol>
-<li>Clone this repository to your local machine.</li>
-<li>Run npm install to install dependencies.</li>
-<li>Run ng serve to start the application.</li>
-</ol>
-<h2 id="usage">Usage</h2>
-<p>AngularAWTemplate provides a clean and organized codebase that you can use to build your own Angular applications. It includes a set of reusable components, services, and modules that can be easily customized to fit your needs.</p>
-<p>To use AngularAWTemplate, you can start by exploring the codebase and making modifications to fit your specific requirements. You can also build your own components and services on top of the existing codebase, using the provided modules and libraries.</p>
-<h2 id="technologies">Technologies</h2>
-<p>AngularAWTemplate is built with the following technologies:</p>
+<h2>Requirements</h2>
 <ul>
-<li>Angular</li>
-<li>RxJS</li>
-<li>NgRx</li>
-<li>Bootstrap</li>
-<li>Sass</li>
+<li>Node.js <code>^22.12.0 || ^24.0.0</code></li>
+<li>npm <code>&gt;=10</code></li>
 </ul>
-<h2 id="testing">Testing</h2>
-<p>AngularAWTemplate includes a suite of unit tests that can be run with the following command:</p>
+<h2>Getting Started</h2>
+<ol>
+<li>Clone the repository.</li>
+<li>Install dependencies with <code>npm install</code>.</li>
+<li>Start the development application with <code>npm run start</code>.</li>
+</ol>
+<p>If you want to run the mock API locally as well:</p>
+<ol>
+<li>Start the mock backend with <code>npm run mock:api</code>.</li>
+<li>Start the Angular app against the mock environment with <code>npm run mock</code>.</li>
+</ol>
+<h2>Available Scripts</h2>
 <ul>
-<li><code>npm run test</code> to run unit tests.</li>
+<li><code>npm run start</code>
+Runs the Angular app with the <code>development</code> configuration.</li>
+<li><code>npm run mock</code>
+Runs the Angular app with the <code>mock</code> configuration.</li>
+<li><code>npm run mock:api</code>
+Starts <code>json-server</code> with the data in <code>mock-api/db.json</code>.</li>
+<li><code>npm run build</code>
+Creates a production build.</li>
+<li><code>npm run watch</code>
+Runs a development build in watch mode.</li>
+<li><code>npm run test</code>
+Runs the Angular unit-test target.</li>
+<li><code>npm run test:ci</code>
+Runs the unit-test suite once without watch mode.</li>
+<li><code>npm run compodoc</code>
+Generates the static documentation site in <code>documentation/</code>.</li>
 </ul>
-<h2 id="deployment">Deployment</h2>
-<p>To deploy AngularAWTemplate to a production environment, follow these steps:</p>
-<ol>
-<li>Build the application with ng build.</li>
-<li>Copy the contents of the dist folder to your web server.</li>
-<li>Configure your web server to serve the index.html file as the entry point.</li>
-</ol>
-<h2 id="core-features">Core features</h2>
-<p>There are some core features in the core package.</p>
-<h3 id="querystringparameters">QueryStringParameters</h3>
-<p>The <em>QueryStringParameters</em> class is used to represent the query string parameters that can be sent in a HTTP GET request to the API endpoint. This class is used in API Services to build the URL for the HTTP request.</p>
-<h4 id="example-usage-of-querystringparameters">Example usage of QueryStringParameters</h4>
-<div><pre class="line-numbers"><code class="language-typescript">import { QueryStringParameters } from &#39;./data-service&#39;;
+<h2>Architecture</h2>
+<p>The template uses Angular&#39;s standalone application model rather than root <code>NgModule</code> bootstrap.</p>
+<ul>
+<li>Application bootstrap is configured in <code>src/app/app.config.ts</code>.</li>
+<li>Top-level routes are defined in <code>src/app/app.routes.ts</code>.</li>
+<li>Feature routes are lazy-loaded and can register their own providers, state, and effects.</li>
+<li>Shared UI building blocks are also standalone components instead of wrapper modules.</li>
+</ul>
+<p>The current sample feature lives under <code>src/app/modules/features/sample-records</code> and demonstrates the default architectural direction of the template.</p>
+<h2>State Management</h2>
+<p>This template is intended for enterprise applications, so NgRx remains the primary state-management approach.</p>
+<p>The sample feature demonstrates a layered NgRx pattern:</p>
+<ul>
+<li>actions for explicit event flow</li>
+<li>effects for async orchestration</li>
+<li><code>createFeature</code> for feature registration</li>
+<li><code>@ngrx/entity</code> for collection state</li>
+<li>selectors for read models</li>
+<li>a facade for component-facing state access</li>
+</ul>
+<p>Relevant files:</p>
+<ul>
+<li><code>src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</code></li>
+<li><code>src/app/modules/features/sample-records/state/effects/sample-record.effects.ts</code></li>
+<li><code>src/app/modules/features/sample-records/state/selectors/sample-record.selectors.ts</code></li>
+<li><code>src/app/modules/features/sample-records/state/sample-records.facade.ts</code></li>
+</ul>
+<p>The app also includes root NgRx setup in <code>src/app/app.config.ts</code>, including router-store integration and devtools.</p>
+<h2>API Layer</h2>
+<p>The API layer is intentionally simple and explicit.</p>
+<ul>
+<li><code>src/app/modules/core/features/API/services/api-url.service.ts</code> joins the configured API base URL with endpoint paths.</li>
+<li><code>src/app/modules/core/features/API/utils/endpoints.ts</code> contains endpoint constants.</li>
+<li><code>src/app/modules/core/features/API/services/resource.service.ts</code> provides reusable CRUD-style behavior for feature API services.</li>
+</ul>
+<p>The sample feature API service shows the intended usage:</p>
+<ul>
+<li><code>src/app/modules/features/sample-records/services/sample-record-api.service.ts</code></li>
+</ul>
+<p>Example pattern:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">&#64;Injectable({
+  providedIn: &#39;root&#39;
+})
+export class ProductApiService extends ResourceService&lt;Product&gt; {
+  constructor(
+    protected httpClient: HttpClient,
+    private apiUrl: ApiUrlService
+  ) {
+    super(httpClient);
+  }
 
-    // Create a new instance of the QueryStringParameters class
-    const params = new QueryStringParameters();
+  getResourceUrl(): string {
+    return this.apiUrl.create(&#39;products&#39;);
+  }
+}</code></pre></div><h2>Testing</h2>
+<p>The template uses Angular&#39;s unit-test target with Vitest as the test runner.</p>
+<ul>
+<li>Run all tests once with <code>npm run test:ci</code></li>
+<li>Run tests in watch mode with <code>npm run test</code></li>
+</ul>
+<p>The current local desktop environment can require elevated execution for Angular build and test commands because of a local <code>spawn EPERM</code> issue. That is an environment limitation, not a project-level requirement.</p>
+<h2>Generated Documentation</h2>
+<p>Static API and architecture documentation is generated with Compodoc.</p>
+<ul>
+<li>Source: TypeScript files included by <code>tsconfig.doc.json</code></li>
+<li>Output: <code>documentation/</code></li>
+<li>Command: <code>npm run compodoc</code></li>
+</ul>
+<p>The <code>documentation</code> folder is generated output and should be refreshed when the public project structure changes significantly.</p>
+<h2>Deployment</h2>
+<p>Build the application with:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-bash">npm run build</code></pre></div><p>The production output is written to:</p>
+<ul>
+<li><code>dist/AngularTemplate</code></li>
+</ul>
+<p>Deploy the contents of that folder to your web server or hosting platform.</p>
+<h2>License</h2>
+<p>AngularAWTemplate is licensed under the MIT License.</p>
 
-    // Set the properties of the QueryStringParameters instance
-    queryParams.pushOrReplace(&#39;searchText&#39;, &#39;example&#39;);
-    queryParams.pushOrReplace(&#39;pageNumber&#39;, 1);
-    queryParams.pushOrReplace(&#39;pageSize&#39;, 10);
 
-    // Use the QueryStringParameters instance to build the URL for the HTTP request
-    const url = `${&#39;https://example.com/api/search&#39;}?${params.toString()}`;
-</code></pre></div><p>In the example above, we create a new instance of the <em>QueryStringParameters</em> class, set its properties to define the search parameters we want to use, and then use it to build the URL for the HTTP request.</p>
-<h3 id="urlbuilder">UrlBuilder</h3>
-<p>The <em>UrlBuilder</em> class is a utility class that helps construct URLs for API requests by concatenating base URLs and query string parameters.</p>
-<h4 id="usage-of-urlbuilder">Usage of UrlBuilder</h4>
-<p>To use the <em>UrlBuilder</em> class, simply create a new instance with the base URL, resource string, and query string parameters and call the <em>toString()</em> method:</p>
-<div><pre class="line-numbers"><code class="language-typescript">import { UrlBuilder } from &#39;src/app/modules/core/features/API/classes/url-builder&#39;;
 
-const baseUrl = &#39;https://example.com&#39;;
-const queryParams = new QueryStringParameters();
-queryParams.pushOrReplace(&#39;category&#39;, &#39;fiction&#39;);
-
-const urlBuilder = new UrlBuilder(baseUrl, &#39;books&#39;, queryParams);
-const url = urlBuilder.toString();
-console.log(url); // Output: &#39;http://example.com/books?category=fiction&#39;
-</code></pre></div><h3 id="createurlservice">CreateUrlService</h3>
-<p><em>CreateUrlService</em> is an Angular service that allows you to create URLs to API endpoints using the base URL specified in environment, the endpoint name, and any additional parameters. It uses <em>UrlBuilder</em> and <em>QueryStringParameters</em> to achieve that.</p>
-<h4 id="usage-of-createurlservice">Usage of CreateUrlService</h4>
-<p>To use <em>CreateUrlService</em>, you need to import it into your component or service:</p>
-<div><pre class="line-numbers"><code class="language-typescript">import { CreateUrlService } from &#39;src/app/modules/core/features/API/services/create-url.service&#39;;
-</code></pre></div><p>Then, you can inject <em>CreateUrlService</em> into your component or service&#39;s constructor:</p>
-<div><pre class="line-numbers"><code class="language-typescript">constructor(private createUrlService: CreateUrlService) { }</code></pre></div><h4 id="creating-a-url-to-an-api-endpoint-with-no-parameters">Creating a URL to an API endpoint with no parameters</h4>
-<p>To create a URL to an API endpoint with no parameters, call the <em>createUrl</em> method of <em>CreateUrlService</em> and pass the endpoint name as the first argument:</p>
-<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrl(&#39;my-endpoint&#39;);</code></pre></div><p>By default, <em>createUrl</em> uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the second argument:</p>
-<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrl(&#39;my-endpoint&#39;, true);</code></pre></div><h4 id="creating-a-url-to-an-api-endpoint-with-query-parameters">Creating a URL to an API endpoint with query parameters</h4>
-<p>To create a URL to an API endpoint with query parameters, call the <em>createUrlWithQueryParameters</em> method of <em>CreateUrlService</em> and pass the endpoint name as the first argument and a callback function that modifies the <em>QueryStringParameters</em> object as the second argument:</p>
-<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithQueryParameters(&#39;my-endpoint&#39;, (queryStringParameters) =&gt; {
-  queryStringParameters.pushOrReplace(&#39;filter&#39;, &#39;some-filter&#39;);
-});</code></pre></div><p>The callback function receives a <em>QueryStringParameters</em> object, which you can use to set query parameters. In the example above, we set the filter query parameter to &#39;some-filter&#39;.</p>
-<p>By default, <em>createUrlWithQueryParameters</em> uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the third argument:</p>
-<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithQueryParameters(&#39;my-endpoint&#39;, (queryStringParameters) =&gt; {
-  queryStringParameters.set(&#39;filter&#39;, &#39;some-filter&#39;);
-}, true);
-</code></pre></div><h4 id="creating-a-url-to-an-api-endpoint-with-path-parameters">Creating a URL to an API endpoint with path parameters</h4>
-<p>To create a URL to an API endpoint with path parameters, call the <em>createUrlWithPathVariables</em> method of <em>CreateUrlService</em> and pass the endpoint name as the first argument and an array of path variables as the second argument:</p>
-<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithPathVariables(&#39;my-endpoint&#39;, [123, &#39;abc&#39;]);
-</code></pre></div><p>The array of path variables is used to replace placeholders in the endpoint name. In the example above, we replace the first placeholder with 123 and the second placeholder with &#39;abc&#39;.</p>
-<p>By default, <em>createUrlWithPathVariables</em> uses the API URL specified in environment. However, if you want to use the mock API URL specified in environment, you can pass true as the third argument:</p>
-<div><pre class="line-numbers"><code class="language-typescript">const url = this.createUrlService.createUrlWithPathVariables(&#39;my-endpoint&#39;, [123, &#39;abc&#39;], true);
-</code></pre></div><h3 id="resource-service">Resource Service</h3>
-<p>The <em>ResourceService</em> is a service that provides a generic way to interact with RESTful API endpoints. It uses the Angular HttpClient to make HTTP requests and handles errors automatically.</p>
-<p>It has an abstract method <em>getResourceUrl()</em>. The API services that extends <em>ResourceService</em> overrides this method so it returns the URL to use.</p>
-<h3 id="using-createurlservice-and-resourceservice-to-create-your-api-services">Using CreateUrlService, and ResourceService<T> to create your api services</h3>
-<p>To make it easier to call the API endpoints, you can use the <em>CreateUrlService</em>, and <em>ResourceService<T></em> classes provided in this template. The <em>ResourceService<T></em> is a reusable Angular service that provides generic CRUD (Create, Read, Update, Delete) operations for API resources. This service is designed to be extended by other services that provide specific functionality for a particular API resource.</p>
-<p>To use the <em>ResourceService<T></em>, you need to create a new service that extends it and implements the <em>getResourceUrl()</em> method. This method should return the base URL of the API resource that this service will be working with.</p>
-<h4 id="example-usage">Example usage</h4>
-<p>In this example, we will create a service to retrieve a list of products from the API endpoint.</p>
-<ol>
-<li>First, import the necessary classes and modules:<div><pre class="line-numbers"><code class="language-typescript"> import { Injectable } from &#39;&#64;angular/core&#39;;
- import { HttpClient } from &#39;&#64;angular/common/http&#39;;
- import { ResourceService } from &#39;src/app/modules/core/features/API/services/resource.service&#39;;
- import { CreateUrlService } from &#39;src/app/modules/core/features/API/services/create-url.service&#39;;
- import { Observable } from &#39;rxjs&#39;;
- import { Product } from &#39;./product&#39;;</code></pre></div></li>
-<li>Create a new service and extend the <em>ResourceService<Product></em> class:<div><pre class="line-numbers"><code class="language-typescript"> &#64;Injectable({
- providedIn: &#39;root&#39;
- })
- export class ProductService extends ResourceService&lt;Product&gt; {
-     url!:string;
-
-     constructor(
-       http: HttpClient,
-       private urls: CreateUrlService) {
-         super(http);
-         this.setBaseUrl();
-     }
-
-     protected getResourceUrl(): string {
-         return this.url;
-     }
-
-     setBaseUrl() {
-         // set base url
-         this.url = this.urls?.createUrl(&#39;https://example.com/api/products&#39;);
-     }
- }</code></pre></div>In this service, we extend the <em>ResourceService<Product></em> class and override the <em>getResourceUrl()</em> method to return the URL for the API endpoint. We also inject the <em>HttpClient</em> module through the constructor of the <em>ResourceService<Product></em>.</li>
-<li>Create a method to retrieve a list of products:<div><pre class="line-numbers"><code class="language-typescript">getProducts(category: string): Observable&lt;Product[]&gt; {
-     // Build the URL for the API endpoint
-     this.url = this.createUrlService.createUrlWithQueryParameters(&#39;products&#39;, (queryStringParameters) =&gt; {
-         queryStringParameters.pushOrReplace(&#39;category&#39;, category);
-     });
-
-     // Call the API endpoint and return the HTTP response
-     // getAll will get the url via the method getResourceUrl() that returns this.url
-     return this.getAll();
- }</code></pre></div> In this method, we use the <em>CreateUrlService</em> class to build the URL for the API endpoint to set the url, and then call the getAll() method provided by the <em>ResourceService<Product></em> class to retrieve the list of products from the API using the url we set.</li>
-</ol>
-<h2 id="license">License</h2>
-<p>AngularAWTemplate is licensed under the MIT License</p>
 
 
 
@@ -251,10 +285,23 @@ console.log(url); // Output: &#39;http://example.com/books?category=fiction&#39;
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 0;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'readme';
             var COMPODOC_CURRENT_PAGE_URL = 'index.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
 
        <script src="./js/libs/custom-elements.min.js"></script>
        <script src="./js/libs/lit-html.js"></script>
@@ -267,7 +314,6 @@ console.log(url); // Output: &#39;http://example.com/books?category=fiction&#39;
        <script src="./js/libs/es6-shim.min.js"></script>
        <script src="./js/libs/EventDispatcher.js"></script>
        <script src="./js/libs/promise.min.js"></script>
-       <script src="./js/libs/zepto.min.js"></script>
 
        <script src="./js/compodoc.js"></script>
 

@@ -12,10 +12,75 @@
         <link rel="stylesheet" href="../styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="../" class="navbar-brand">angular-template documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">angular-template documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -24,7 +89,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -48,12 +113,16 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li>Miscellaneous</li>
-  <li>Variables</li>
+  <li class="breadcrumb-item">Miscellaneous</li>
+  <li class="breadcrumb-item">Variables</li>
 </ol>
 
-<section>
+<section data-compodoc="block-index">
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -61,19 +130,13 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#closeModals" title="src/app/modules/shared/features/modal/state/actions/modal.actions.ts" ><b>closeModals</b>&nbsp;&nbsp;&nbsp;(src/.../modal.actions.ts)</a>
+                            <a href="#API_ENDPOINTS" title="src/app/modules/core/features/API/utils/endpoints.ts" ><b>API_ENDPOINTS</b>&nbsp;&nbsp;&nbsp;(src/.../endpoints.ts)</a>
                         </li>
                         <li>
-                            <a href="#customerFeatureKey" title="src/app/modules/features/customers/state/reducers/customer.reducer.ts" ><b>customerFeatureKey</b>&nbsp;&nbsp;&nbsp;(src/.../customer.reducer.ts)</a>
+                            <a href="#APP_ROUTES" title="src/app/app.routes.ts" ><b>APP_ROUTES</b>&nbsp;&nbsp;&nbsp;(src/.../app.routes.ts)</a>
                         </li>
                         <li>
-                            <a href="#customersIsLoaded" title="src/app/modules/features/customers/state/selectors/customer.selectors.ts" ><b>customersIsLoaded</b>&nbsp;&nbsp;&nbsp;(src/.../customer.selectors.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#customersIsLoading" title="src/app/modules/features/customers/state/selectors/customer.selectors.ts" ><b>customersIsLoading</b>&nbsp;&nbsp;&nbsp;(src/.../customer.selectors.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#customersReducer" title="src/app/modules/features/customers/state/reducers/customer.reducer.ts" ><b>customersReducer</b>&nbsp;&nbsp;&nbsp;(src/.../customer.reducer.ts)</a>
+                            <a href="#appConfig" title="src/app/app.config.ts" ><b>appConfig</b>&nbsp;&nbsp;&nbsp;(src/.../app.config.ts)</a>
                         </li>
                         <li>
                             <a href="#environment" title="src/environments/environment.dev.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.dev.ts)</a>
@@ -88,34 +151,43 @@
                             <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
                         </li>
                         <li>
-                            <a href="#getCustomersError" title="src/app/modules/features/customers/state/selectors/customer.selectors.ts" ><b>getCustomersError</b>&nbsp;&nbsp;&nbsp;(src/.../customer.selectors.ts)</a>
+                            <a href="#initialState" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
                         </li>
                         <li>
-                            <a href="#getCustomerState" title="src/app/modules/features/customers/state/selectors/customer.selectors.ts" ><b>getCustomerState</b>&nbsp;&nbsp;&nbsp;(src/.../customer.selectors.ts)</a>
+                            <a href="#loadSampleRecords" title="src/app/modules/features/sample-records/state/actions/sample-record.actions.ts" ><b>loadSampleRecords</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.actions.ts)</a>
                         </li>
                         <li>
-                            <a href="#initialState" title="src/app/modules/features/customers/state/reducers/customer.reducer.ts" ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../customer.reducer.ts)</a>
+                            <a href="#loadSampleRecordsFailure" title="src/app/modules/features/sample-records/state/actions/sample-record.actions.ts" ><b>loadSampleRecordsFailure</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.actions.ts)</a>
                         </li>
                         <li>
-                            <a href="#loadCustomers" title="src/app/modules/features/customers/state/actions/customer.actions.ts" ><b>loadCustomers</b>&nbsp;&nbsp;&nbsp;(src/.../customer.actions.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#loadCustomersFailure" title="src/app/modules/features/customers/state/actions/customer.actions.ts" ><b>loadCustomersFailure</b>&nbsp;&nbsp;&nbsp;(src/.../customer.actions.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#loadCustomersSuccess" title="src/app/modules/features/customers/state/actions/customer.actions.ts" ><b>loadCustomersSuccess</b>&nbsp;&nbsp;&nbsp;(src/.../customer.actions.ts)</a>
+                            <a href="#loadSampleRecordsSuccess" title="src/app/modules/features/sample-records/state/actions/sample-record.actions.ts" ><b>loadSampleRecordsSuccess</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.actions.ts)</a>
                         </li>
                         <li>
                             <a href="#metaReducers" title="src/app/reducers/index.ts" ><b>metaReducers</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
                         </li>
                         <li>
-                            <a href="#openModals" title="src/app/modules/shared/features/modal/state/actions/modal.actions.ts" ><b>openModals</b>&nbsp;&nbsp;&nbsp;(src/.../modal.actions.ts)</a>
-                        </li>
-                        <li>
                             <a href="#reducers" title="src/app/reducers/index.ts" ><b>reducers</b>&nbsp;&nbsp;&nbsp;(src/.../index.ts)</a>
                         </li>
                         <li>
-                            <a href="#selectCustomerList" title="src/app/modules/features/customers/state/selectors/customer.selectors.ts" ><b>selectCustomerList</b>&nbsp;&nbsp;&nbsp;(src/.../customer.selectors.ts)</a>
+                            <a href="#SAMPLE_RECORDS_ROUTES" title="src/app/modules/features/sample-records/sample-records.routes.ts" ><b>SAMPLE_RECORDS_ROUTES</b>&nbsp;&nbsp;&nbsp;(src/.../sample-records.routes.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#sampleRecordAdapter" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b>sampleRecordAdapter</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#sampleRecordSelectors" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b>sampleRecordSelectors</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#sampleRecordsFeature" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b>sampleRecordsFeature</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#sampleRecordsFeatureKey" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b>sampleRecordsFeatureKey</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#sampleRecordsReducer" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b>sampleRecordsReducer</b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#" title="src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts" ><b></b>&nbsp;&nbsp;&nbsp;(src/.../sample-record.reducer.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -124,164 +196,36 @@
     </table>
 </section>
 
-    <h3>src/app/modules/shared/features/modal/state/actions/modal.actions.ts</h3>
-    <section>
+    <h3>src/app/modules/core/features/API/utils/endpoints.ts</h3>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="closeModals"></a>
+                    <a name="API_ENDPOINTS"></a>
                     <span class="name">
-                        <span ><b>closeModals</b></span>
-                        <a href="#closeModals"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>API_ENDPOINTS</b></span>
+                        <a href="#API_ENDPOINTS"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createAction(
-  &#x27;[Modal] Close Modals&#x27;
-)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="openModals"></a>
-                    <span class="name">
-                        <span ><b>openModals</b></span>
-                        <a href="#openModals"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createAction(
-  &#x27;[Modal] Open Modals&#x27;,
-  props&lt;{ path: any }&gt;()
-)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/app/modules/features/customers/state/reducers/customer.reducer.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="customerFeatureKey"></a>
-                    <span class="name">
-                        <span ><b>customerFeatureKey</b></span>
-                        <a href="#customerFeatureKey"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>&#x27;customer&#x27;</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>The key for the customer feature state.</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="customersReducer"></a>
-                    <span class="name">
-                        <span ><b>customersReducer</b></span>
-                        <a href="#customersReducer"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createReducer(
-  initialState, on(
-    CustomerActions.loadCustomers,
-    (state) &#x3D;&gt; ({ ...state, callState: LoadingState.LOADING })
-  ),
-  on(
-    CustomerActions.loadCustomersSuccess,
-    (state, { data }) &#x3D;&gt; ({
-      ...state,
-      data,
-      callState: LoadingState.LOADED
-    })
-  ),
-  on(
-    CustomerActions.loadCustomersFailure,
-    (state, { errorMsg }) &#x3D;&gt; ({
-      ...state,
-      callState: errorMsg
-    })
-  )
-)</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Reducer function for managing the customer-related state.
-Uses the createReducer function from @ngrx/store to generate the reducer.</p>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="initialState"></a>
-                    <span class="name">
-                        <span ><b>initialState</b></span>
-                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/State.html" target="_self" >State</a></code>
+                        <i>Type : </i>    <code>unknown</code>
 
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-  data: [],
-  callState: LoadingState.INIT
-}</code>
+  sampleRecords: &#x27;sample-records&#x27;
+} as const</code>
                     </td>
                 </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>The initial state for the customer feature state.</p>
+                    <div class="io-description"><p>Endpoint paths for the application&#39;s API resources.</p>
 </div>
                 </td>
             </tr>
@@ -289,116 +233,93 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
         </tbody>
     </table>
 </section>
-    <h3>src/app/modules/features/customers/state/selectors/customer.selectors.ts</h3>
-    <section>
+    <h3>src/app/app.routes.ts</h3>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="customersIsLoaded"></a>
+                    <a name="APP_ROUTES"></a>
                     <span class="name">
-                        <span ><b>customersIsLoaded</b></span>
-                        <a href="#customersIsLoaded"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>APP_ROUTES</b></span>
+                        <a href="#APP_ROUTES"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(
-    getCustomerState,
-    state &#x3D;&gt; state.callState &#x3D;&#x3D;&#x3D; LoadingState.LOADED
-)</code>
+                        <i>Type : </i>        <code><a href="https://angular.io/api/router/Routes" target="_blank" >Routes</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    path: &#x27;&#x27;,
+    pathMatch: &#x27;full&#x27;,
+    redirectTo: &#x27;sample-records&#x27;
+  },
+  {
+    path: &#x27;sample-records&#x27;,
+    loadChildren: () &#x3D;&gt; &quot;import(&#x27;./modules/features/sample-records/sample-records.routes&#x27;).then(m &#x3D;&gt; m.SAMPLE_RECORDS_ROUTES)&quot;
+  },
+  {
+    path: &#x27;**&#x27;,
+    redirectTo: &#x27;sample-records&#x27;
+  }
+]</code>
                     </td>
                 </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Represents the routes of the application.
+Each route contains the path to the feature route configuration.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
+</section>
+    <h3>src/app/app.config.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="customersIsLoading"></a>
+                    <a name="appConfig"></a>
                     <span class="name">
-                        <span ><b>customersIsLoading</b></span>
-                        <a href="#customersIsLoading"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>appConfig</b></span>
+                        <a href="#appConfig"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(
-    getCustomerState,
-    state &#x3D;&gt; state.callState &#x3D;&#x3D;&#x3D; LoadingState.LOADING
-)</code>
+                        <i>Type : </i>    <code>ApplicationConfig</code>
+
                     </td>
                 </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getCustomersError"></a>
-                    <span class="name">
-                        <span ><b>getCustomersError</b></span>
-                        <a href="#getCustomersError"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(
-    getCustomerState,
-    state &#x3D;&gt; getError(state.callState)
-)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getCustomerState"></a>
-                    <span class="name">
-                        <span ><b>getCustomerState</b></span>
-                        <a href="#getCustomerState"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createFeatureSelector&lt;fromCustomers.State&gt;(
-    fromCustomers.customerFeatureKey
-)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="selectCustomerList"></a>
-                    <span class="name">
-                        <span ><b>selectCustomerList</b></span>
-                        <a href="#selectCustomerList"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(
-    getCustomerState,
-    state &#x3D;&gt; state.data
-)</code>
+                        <i>Default value : </i><code>{
+  providers: [
+    provideRouter(APP_ROUTES),
+    provideHttpClient(),
+    provideAnimations(),
+    provideStore(reducers, { metaReducers }),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    provideEffects(),
+    provideRouterStore({
+      serializer: RouterSerializer,
+    }),
+  ]
+}</code>
                     </td>
                 </tr>
 
@@ -407,7 +328,7 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
     </table>
 </section>
     <h3>src/environments/environment.dev.ts</h3>
-    <section>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -430,7 +351,6 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
                         <i>Default value : </i><code>{
     production: false,
     apiUrl: &#x27;http://localhost:8080&#x27;,
-    mockApiUrl: &#x27;http://my-mock-url&#x27;
 }</code>
                     </td>
                 </tr>
@@ -440,7 +360,7 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
     </table>
 </section>
     <h3>src/environments/environment.mock.ts</h3>
-    <section>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -463,7 +383,6 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
                         <i>Default value : </i><code>{
     production: false,
     apiUrl: &#x27;http://localhost:3000&#x27;,
-    mockApiUrl: &#x27;http://localhost:3000&#x27;
   }</code>
                     </td>
                 </tr>
@@ -473,7 +392,7 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
     </table>
 </section>
     <h3>src/environments/environment.prod.ts</h3>
-    <section>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -496,7 +415,6 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
                         <i>Default value : </i><code>{
   production: true,
   apiUrl: &#x27;http://my-prod-url&#x27;,
-  mockApiUrl: &#x27;http://my-mock-url&#x27;
 }</code>
                     </td>
                 </tr>
@@ -506,7 +424,7 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
     </table>
 </section>
     <h3>src/environments/environment.ts</h3>
-    <section>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -529,7 +447,6 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
                         <i>Default value : </i><code>{
   production: false,
   apiUrl: &#x27;http://my-prod-url&#x27;,
-  mockApiUrl: &#x27;http://my-mock-url&#x27;
 }</code>
                     </td>
                 </tr>
@@ -538,23 +455,286 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
         </tbody>
     </table>
 </section>
-    <h3>src/app/modules/features/customers/state/actions/customer.actions.ts</h3>
-    <section>
+    <h3>src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</h3>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="loadCustomers"></a>
+                    <a name="initialState"></a>
                     <span class="name">
-                        <span ><b>loadCustomers</b></span>
-                        <a href="#loadCustomers"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>initialState</b></span>
+                        <a href="#initialState"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/State.html" target="_self" >State</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  ...sampleRecordAdapter.getInitialState({ callState: LoadingState.INIT }),
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The initial state for the sample-record feature state.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sampleRecordAdapter"></a>
+                    <span class="name">
+                        <span ><b>sampleRecordAdapter</b></span>
+                        <a href="#sampleRecordAdapter"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createEntityAdapter&lt;SampleRecord&gt;()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sampleRecordSelectors"></a>
+                    <span class="name">
+                        <span ><b>sampleRecordSelectors</b></span>
+                        <a href="#sampleRecordSelectors"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>sampleRecordAdapter.getSelectors()</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sampleRecordsFeature"></a>
+                    <span class="name">
+                        <span ><b>sampleRecordsFeature</b></span>
+                        <a href="#sampleRecordsFeature"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createFeature({
+  name: sampleRecordsFeatureKey,
+  reducer: sampleRecordsReducer,
+  extraSelectors: ({ selectCallState, selectSampleRecordsState }) &#x3D;&gt; ({
+    selectSampleRecordIds: createSelector(
+      selectSampleRecordsState,
+      (state) &#x3D;&gt; sampleRecordSelectors.selectIds(state)
+    ),
+    selectSampleRecordEntities: createSelector(
+      selectSampleRecordsState,
+      (state) &#x3D;&gt; sampleRecordSelectors.selectEntities(state)
+    ),
+    selectSampleRecordList: createSelector(
+      selectSampleRecordsState,
+      (state) &#x3D;&gt; sampleRecordSelectors.selectAll(state)
+    ),
+    selectSampleRecordTotal: createSelector(
+      selectSampleRecordsState,
+      (state) &#x3D;&gt; sampleRecordSelectors.selectTotal(state)
+    ),
+    getSampleRecordsError: createSelector(selectCallState, getError),
+    sampleRecordsIsLoading: createSelector(
+      selectCallState,
+      (callState) &#x3D;&gt; callState &#x3D;&#x3D;&#x3D; LoadingState.LOADING
+    ),
+    sampleRecordsIsLoaded: createSelector(
+      selectCallState,
+      (callState) &#x3D;&gt; callState &#x3D;&#x3D;&#x3D; LoadingState.LOADED
+    ),
+  }),
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sampleRecordsFeatureKey"></a>
+                    <span class="name">
+                        <span ><b>sampleRecordsFeatureKey</b></span>
+                        <a href="#sampleRecordsFeatureKey"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;sampleRecords&#x27;</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>The key for the sample-record feature state.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sampleRecordsReducer"></a>
+                    <span class="name">
+                        <span ><b>sampleRecordsReducer</b></span>
+                        <a href="#sampleRecordsReducer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createReducer(
+  initialState,
+  on(
+    SampleRecordActions.loadSampleRecords,
+    (state) &#x3D;&gt; ({ ...state, callState: LoadingState.LOADING })
+  ),
+  on(
+    SampleRecordActions.loadSampleRecordsSuccess,
+    (state, { data }) &#x3D;&gt;
+      sampleRecordAdapter.setAll(data, {
+        ...state,
+        callState: LoadingState.LOADED
+      })
+  ),
+  on(
+    SampleRecordActions.loadSampleRecordsFailure,
+    (state, { errorMsg }) &#x3D;&gt; ({
+      ...state,
+      callState: { errorMsg }
+    })
+  ),
+)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Reducer function for managing the sample-record state.
+Uses the createReducer function from</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name=""></a>
+                    <span class="name">
+                        <span ><b></b></span>
+                        <a href="#"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>sampleRecordsFeature</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/modules/features/sample-records/state/actions/sample-record.actions.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loadSampleRecords"></a>
+                    <span class="name">
+                        <span ><b>loadSampleRecords</b></span>
+                        <a href="#loadSampleRecords"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>createAction(
-  &#x27;[Customer] Load Customers&#x27;
+  &#x27;[Sample Records] Load Sample Records&#x27;
 )</code>
                     </td>
                 </tr>
@@ -566,18 +746,24 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="loadCustomersFailure"></a>
+                    <a name="loadSampleRecordsFailure"></a>
                     <span class="name">
-                        <span ><b>loadCustomersFailure</b></span>
-                        <a href="#loadCustomersFailure"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>loadSampleRecordsFailure</b></span>
+                        <a href="#loadSampleRecordsFailure"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>createAction(
-  &#x27;[Customer] Load Customers Failure&#x27;,
-  props&lt;{ errorMsg: any }&gt;()
+  &#x27;[Sample Records] Load Sample Records Failure&#x27;,
+  props&lt;{ errorMsg: string }&gt;()
 )</code>
                     </td>
                 </tr>
@@ -589,18 +775,24 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="loadCustomersSuccess"></a>
+                    <a name="loadSampleRecordsSuccess"></a>
                     <span class="name">
-                        <span ><b>loadCustomersSuccess</b></span>
-                        <a href="#loadCustomersSuccess"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>loadSampleRecordsSuccess</b></span>
+                        <a href="#loadSampleRecordsSuccess"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Type : </i>    <code>unknown</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Default value : </i><code>createAction(
-  &#x27;[Customer] Load Customers Success&#x27;,
-  props&lt;{ data: ICustomer[] }&gt;()
+  &#x27;[Sample Records] Load Sample Records Success&#x27;,
+  props&lt;{ data: SampleRecord[] }&gt;()
 )</code>
                     </td>
                 </tr>
@@ -610,7 +802,7 @@ Uses the createReducer function from @ngrx/store to generate the reducer.</p>
     </table>
 </section>
     <h3>src/app/reducers/index.ts</h3>
-    <section>
+    <section data-compodoc="block-properties">
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -664,8 +856,7 @@ These are functions that can modify the behavior of the reducers.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-  router: routerReducer,
-  [custReducer.customerFeatureKey]: custReducer.customersReducer
+  router: routerReducer
 }</code>
                     </td>
                 </tr>
@@ -676,6 +867,44 @@ These are functions that can modify the behavior of the reducers.</p>
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/modules/features/sample-records/sample-records.routes.ts</h3>
+    <section data-compodoc="block-properties">
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SAMPLE_RECORDS_ROUTES"></a>
+                    <span class="name">
+                        <span ><b>SAMPLE_RECORDS_ROUTES</b></span>
+                        <a href="#SAMPLE_RECORDS_ROUTES"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://angular.io/api/router/Routes" target="_blank" >Routes</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+  {
+    path: &#x27;&#x27;,
+    component: SampleRecordsPageComponent,
+    providers: [
+      &quot;provideState(sampleRecordsFeature)&quot;,
+      &quot;provideEffects(SampleRecordEffects)&quot;
+    ]
+  }
+]</code>
+                    </td>
+                </tr>
+
 
         </tbody>
     </table>
@@ -713,6 +942,19 @@ These are functions that can modify the behavior of the reducers.</p>
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
        <script src="../js/libs/custom-elements.min.js"></script>
        <script src="../js/libs/lit-html.js"></script>
 
@@ -724,7 +966,6 @@ These are functions that can modify the behavior of the reducers.</p>
        <script src="../js/libs/es6-shim.min.js"></script>
        <script src="../js/libs/EventDispatcher.js"></script>
        <script src="../js/libs/promise.min.js"></script>
-       <script src="../js/libs/zepto.min.js"></script>
 
        <script src="../js/compodoc.js"></script>
 
