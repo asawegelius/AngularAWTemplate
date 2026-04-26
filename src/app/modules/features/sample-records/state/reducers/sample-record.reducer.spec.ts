@@ -1,24 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-import { reducer, initialState, sampleRecordsReducer } from './sample-record.reducer';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
+import { initialState, reducer, sampleRecordAdapter, sampleRecordsReducer } from './sample-record.reducer';
 import { loadSampleRecords, loadSampleRecordsFailure, loadSampleRecordsSuccess } from '../actions/sample-record.actions';
 import { LoadingState } from 'src/app/modules/core/utils/call-state';
 import { MockSampleRecord } from '../mock-models';
 
 describe('Sample Record Reducer', () => {
-  let store: any;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        provideMockStore({ initialState }),
-      ]
-    });
-
-    store = TestBed.inject(MockStore);
-  });
-
-
   describe('an unknown action', () => {
     it('should return the previous state', () => {
       const action = {} as any;
@@ -42,7 +27,7 @@ describe('Sample Record Reducer', () => {
     const state = sampleRecordsReducer(initialState, action);
   
     expect(state.callState).toBe(LoadingState.LOADED);
-    expect(state.data).toEqual(mockSampleRecords);
+    expect(sampleRecordAdapter.getSelectors().selectAll(state)).toEqual(mockSampleRecords);
   });
 
   it('should set the call state to the error when loading sample records fails', () => {

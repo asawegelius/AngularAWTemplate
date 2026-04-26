@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { of } from 'rxjs';
 import { SampleRecordsComponent } from '../sample-records/sample-records.component';
 import { SampleRecordsPageComponent } from './sample-records-page.component';
+import { SampleRecordsFacade } from '../../state/sample-records.facade';
+import type { Mocked } from 'vitest';
 
 @Component({
   selector: 'app-sample-records',
@@ -16,12 +18,19 @@ export class SampleRecordsStubComponent {
 describe('SampleRecordsPageComponent', () => {
   let component: SampleRecordsPageComponent;
   let fixture: ComponentFixture<SampleRecordsPageComponent>;
-  let store: MockStore;
+  let sampleRecordsFacade: Mocked<Pick<SampleRecordsFacade, 'sampleRecords$' | 'loadSampleRecords'>>;
 
   beforeEach(async () => {
+    sampleRecordsFacade = {
+      sampleRecords$: of([]),
+      loadSampleRecords: vi.fn()
+    } as unknown as Mocked<Pick<SampleRecordsFacade, 'sampleRecords$' | 'loadSampleRecords'>>;
+
     const testBed = TestBed.configureTestingModule({
       imports: [SampleRecordsPageComponent, SampleRecordsStubComponent],
-      providers: [provideMockStore()]
+      providers: [
+        { provide: SampleRecordsFacade, useValue: sampleRecordsFacade }
+      ]
     });
 
     testBed.overrideComponent(SampleRecordsPageComponent, {
@@ -37,8 +46,6 @@ describe('SampleRecordsPageComponent', () => {
   });
 
   beforeEach(() => {
-    
-    store = TestBed.inject(MockStore);
     fixture = TestBed.createComponent(SampleRecordsPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -46,5 +53,9 @@ describe('SampleRecordsPageComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should load sample records on init', () => {
+    expect(sampleRecordsFacade.loadSampleRecords).toHaveBeenCalled();
   });
 });
