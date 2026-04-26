@@ -1,39 +1,39 @@
 {
-    "customers": [
+    "sample-records": [
       {
-        "customerId": 1,
-        "firstName": "John",
-        "lastName": "Doe",
-        "phoneNumber": "+1-555-555-5555",
-        "emailAddress": "john.doe@example.com",
-        "startDate": "2022-03-01T00:00:00.000Z",
-        "type": {
-          "type": "Regular",
-          "description": "Regular customer"
+        "id": 1,
+        "title": "Website refresh",
+        "owner": "Alex Johnson",
+        "phone": "+1-555-0100",
+        "email": "alex.johnson@example.com",
+        "createdAt": "2024-03-01T00:00:00.000Z",
+        "category": {
+          "key": "design",
+          "label": "Design"
         }
       },
       {
-        "customerId": 2,
-        "firstName": "Jane",
-        "lastName": "Doe",
-        "phoneNumber": "+1-555-555-5555",
-        "emailAddress": "jane.doe@example.com",
-        "startDate": "2021-01-01T00:00:00.000Z",
-        "type": {
-          "type": "Premium",
-          "description": "Premium customer"
+        "id": 2,
+        "title": "Launch checklist",
+        "owner": "Maya Chen",
+        "phone": "+1-555-0101",
+        "email": "maya.chen@example.com",
+        "createdAt": "2024-01-15T00:00:00.000Z",
+        "category": {
+          "key": "ops",
+          "label": "Operations"
         }
       },
       {
-        "customerId": 3,
-        "firstName": "Bob",
-        "lastName": "Smith",
-        "phoneNumber": "+1-555-555-5555",
-        "emailAddress": "bob.smith@example.com",
-        "startDate": "2021-05-01T00:00:00.000Z",
-        "type": {
-          "type": "Regular",
-          "description": "Regular customer"
+        "id": 3,
+        "title": "Support handoff",
+        "owner": "Priya Patel",
+        "phone": "+1-555-0102",
+        "email": "priya.patel@example.com",
+        "createdAt": "2023-11-05T00:00:00.000Z",
+        "category": {
+          "key": "support",
+          "label": "Support"
         }
       }
     ]
