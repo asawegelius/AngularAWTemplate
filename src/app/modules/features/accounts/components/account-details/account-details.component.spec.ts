@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountDetailsComponent } from './account-details.component';
 
@@ -7,9 +7,14 @@ import { AccountDetailsComponent } from './account-details.component';
   standalone: false,
   template: '<ng-content></ng-content>'
 })
-class ModalStubComponent {
+export class ModalStubComponent {
   @Input() size?: string;
 }
+
+@NgModule({
+  declarations: [AccountDetailsComponent, ModalStubComponent]
+})
+class AccountDetailsTestModule {}
 
 describe('AccountDetailsComponent', () => {
   let component: AccountDetailsComponent;
@@ -17,7 +22,7 @@ describe('AccountDetailsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AccountDetailsComponent, ModalStubComponent ]
+      imports: [AccountDetailsTestModule]
     })
     .compileComponents();
 

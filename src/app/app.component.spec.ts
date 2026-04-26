@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
@@ -8,17 +8,18 @@ import { AppComponent } from './app.component';
   standalone: false,
   template: ''
 })
-class SideNavigationStubComponent {}
+export class SideNavigationStubComponent {}
+
+@NgModule({
+  declarations: [AppComponent, SideNavigationStubComponent],
+  imports: [RouterTestingModule]
+})
+class AppComponentTestModule {}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule],
-      declarations: [
-        AppComponent,
-        SideNavigationStubComponent
-      ],
-      providers: []
+      imports: [AppComponentTestModule]
     }).compileComponents();
   });
 

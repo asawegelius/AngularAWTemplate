@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, NgModule, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CustomersTableService } from '../../services/customers-table.service';
+import { EditRowInfo } from 'src/app/modules/shared/models/edit-row-info';
 
 import { CustomersComponent } from './customers.component';
 
@@ -8,10 +10,15 @@ import { CustomersComponent } from './customers.component';
   standalone: false,
   template: ''
 })
-class TableWithEditCellStubComponent {
+export class TableWithEditCellStubComponent {
   @Input() table: unknown;
-  @Output() update = new EventEmitter<unknown>();
+  @Output() update = new EventEmitter<EditRowInfo>();
 }
+
+@NgModule({
+  declarations: [CustomersComponent, TableWithEditCellStubComponent]
+})
+class CustomersComponentTestModule {}
 
 describe('CustomersComponent', () => {
   let component: CustomersComponent;
@@ -19,7 +26,8 @@ describe('CustomersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomersComponent, TableWithEditCellStubComponent ]
+      imports: [CustomersComponentTestModule],
+      providers: [CustomersTableService]
     })
     .compileComponents();
   });

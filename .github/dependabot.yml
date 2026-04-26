@@ -22,9 +22,9 @@ updates:
       testing-tooling:
         patterns:
           - "@types/*"
-          - jasmine-core
-          - karma*
+          - jsdom
           - typescript
+          - vitest
 
   - package-ecosystem: github-actions
     directory: /

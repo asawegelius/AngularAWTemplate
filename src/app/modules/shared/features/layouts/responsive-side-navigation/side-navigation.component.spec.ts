@@ -50,7 +50,7 @@ describe('SideNavigationComponent', () => {
   });
 
   it('should remove event listener on destroy', () => {
-    spyOn(component.mobileQuery, 'removeEventListener');
+    vi.spyOn(component.mobileQuery, 'removeEventListener');
     component.ngOnDestroy();
     expect(component.mobileQuery.removeEventListener).toHaveBeenCalled();
   });

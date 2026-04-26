@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CommonModule } from '@angular/common';
 import { TableWithEditCellComponent } from './table-with-edit-cell.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
+import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -11,6 +13,19 @@ import { TableService } from '../../../services/tables/table.service';
 import { of } from 'rxjs';
 import { TestType } from 'src/app/modules/core/features/API/services/resource.service.spec';
 
+@NgModule({
+  declarations: [TableWithEditCellComponent],
+  imports: [
+    CommonModule,
+    RouterTestingModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatTableModule
+  ]
+})
+class TableWithEditCellTestModule {}
+
 describe('TableWithEditCellComponent', () => {
   let component: TableWithEditCellComponent<TestType>;
   const table = new Table<TestType>([], [], new TableService<TestType>);
@@ -20,16 +35,10 @@ describe('TableWithEditCellComponent', () => {
   beforeEach(async () => {
 
     await TestBed.configureTestingModule({
-      declarations: [ TableWithEditCellComponent ],
       imports: [
-        RouterTestingModule,
-        MatIconModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatTableModule
+        TableWithEditCellTestModule
       ],
       providers: [
-        { provide: MatDialogRef, useValue: {} },
         { provide: MatDialog, useClass: MatDialogMock }  
     ]
     })
@@ -54,7 +63,7 @@ describe('TableWithEditCellComponent', () => {
 
   describe('ngOnInit', () => {
     it('should initialize the component', () => {
-      let spy = spyOn<any>(component, 'subscribe');
+      const spy = vi.spyOn(component as any, 'subscribe');
       component.ngOnInit();
       expect(component.dataSource).toBeTruthy();
       expect(spy).toHaveBeenCalled();
@@ -66,7 +75,7 @@ describe('TableWithEditCellComponent', () => {
   });
 
   it('should emit clicked event when icon is clicked', () => {
-    let clickedSpy = spyOn(component.clicked, 'emit');
+    const clickedSpy = vi.spyOn(component.clicked, 'emit');
     const testItem = { id: 1, name: 'test' };
     component.iconClicked(testItem);
     expect(clickedSpy).toHaveBeenCalledWith(testItem);
@@ -80,7 +89,7 @@ describe('TableWithEditCellComponent', () => {
       const subscription2 = of(null).subscribe();
       component.subscriptions.add(subscription1);
       component.subscriptions.add(subscription2);
-      spyOn(component.subscriptions, 'unsubscribe').and.callThrough();
+      vi.spyOn(component.subscriptions, 'unsubscribe');
       component.ngOnDestroy();
       expect(component.subscriptions.unsubscribe).toHaveBeenCalled();
     });
