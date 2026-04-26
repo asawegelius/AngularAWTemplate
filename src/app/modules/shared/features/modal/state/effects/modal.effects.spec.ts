@@ -6,14 +6,19 @@ import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Location } from '@angular/common';
 import { closeModals, openModals } from '../actions/modal.actions';
+import type { Mocked } from 'vitest';
 
 describe('ModalEffects', () => {
   let actions$: Observable<any>;
   let effects: ModalEffects;
   let router: Router;
   let location: Location;
-  const routerMock = jasmine.createSpyObj('Router', ['navigate']);
-  const locationMock = jasmine.createSpyObj('Location', ['back']);
+  const routerMock = {
+    navigate: vi.fn()
+  } as unknown as Mocked<Pick<Router, 'navigate'>>;
+  const locationMock = {
+    back: vi.fn()
+  } as unknown as Mocked<Pick<Location, 'back'>>;
 
 
   beforeEach(() => {
@@ -37,22 +42,20 @@ describe('ModalEffects', () => {
     expect(effects).toBeTruthy();
   });
 
-  it('should navigate to the specified path when openModals action is dispatched', (done) => {
+  it('should navigate to the specified path when openModals action is dispatched', () => {
     const props = { path: 'modal-path' };
     actions$ = of(openModals(props));
 
     effects.openModals$.subscribe((action) => {
       expect(action.path).toEqual('modal-path');
       expect(routerMock.navigate).toHaveBeenCalledWith([{ outlets: { modal: props.path } }]);
-      done();
     }).unsubscribe();
   });
 
-  it('should call Location.back() when closeModals action is dispatched', (done) => {
+  it('should call Location.back() when closeModals action is dispatched', () => {
     actions$ = of(closeModals);
     effects.closeModals$.subscribe().unsubscribe();
     expect(locationMock.back).toHaveBeenCalled();
-    done();
   });
 
 });

@@ -36,13 +36,12 @@ describe('ModalComponent', () => {
 
 
   describe('closeModal', () => {
-    it('should emit modalClose event', (done) => {
-      let storeSpy = spyOn(store, 'dispatch').and.callThrough();
+    it('should emit modalClose event', () => {
+      const storeSpy = vi.spyOn(store, 'dispatch');
 
       component.close();
       fixture.detectChanges();
       expect(storeSpy).toHaveBeenCalledTimes(1);
-      done();
     });
   });
 

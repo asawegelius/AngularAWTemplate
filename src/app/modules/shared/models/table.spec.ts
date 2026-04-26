@@ -33,13 +33,13 @@ describe('Table', () => {
 
   it('should return true for columns with links', () => {
     table.columnLinks.set('name', 'link');
-    expect(table.hasLink('name')).toBeTrue();
-    expect(table.hasLink('age')).toBeFalse();
+    expect(table.hasLink('name')).toBe(true);
+    expect(table.hasLink('age')).toBe(false);
   });
 
   it('should return true for editable columns', () => {
     table.editableColumns = ['name'];
-    expect(table.isEditable('name')).toBeTrue();
-    expect(table.isEditable('age')).toBeFalse();
+    expect(table.isEditable('name')).toBe(true);
+    expect(table.isEditable('age')).toBe(false);
   });
 });

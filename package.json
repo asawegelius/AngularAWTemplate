@@ -9,7 +9,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI",
+    "test:ci": "ng test --watch=false",
     "compodoc": "compodoc -p tsconfig.doc.json"
   },
   "private": true,
@@ -38,20 +38,15 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^20.2.0",
+    "@angular/build": "^20.2.0",
     "@angular/cli": "^20.2.0",
     "@angular/compiler-cli": "^20.2.0",
     "@compodoc/compodoc": "^1.2.1",
     "@ngrx/schematics": "^20.0.0",
-    "@types/jasmine": "~6.0.0",
     "@types/node": "^22.15.0",
-    "jasmine-core": "~5.10.0",
+    "jsdom": "^29.0.2",
     "json-server": "^0.17.3",
-    "karma": "~6.4.4",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.1",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "vitest": "^3.2.4"
   }
 }
