@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { SampleRecordsComponent } from '../sample-records/sample-records.component';
-import { loadSampleRecords } from '../../state/actions/sample-record.actions';
-import * as fromSampleRecords from '../../state/selectors/sample-record.selectors';
+import { SampleRecordsFacade } from '../../state/sample-records.facade';
 
 /**
  * Component for displaying sample records.
@@ -19,15 +17,15 @@ import * as fromSampleRecords from '../../state/selectors/sample-record.selector
 export class SampleRecordsPageComponent implements OnInit {
 
   /** An observable that emits the sample records. */
-  sampleRecords$ = this.store.select(fromSampleRecords.selectSampleRecordList);
+  sampleRecords$ = this.sampleRecordsFacade.sampleRecords$;
 
   /**
    * Creates an instance of SampleRecordsPageComponent.
    * @constructor
-   * @param {Store} store - The NgRx store.
+   * @param {SampleRecordsFacade} sampleRecordsFacade - Facade for sample-record state access.
    */
   constructor(
-    private store: Store,
+    private sampleRecordsFacade: SampleRecordsFacade,
   ) { }
 
   /**
@@ -39,11 +37,11 @@ export class SampleRecordsPageComponent implements OnInit {
   }
 
   /**
-   * Dispatches an action to load sample records from the store.
+   * Requests sample records through the feature facade.
    * @returns {void}
    */
   loadRecords(): void {
-    this.store.dispatch(loadSampleRecords());
+    this.sampleRecordsFacade.loadSampleRecords();
   }
 
 }
