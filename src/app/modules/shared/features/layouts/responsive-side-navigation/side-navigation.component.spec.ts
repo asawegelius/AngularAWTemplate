@@ -3,7 +3,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SideNavigationComponent } from './side-navigation.component';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ResponsiveSideNavigationModule } from './responsive-side-navigation.module';
 
 describe('SideNavigationComponent', () => {
   let component: SideNavigationComponent;
@@ -23,7 +22,7 @@ describe('SideNavigationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ResponsiveSideNavigationModule
+        SideNavigationComponent
       ],
       providers: [
         {

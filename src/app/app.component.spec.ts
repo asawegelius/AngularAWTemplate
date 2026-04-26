@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { ResponsiveSideNavigationModule } from './modules/shared/features/layouts/responsive-side-navigation/responsive-side-navigation.module';
+import { SideNavigationComponent } from './modules/shared/features/layouts/responsive-side-navigation/side-navigation.component';
 
 @Component({
   selector: 'app-side-navigation',
@@ -18,7 +18,7 @@ describe('AppComponent', () => {
 
     testBed.overrideComponent(AppComponent, {
       remove: {
-        imports: [ResponsiveSideNavigationModule]
+        imports: [SideNavigationComponent]
       },
       add: {
         imports: [SideNavigationStubComponent]

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SampleRecordsTableService } from '../../services/sample-records-table.service';
 import { EditRowInfo } from 'src/app/modules/shared/models/edit-row-info';
-import { TableWithEditCellModule } from 'src/app/modules/shared/components/tables/table-with-edit-cell/table-with-edit-cell.module';
+import { TableWithEditCellComponent } from 'src/app/modules/shared/components/tables/table-with-edit-cell/table-with-edit-cell.component';
 
 import { SampleRecordsComponent } from './sample-records.component';
 
@@ -28,7 +28,7 @@ describe('SampleRecordsComponent', () => {
 
     testBed.overrideComponent(SampleRecordsComponent, {
       remove: {
-        imports: [TableWithEditCellModule]
+        imports: [TableWithEditCellComponent]
       },
       add: {
         imports: [TableWithEditCellStubComponent]
