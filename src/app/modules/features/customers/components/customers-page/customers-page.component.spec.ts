@@ -1,6 +1,16 @@
+import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { CustomersPageComponent } from './customers-page.component';
+
+@Component({
+  selector: 'app-customers',
+  standalone: false,
+  template: ''
+})
+class CustomersStubComponent {
+  @Input() data: unknown;
+}
 
 describe('CustomersPageComponent', () => {
   let component: CustomersPageComponent;
@@ -9,7 +19,7 @@ describe('CustomersPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustomersPageComponent ],
+      declarations: [ CustomersPageComponent, CustomersStubComponent ],
       providers: [provideMockStore()]
     })
     .compileComponents();

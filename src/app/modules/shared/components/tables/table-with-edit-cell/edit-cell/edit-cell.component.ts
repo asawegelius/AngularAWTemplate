@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-edit-cell',
+  standalone: false,
   templateUrl: './edit-cell.component.html',
   styleUrls: ['./edit-cell.component.scss']
 })

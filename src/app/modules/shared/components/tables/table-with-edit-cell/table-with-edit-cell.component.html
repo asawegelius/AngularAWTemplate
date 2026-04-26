@@ -6,7 +6,7 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header> {{headers[i].name}} </mat-header-cell>
             <mat-cell *matCellDef="let data">
                 <div *ngIf="!tableColumns[i].icon && col!='toggleRow'">
-                    <a (click)="openDialog(data, col, $event, i)" *ngIf="dataTable.isEditable(col)">
+                    <a (click)="openDialog(data, col, $event)" *ngIf="dataTable.isEditable(col)">
                         <div class="editable">{{ data[col] }}</div>
                     </a>
                     <a *ngIf="!dataTable.isEditable(col)"

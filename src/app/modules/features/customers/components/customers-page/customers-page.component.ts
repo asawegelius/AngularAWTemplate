@@ -10,6 +10,7 @@ import * as fromCustomers from '../../state/selectors/customer.selectors';
  */
 @Component({
   selector: 'app-customers-page',
+  standalone: false,
   templateUrl: './customers-page.component.html',
   styleUrls: ['./customers-page.component.scss']
 })

@@ -4,7 +4,9 @@ import { Observable, lastValueFrom, of, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { ResourceService } from './resource.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 class MockResourceService extends ResourceService<any> {
   getResourceUrl(): string {
     return 'mock-resource';
@@ -59,7 +61,7 @@ describe('ResourceService', () => {
     resourceService.getList(index, page).subscribe(resources => {
       expect(resources).toEqual(list);
       expect(httpClientSpy.get.calls.count()).toBe(1);
-      expect(httpClientSpy.get.calls.first().args[0]).toBe(`/${url}?limit=${index}&offset=${page}`);
+      expect(httpClientSpy.get.calls.first().args[0]).toBe(`${url}?limit=${index}&offset=${page}`);
       done();
     });
   });
@@ -81,7 +83,7 @@ describe('ResourceService', () => {
     } catch (error) {
       expect(error).toEqual(new Error(errorResponse.message));
       expect(httpClientSpy.get.calls.count()).toBe(1);
-      expect(httpClientSpy.get.calls.first().args[0]).toBe(`/${url}?limit=${index}&offset=${page}`);
+      expect(httpClientSpy.get.calls.first().args[0]).toBe(`${url}?limit=${index}&offset=${page}`);
     }
   });
   
@@ -130,7 +132,7 @@ describe('ResourceService', () => {
       resourceService.get(resourceId).subscribe((result) => {
         expect(result).toEqual(resource);
         expect(httpClientSpy.get.calls.count()).toBe(1);
-        expect(httpClientSpy.get.calls.first().args[0]).toBe(`/${url}/${resourceId}`);
+        expect(httpClientSpy.get.calls.first().args[0]).toBe(`${url}/${resourceId}`);
         expect(resourceService.fromServerModel).toHaveBeenCalledWith(resource);
       });
     });
@@ -149,7 +151,7 @@ describe('ResourceService', () => {
       } catch (error) {
         expect(error).toEqual(new Error(errorResponse.message));
         expect(httpClientSpy.get.calls.count()).toBe(1);
-        expect(httpClientSpy.get.calls.first().args[0]).toBe(`/${url}/${resourceId}`);
+        expect(httpClientSpy.get.calls.first().args[0]).toBe(`${url}/${resourceId}`);
       }
     });
   });
@@ -162,7 +164,7 @@ describe('ResourceService', () => {
     resourceService.add(resource).subscribe((result) => {
       expect(result).toEqual(resource);
       expect(httpClientSpy.post.calls.count()).toBe(1);
-      expect(httpClientSpy.post.calls.first().args[0]).toBe(`/${url}`);
+      expect(httpClientSpy.post.calls.first().args[0]).toBe(url);
       expect(resourceService.toServerModel).toHaveBeenCalledWith(resource);
     });
   });
@@ -184,7 +186,7 @@ describe('ResourceService', () => {
     } catch (error) {
       expect(error).toEqual(new Error(errorResponse.message));
       expect(httpClientSpy.post.calls.count()).toBe(1);
-      expect(httpClientSpy.post.calls.first().args[0]).toBe(`/${url}`);
+      expect(httpClientSpy.post.calls.first().args[0]).toBe(url);
       expect(resourceService.toServerModel).toHaveBeenCalledWith(resource);
     }
   });
@@ -196,7 +198,7 @@ describe('ResourceService', () => {
     resourceService.delete(resourceId).subscribe((result) => {
       expect(result).toBe(null);
       expect(httpClientSpy.delete.calls.count()).toBe(1);
-      expect(httpClientSpy.delete.calls.first().args[0]).toBe(`/${url}/${resourceId}`);
+      expect(httpClientSpy.delete.calls.first().args[0]).toBe(`${url}/${resourceId}`);
     });
   });
   
@@ -216,7 +218,7 @@ describe('ResourceService', () => {
     } catch (error) {
       expect(error).toEqual(new Error(errorResponse.message));
       expect(httpClientSpy.delete.calls.count()).toBe(1);
-      expect(httpClientSpy.delete.calls.first().args[0]).toBe(`/${url}/${resourceId}`);
+      expect(httpClientSpy.delete.calls.first().args[0]).toBe(`${url}/${resourceId}`);
     }
   });
   
@@ -228,7 +230,7 @@ describe('ResourceService', () => {
     resourceService.update(updatedResource, resourceId).subscribe((result) => {
       expect(result).toEqual(updatedResource);
       expect(httpClientSpy.put.calls.count()).toBe(1);
-      expect(httpClientSpy.put.calls.first().args[0]).toBe(`/${url}/${resourceId}`);
+      expect(httpClientSpy.put.calls.first().args[0]).toBe(`${url}/${resourceId}`);
       expect(httpClientSpy.put.calls.first().args[1]).toEqual(updatedResource);
     });
   });
@@ -250,7 +252,7 @@ describe('ResourceService', () => {
     } catch (error) {
       expect(error).toEqual(new Error(errorResponse.message));
       expect(httpClientSpy.put.calls.count()).toBe(1);
-      expect(httpClientSpy.put.calls.first().args[0]).toBe(`/${url}/${resourceId}`);
+      expect(httpClientSpy.put.calls.first().args[0]).toBe(`${url}/${resourceId}`);
       expect(httpClientSpy.put.calls.first().args[1]).toEqual(updatedResource);
     }
   });

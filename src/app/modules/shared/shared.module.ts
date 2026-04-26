@@ -1,6 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
 import { TableWithEditCellComponent } from './components/tables/table-with-edit-cell/table-with-edit-cell.component';
 import { EditCellComponent } from './components/tables/table-with-edit-cell/edit-cell/edit-cell.component';
 import { RouterModule } from '@angular/router';
@@ -29,6 +30,7 @@ import { ResponsiveSideNavigationModule } from './features/layouts/responsive-si
     CommonModule,
     FormsModule,
     MatTableModule,
+    MatSortModule,
     MatDialogModule,
     MatIconModule,
     RouterModule,
@@ -39,10 +41,6 @@ import { ResponsiveSideNavigationModule } from './features/layouts/responsive-si
     ModalModule,
     TableWithEditCellComponent,
     EditCellComponent
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-    NO_ERRORS_SCHEMA
   ]
 })
 export class SharedModule { }

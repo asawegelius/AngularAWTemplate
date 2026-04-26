@@ -4,6 +4,7 @@ import { openModals } from 'src/app/modules/shared/features/modal/state/actions/
 
 @Component({
   selector: 'app-accounts-page',
+  standalone: false,
   templateUrl: './accounts-page.component.html',
   styleUrls: ['./accounts-page.component.scss']
 })

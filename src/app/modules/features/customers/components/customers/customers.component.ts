@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { DestroyRef, Component, Input, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { EditRowInfo } from 'src/app/modules/shared/models/edit-row-info';
 import { Table, TableColumn, TableHeader } from 'src/app/modules/shared/models/table';
@@ -7,12 +8,17 @@ import { CustomersTableService } from '../../services/customers-table.service';
 
 @Component({
   selector: 'app-customers',
+  standalone: false,
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss']
 })
 export class CustomersComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   @Input()
   data!: Observable<ICustomer[]>;
+
+  readonly table = this.getTable();
 
   constructor(private dataService: CustomersTableService) { }
 
@@ -45,7 +51,7 @@ export class CustomersComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.data?.subscribe(data => {
+    this.data?.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(data => {
       let initdata: ICustomer[] = [];
       data.forEach(element => {
         const newCustomer = { ...element, typeDescription: element.type.description }

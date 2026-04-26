@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
  * You can find the base URL in the environment files in the src/environments folder 
  * You use the {@link CreateUrlService} to combine them together with the parameters if there are any.
  */
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class Endpoints {
 
     public readonly ACCOUNTS: string = 'accounts';

@@ -8,12 +8,21 @@ import { RouterModule, Routes } from '@angular/router';
  * */
 const routes: Routes = [
   {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'customers'
+  },
+  {
     path: 'customers',
-    loadChildren: () => import('./modules/features/customers/customers-routing.module').then(m => m.CustomersRoutingModule)
+    loadChildren: () => import('./modules/features/customers/customers.module').then(m => m.CustomersModule)
   },
   {
     path: 'accounts',
     loadChildren: () => import('./modules/features/accounts/accounts.module').then(m => m.AccountsModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'customers'
   }
 ];
 

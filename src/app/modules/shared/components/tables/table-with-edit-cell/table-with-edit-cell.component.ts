@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { Subscription } from 'rxjs';
 import { EditRowInfo } from '../../../models/edit-row-info';
@@ -10,10 +10,11 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-table-with-edit-cell',
+  standalone: false,
   templateUrl: './table-with-edit-cell.component.html',
   styleUrls: ['./table-with-edit-cell.component.scss']
 })
-export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
+export class TableWithEditCellComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   subscriptions: Subscription = new Subscription();
   @Output() clicked: EventEmitter<T> = new EventEmitter<T>();
   @Output() update: EventEmitter<EditRowInfo> = new EventEmitter<EditRowInfo>();
@@ -61,7 +62,7 @@ export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
     return dialogConfig;
   }
 
-  public openDialog(row: any, col: string, event: MouseEvent, i: number) {
+  public openDialog(row: any, col: string, event: MouseEvent) {
     const dialogConfig = this.getDialogConfig(row, col, event);
     const dialogRef = this.dialog.open(EditCellComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(output => {
@@ -86,6 +87,9 @@ export class TableWithEditCellComponent<T> implements OnInit, OnDestroy {
     this.displayedColumns = this.table.displayedColumns;
     this.dataTable = this.table;
     this.dataSource.paginator = this.paginator;
+  }
+
+  ngAfterViewInit(): void {
     this.dataSource.sort = this.sort;
   }
 

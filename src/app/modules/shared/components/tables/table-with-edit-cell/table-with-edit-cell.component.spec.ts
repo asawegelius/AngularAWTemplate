@@ -1,7 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TableWithEditCellComponent } from './table-with-edit-cell.component';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Table } from '../../../models/table';
 import { TableService } from '../../../services/tables/table.service';
 import { of } from 'rxjs';
@@ -17,6 +21,13 @@ describe('TableWithEditCellComponent', () => {
 
     await TestBed.configureTestingModule({
       declarations: [ TableWithEditCellComponent ],
+      imports: [
+        RouterTestingModule,
+        MatIconModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatTableModule
+      ],
       providers: [
         { provide: MatDialogRef, useValue: {} },
         { provide: MatDialog, useClass: MatDialogMock }  

@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef } from '@angular/material/dialog';
-import { UntypedFormBuilder } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { EditCellComponent } from './edit-cell.component';
 
 describe('EditCellComponent', () => {
@@ -12,8 +14,15 @@ describe('EditCellComponent', () => {
     dialogRef = jasmine.createSpyObj('MatDialogRef', ['close']);
     await TestBed.configureTestingModule({
       declarations: [ EditCellComponent ],
+      imports: [
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule
+      ],
       providers: [
         { provide: MatDialogRef, useValue: dialogRef },
+        { provide: MAT_DIALOG_DATA, useValue: { data: 'test' } },
         UntypedFormBuilder
       ]
     })

@@ -7,6 +7,7 @@ import { CustomerEffects } from './state/effects/customer.effects';
 import { CustomersPageComponent } from './components/customers-page/customers-page.component';
 import { CustomersComponent } from './components/customers/customers.component';
 import { SharedModule } from '../../shared/shared.module';
+import { CustomersRoutingModule } from './customers-routing.module';
 
 
 
@@ -18,6 +19,7 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     SharedModule,
     CommonModule,
+    CustomersRoutingModule,
     StoreModule.forFeature(fromCustomer.customerFeatureKey, fromCustomer.reducer),
     EffectsModule.forFeature([CustomerEffects])
   ]

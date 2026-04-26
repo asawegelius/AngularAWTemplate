@@ -1,17 +1,15 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
 import { State } from 'src/app/reducers';
 import { closeModals } from '../../state/actions/modal.actions';
 
 @Component({
   selector: 'app-modal',
+  standalone: false,
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-export class ModalComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription = new Subscription();
-
+export class ModalComponent implements OnInit {
   @Input()
   size!: string;
   @Output() modalClose: EventEmitter<any> = new EventEmitter<any>();
@@ -32,13 +30,8 @@ export class ModalComponent implements OnInit, OnDestroy {
 
   }
 
-  
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   closeModal() {
-    this.subscriptions.add(this.store.dispatch(closeModals()));
+    this.store.dispatch(closeModals());
   }
 
   close() {

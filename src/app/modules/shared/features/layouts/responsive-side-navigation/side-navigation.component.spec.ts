@@ -1,19 +1,37 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SideNavigationComponent } from './side-navigation.component';
-import { ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ResponsiveSideNavigationModule } from './responsive-side-navigation.module';
 
 describe('SideNavigationComponent', () => {
   let component: SideNavigationComponent;
   let fixture: ComponentFixture<SideNavigationComponent>;
+  const mediaQueryListMock = {
+    matches: false,
+    media: '(max-width: 600px)',
+    onchange: null,
+    addListener: () => undefined,
+    removeListener: () => undefined,
+    addEventListener: () => undefined,
+    removeEventListener: () => undefined,
+    dispatchEvent: () => false
+  } as unknown as MediaQueryList;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SideNavigationComponent ],      
+      imports: [
+        RouterTestingModule,
+        ResponsiveSideNavigationModule
+      ],
       providers: [
-        ChangeDetectorRef,
-        MediaMatcher
+        {
+          provide: MediaMatcher,
+          useValue: {
+            matchMedia: () => mediaQueryListMock
+          }
+        }
       ]
     })
     .compileComponents();

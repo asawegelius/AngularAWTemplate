@@ -1,5 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
-import { MatSidenav } from '@angular/material/sidenav';
+import { Component } from '@angular/core';
 
 /**
  * The root component of the application.
@@ -7,14 +6,8 @@ import { MatSidenav } from '@angular/material/sidenav';
  */
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  /**
-   * The `MatSidenav` component for the application.
-   * @type {MatSidenav}
-   */
-  @ViewChild('sidenav')
-  sidenav!: MatSidenav;
-}
+export class AppComponent { }

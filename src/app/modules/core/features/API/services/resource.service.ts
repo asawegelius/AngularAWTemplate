@@ -21,6 +21,16 @@ export abstract class ResourceService<T> {
    */
   abstract getResourceUrl(): string;
 
+  private buildResourceUrl(...segments: Array<string | number>): string {
+    const [base, ...rest] = segments;
+    const normalizedBase = String(base).replace(/\/+$/, '');
+    const normalizedSegments = rest
+      .filter((segment) => segment !== null && segment !== undefined && segment !== '')
+      .map((segment) => encodeURIComponent(String(segment)));
+
+    return [normalizedBase, ...normalizedSegments].join('/');
+  }
+
   /**
    * Converts the client-side model object to the server-side model object.
    * By default, this method returns the entity object as is.
@@ -49,11 +59,11 @@ export abstract class ResourceService<T> {
    */
   getList(index: number, page: number): Observable<T[]> {
     const url = this.getResourceUrl();
-    let params = new HttpParams()
+    const params = new HttpParams()
       .set('limit', index.toString())
       .set('offset', page.toString());
 
-    return this.httpClient.get<T[]>(`/${url}?${params.toString()}`)
+    return this.httpClient.get<T[]>(`${url}?${params.toString()}`)
       .pipe(
         map((list) => list.map((item) => this.fromServerModel(item))),
         catchError(this.handleError)
@@ -79,8 +89,8 @@ export abstract class ResourceService<T> {
    * @returns An observable that emits a single resource.
    */
   get(id: string | number): Observable<T> {
-    const url = this.getResourceUrl();
-    return this.httpClient.get<T>(`/${url}/${id}`)
+    const url = this.buildResourceUrl(this.getResourceUrl(), id);
+    return this.httpClient.get<T>(url)
       .pipe(
         map((json) => this.fromServerModel(json)),
         catchError(this.handleError)
@@ -94,7 +104,7 @@ export abstract class ResourceService<T> {
    */
   add(resource: T): Observable<any> {
     const url = this.getResourceUrl();
-    return this.httpClient.post(`/${url}`, this.toServerModel(resource))
+    return this.httpClient.post(url, this.toServerModel(resource))
       .pipe(
         catchError(this.handleError)
       );
@@ -106,8 +116,8 @@ export abstract class ResourceService<T> {
    * @returns An observable that emits the response from the server.
    */
   delete(id: string | number): Observable<any> {
-    const url = this.getResourceUrl();
-    return this.httpClient.delete(`/${url}/${id}`)
+    const url = this.buildResourceUrl(this.getResourceUrl(), id);
+    return this.httpClient.delete(url)
       .pipe(
         catchError(this.handleError)
       );
@@ -119,8 +129,8 @@ export abstract class ResourceService<T> {
    * @returns An observable that emits the response from the server.
    */
   update(resource: T, id: string | number): Observable<any> {
-    const url = this.getResourceUrl();
-    return this.httpClient.put(`/${url}/${id}`, resource)
+    const url = this.buildResourceUrl(this.getResourceUrl(), id);
+    return this.httpClient.put(url, resource)
       .pipe(
         catchError(this.handleError)
       );

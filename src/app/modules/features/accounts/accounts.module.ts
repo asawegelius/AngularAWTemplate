@@ -16,7 +16,6 @@ import { AccountsComponent } from './components/accounts/accounts.component';
   ],
   imports: [
     MatButtonModule,
-    MatButtonModule,
     AccountsRoutingModule,
     SharedModule
   ],

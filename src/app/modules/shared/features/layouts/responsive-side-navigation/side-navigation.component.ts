@@ -3,6 +3,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-side-navigation',
+  standalone: false,
   templateUrl: './side-navigation.component.html',
   styleUrls: ['./side-navigation.component.scss']
 })
