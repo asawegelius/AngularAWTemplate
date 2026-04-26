@@ -1,24 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CommonModule } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { NgModule } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { UntypedFormBuilder } from '@angular/forms';
+import { TableWithEditCellModule } from '../table-with-edit-cell.module';
 import { EditCellComponent } from './edit-cell.component';
 import type { Mocked } from 'vitest';
-
-@NgModule({
-  declarations: [EditCellComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatFormFieldModule,
-    MatInputModule
-  ]
-})
-class EditCellTestModule {}
 
 describe('EditCellComponent', () => {
   let component: EditCellComponent;
@@ -32,7 +17,7 @@ describe('EditCellComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [
-        EditCellTestModule
+        TableWithEditCellModule
       ],
       providers: [
         { provide: MatDialogRef, useValue: dialogRef },

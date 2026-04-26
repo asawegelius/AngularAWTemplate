@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'sample-records',
-    loadChildren: () => import('./modules/features/sample-records/sample-records.module').then(m => m.SampleRecordsModule)
+    loadChildren: () => import('./modules/features/sample-records/sample-records.routes').then(m => m.SAMPLE_RECORDS_ROUTES)
   },
   {
     path: '**',
