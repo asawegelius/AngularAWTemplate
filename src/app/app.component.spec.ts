@@ -1,26 +1,31 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ResponsiveSideNavigationModule } from './modules/shared/features/layouts/responsive-side-navigation/responsive-side-navigation.module';
 
 @Component({
   selector: 'app-side-navigation',
-  standalone: false,
+  standalone: true,
   template: ''
 })
 export class SideNavigationStubComponent {}
 
-@NgModule({
-  declarations: [AppComponent, SideNavigationStubComponent],
-  imports: [RouterTestingModule]
-})
-class AppComponentTestModule {}
-
 describe('AppComponent', () => {
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponentTestModule]
-    }).compileComponents();
+    const testBed = TestBed.configureTestingModule({
+      imports: [AppComponent, SideNavigationStubComponent]
+    });
+
+    testBed.overrideComponent(AppComponent, {
+      remove: {
+        imports: [ResponsiveSideNavigationModule]
+      },
+      add: {
+        imports: [SideNavigationStubComponent]
+      }
+    });
+
+    await testBed.compileComponents();
   });
 
   it('should create the app', () => {

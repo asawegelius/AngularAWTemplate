@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { Params, RouterStateSnapshot } from "@angular/router";
 import { RouterStateSerializer } from '@ngrx/router-store';
 /**
@@ -16,6 +17,7 @@ export interface RouterState {
  * Implements the `RouterStateSerializer` interface to serialize the Angular router's
  * state to a plain JavaScript object.
  */
+@Injectable()
 export class RouterSerializer implements RouterStateSerializer<RouterState> {
 
     /**
