@@ -8,7 +8,5 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class Endpoints {
-
-    public readonly ACCOUNTS: string = 'accounts';
     public readonly CUSTOMERS: string = 'customers';
 }

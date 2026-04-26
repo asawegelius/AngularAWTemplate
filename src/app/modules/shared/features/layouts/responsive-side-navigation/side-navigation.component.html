@@ -8,13 +8,11 @@
                 fixedTopGap="56">
                 <mat-nav-list class="my-nav-list">
                     <a mat-list-item routerLink="/customers">Customers</a>
-                    <a mat-list-item routerLink="/accounts">Accounts</a>
                 </mat-nav-list>
             </mat-sidenav>
 
             <mat-sidenav-content>
                 <router-outlet></router-outlet>
-                <router-outlet name="modal"></router-outlet>
             </mat-sidenav-content>
         </mat-sidenav-container>
     <app-footer></app-footer>
