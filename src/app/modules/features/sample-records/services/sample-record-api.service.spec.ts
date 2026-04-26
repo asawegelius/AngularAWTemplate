@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Endpoints } from 'src/app/modules/core/features/API/utils/endpoints';
 import { SampleRecordApiService } from './sample-record-api.service';
 
 describe('SampleRecordApiService', () => {
@@ -8,8 +7,7 @@ describe('SampleRecordApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
-      providers: [Endpoints]
+      imports: [HttpClientTestingModule]
     });
     service = TestBed.inject(SampleRecordApiService);
   });
