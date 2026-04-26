@@ -12,10 +12,75 @@
         <link rel="stylesheet" href="./styles/dark.css">
     </head>
     <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
 
-        <div class="navbar navbar-default navbar-fixed-top visible-xs">
-            <a href="./" class="navbar-brand">angular-template documentation</a>
-            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+          <script>
+              // --- Iframe navigation tracking for Template Playground ---
+              function sendCurrentUrlToParent() {
+                  if (window.parent && window.parent !== window) {
+                      window.parent.postMessage({
+                          type: 'compodoc-iframe-navigate',
+                          url: window.location.pathname + window.location.hash
+                      }, '*');
+                  }
+              }
+              window.addEventListener('hashchange', sendCurrentUrlToParent, false);
+              window.addEventListener('popstate', sendCurrentUrlToParent, false);
+              window.addEventListener('DOMContentLoaded', sendCurrentUrlToParent, false);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">angular-template documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
         </div>
 
         <div class="xs-menu menu" id="mobile-menu">
@@ -24,7 +89,7 @@
 
         <div class="container-fluid main">
            <div class="row main">
-               <div class="hidden-xs menu">
+               <div class="d-none d-md-block menu">
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
@@ -49,8 +114,12 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-    <li>Documentation coverage</li>
+    <li class="breadcrumb-item">Documentation coverage</li>
 </ol>
 
 <div>
@@ -70,79 +139,79 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./components/AppComponent.html">src/app/app.component.ts</a>
+                        <a href="./components/AppComponent.html">src/app/app.component.ts</a>
             </td>
             <td>component</td>
             <td>AppComponent</td>
             <td align="right" data-sort="100">
                 <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(2/2)</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./miscellaneous/variables.html#appConfig">src/app/app.config.ts</a>
+            </td>
+            <td>variable</td>
+            <td>appConfig</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
             </td>
         </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./injectables/CreateUrlService.html">src/app/modules/core/features/API/services/create-url.service.ts</a>
+                        <a href="./miscellaneous/variables.html#APP_ROUTES">src/app/app.routes.ts</a>
+            </td>
+            <td>variable</td>
+            <td>APP_ROUTES</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="medium">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./injectables/ApiUrlService.html">src/app/modules/core/features/API/services/api-url.service.ts</a>
             </td>
             <td>injectable</td>
-            <td>CreateUrlService</td>
-            <td align="right" data-sort="80">
-                <span class="coverage-percent">80 %</span>
-                <span class="coverage-count">(4/5)</span>
+            <td>ApiUrlService</td>
+            <td align="right" data-sort="50">
+                <span class="coverage-percent">50 %</span>
+                <span class="coverage-count">(1/2)</span>
             </td>
         </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./injectables/ResourceService.html">src/app/modules/core/features/API/services/resource.service.ts</a>
+                        <a href="./injectables/ResourceService.html">src/app/modules/core/features/API/services/resource.service.ts</a>
             </td>
             <td>injectable</td>
             <td>ResourceService</td>
-            <td align="right" data-sort="83">
-                <span class="coverage-percent">83 %</span>
-                <span class="coverage-count">(10/12)</span>
-            </td>
-        </tr>
-        <tr class="medium">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./injectables/Endpoints.html">src/app/modules/core/features/API/utils/endpoints.ts</a>
-            </td>
-            <td>injectable</td>
-            <td>Endpoints</td>
-            <td align="right" data-sort="33">
-                <span class="coverage-percent">33 %</span>
-                <span class="coverage-count">(1/3)</span>
+            <td align="right" data-sort="76">
+                <span class="coverage-percent">76 %</span>
+                <span class="coverage-count">(10/13)</span>
             </td>
         </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/QueryStringParameters.html">src/app/modules/core/features/API/utils/query-string-parameters.ts</a>
+                        <a href="./miscellaneous/variables.html#API_ENDPOINTS">src/app/modules/core/features/API/utils/endpoints.ts</a>
             </td>
-            <td>class</td>
-            <td>QueryStringParameters</td>
-            <td align="right" data-sort="80">
-                <span class="coverage-percent">80 %</span>
-                <span class="coverage-count">(4/5)</span>
-            </td>
-        </tr>
-        <tr class="very-good">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./classes/UrlBuilder.html">src/app/modules/core/features/API/utils/url-builder.ts</a>
-            </td>
-            <td>class</td>
-            <td>UrlBuilder</td>
+            <td>variable</td>
+            <td>API_ENDPOINTS</td>
             <td align="right" data-sort="100">
                 <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(5/5)</span>
+                <span class="coverage-count">(1/1)</span>
             </td>
         </tr>
         <tr class="medium">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/ErrorState.html">src/app/modules/core/utils/call-state.ts</a>
+                        <a href="./interfaces/ErrorState.html">src/app/modules/core/utils/call-state.ts</a>
             </td>
             <td>interface</td>
             <td>ErrorState</td>
@@ -154,7 +223,7 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/IState.html">src/app/modules/core/utils/call-state.ts</a>
+                        <a href="./interfaces/IState.html">src/app/modules/core/utils/call-state.ts</a>
             </td>
             <td>interface</td>
             <td>IState</td>
@@ -166,7 +235,7 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/functions.html#getError">src/app/modules/core/utils/call-state.ts</a>
+                        <a href="./miscellaneous/functions.html#getError">src/app/modules/core/utils/call-state.ts</a>
             </td>
             <td>function</td>
             <td>getError</td>
@@ -175,61 +244,25 @@
                 <span class="coverage-count">(1/1)</span>
             </td>
         </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./components/AccountsPageComponent.html">src/app/modules/features/accounts/components/accounts-page/accounts-page.component.ts</a>
-            </td>
-            <td>component</td>
-            <td>AccountsPageComponent</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/3)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./components/AccountsComponent.html">src/app/modules/features/accounts/components/accounts/accounts.component.ts</a>
-            </td>
-            <td>component</td>
-            <td>AccountsComponent</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/3)</span>
-            </td>
-        </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/AccountPost.html">src/app/modules/features/accounts/models/account-post.interface.ts</a>
+                        <a href="./miscellaneous/typealiases.html#CallState">src/app/modules/core/utils/call-state.ts</a>
             </td>
-            <td>interface</td>
-            <td>AccountPost</td>
+            <td>type alias</td>
+            <td>CallState</td>
             <td align="right" data-sort="100">
                 <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(7/7)</span>
+                <span class="coverage-count">(1/1)</span>
             </td>
         </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/Account.html">src/app/modules/features/accounts/models/account.interface.ts</a>
-            </td>
-            <td>interface</td>
-            <td>Account</td>
-            <td align="right" data-sort="100">
-                <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(6/6)</span>
-            </td>
-        </tr>
-        <tr class="very-good">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./components/CustomersPageComponent.html">src/app/modules/features/customers/components/customers-page/customers-page.component.ts</a>
+                        <a href="./components/SampleRecordsPageComponent.html">src/app/modules/features/sample-records/components/sample-records-page/sample-records-page.component.ts</a>
             </td>
             <td>component</td>
-            <td>CustomersPageComponent</td>
+            <td>SampleRecordsPageComponent</td>
             <td align="right" data-sort="100">
                 <span class="coverage-percent">100 %</span>
                 <span class="coverage-count">(5/5)</span>
@@ -238,22 +271,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./components/CustomersComponent.html">src/app/modules/features/customers/components/customers/customers.component.ts</a>
+                        <a href="./components/SampleRecordsComponent.html">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts</a>
             </td>
             <td>component</td>
-            <td>CustomersComponent</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/6)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./interfaces/ICustomer.html">src/app/modules/features/customers/models/customer.interface.ts</a>
-            </td>
-            <td>interface</td>
-            <td>ICustomer</td>
+            <td>SampleRecordsComponent</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/8)</span>
@@ -262,34 +283,58 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/ICustomerType.html">src/app/modules/features/customers/models/customer.interface.ts</a>
+                        <a href="./interfaces/SampleRecord.html">src/app/modules/features/sample-records/models/sample-record.interface.ts</a>
             </td>
             <td>interface</td>
-            <td>ICustomerType</td>
+            <td>SampleRecord</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/8)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./interfaces/SampleRecordCategory.html">src/app/modules/features/sample-records/models/sample-record.interface.ts</a>
+            </td>
+            <td>interface</td>
+            <td>SampleRecordCategory</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/3)</span>
             </td>
         </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./miscellaneous/variables.html#SAMPLE_RECORDS_ROUTES">src/app/modules/features/sample-records/sample-records.routes.ts</a>
+            </td>
+            <td>variable</td>
+            <td>SAMPLE_RECORDS_ROUTES</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./injectables/CustomerApiService.html">src/app/modules/features/customers/services/customer-api.service.ts</a>
+                        <a href="./injectables/SampleRecordApiService.html">src/app/modules/features/sample-records/services/sample-record-api.service.ts</a>
             </td>
             <td>injectable</td>
-            <td>CustomerApiService</td>
-            <td align="right" data-sort="92">
-                <span class="coverage-percent">92 %</span>
-                <span class="coverage-count">(13/14)</span>
+            <td>SampleRecordApiService</td>
+            <td align="right" data-sort="84">
+                <span class="coverage-percent">84 %</span>
+                <span class="coverage-count">(11/13)</span>
             </td>
         </tr>
         <tr class="good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./injectables/CustomersTableService.html">src/app/modules/features/customers/services/customers-table.service.ts</a>
+                        <a href="./injectables/SampleRecordsTableService.html">src/app/modules/features/sample-records/services/sample-records-table.service.ts</a>
             </td>
             <td>injectable</td>
-            <td>CustomersTableService</td>
+            <td>SampleRecordsTableService</td>
             <td align="right" data-sort="60">
                 <span class="coverage-percent">60 %</span>
                 <span class="coverage-count">(3/5)</span>
@@ -298,10 +343,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#loadCustomers">src/app/modules/features/customers/state/actions/customer.actions.ts</a>
+                        <a href="./miscellaneous/variables.html#loadSampleRecords">src/app/modules/features/sample-records/state/actions/sample-record.actions.ts</a>
             </td>
             <td>variable</td>
-            <td>loadCustomers</td>
+            <td>loadSampleRecords</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/1)</span>
@@ -310,10 +355,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#loadCustomersFailure">src/app/modules/features/customers/state/actions/customer.actions.ts</a>
+                        <a href="./miscellaneous/variables.html#loadSampleRecordsFailure">src/app/modules/features/sample-records/state/actions/sample-record.actions.ts</a>
             </td>
             <td>variable</td>
-            <td>loadCustomersFailure</td>
+            <td>loadSampleRecordsFailure</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/1)</span>
@@ -322,10 +367,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#loadCustomersSuccess">src/app/modules/features/customers/state/actions/customer.actions.ts</a>
+                        <a href="./miscellaneous/variables.html#loadSampleRecordsSuccess">src/app/modules/features/sample-records/state/actions/sample-record.actions.ts</a>
             </td>
             <td>variable</td>
-            <td>loadCustomersSuccess</td>
+            <td>loadSampleRecordsSuccess</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/1)</span>
@@ -334,10 +379,10 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./injectables/CustomerEffects.html">src/app/modules/features/customers/state/effects/customer.effects.ts</a>
+                        <a href="./injectables/SampleRecordEffects.html">src/app/modules/features/sample-records/state/effects/sample-record.effects.ts</a>
             </td>
             <td>injectable</td>
-            <td>CustomerEffects</td>
+            <td>SampleRecordEffects</td>
             <td align="right" data-sort="100">
                 <span class="coverage-percent">100 %</span>
                 <span class="coverage-count">(3/3)</span>
@@ -346,10 +391,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/MockCustomer.html">src/app/modules/features/customers/state/mock-models.ts</a>
+                        <a href="./classes/MockSampleRecord.html">src/app/modules/features/sample-records/state/mock-models.ts</a>
             </td>
             <td>class</td>
-            <td>MockCustomer</td>
+            <td>MockSampleRecord</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/8)</span>
@@ -358,67 +403,31 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/MockCustomerType.html">src/app/modules/features/customers/state/mock-models.ts</a>
+                        <a href="./classes/MockSampleRecordCategory.html">src/app/modules/features/sample-records/state/mock-models.ts</a>
             </td>
             <td>class</td>
-            <td>MockCustomerType</td>
+            <td>MockSampleRecordCategory</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/3)</span>
             </td>
         </tr>
-        <tr class="very-good">
+        <tr class="medium">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/State.html">src/app/modules/features/customers/state/reducers/customer.reducer.ts</a>
+                        <a href="./interfaces/State.html">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
             </td>
             <td>interface</td>
             <td>State</td>
-            <td align="right" data-sort="100">
-                <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(1/1)</span>
+            <td align="right" data-sort="50">
+                <span class="coverage-percent">50 %</span>
+                <span class="coverage-count">(1/2)</span>
             </td>
         </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/functions.html#reducer">src/app/modules/features/customers/state/reducers/customer.reducer.ts</a>
-            </td>
-            <td>function</td>
-            <td>reducer</td>
-            <td align="right" data-sort="100">
-                <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(1/1)</span>
-            </td>
-        </tr>
-        <tr class="very-good">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#customerFeatureKey">src/app/modules/features/customers/state/reducers/customer.reducer.ts</a>
-            </td>
-            <td>variable</td>
-            <td>customerFeatureKey</td>
-            <td align="right" data-sort="100">
-                <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(1/1)</span>
-            </td>
-        </tr>
-        <tr class="very-good">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#customersReducer">src/app/modules/features/customers/state/reducers/customer.reducer.ts</a>
-            </td>
-            <td>variable</td>
-            <td>customersReducer</td>
-            <td align="right" data-sort="100">
-                <span class="coverage-percent">100 %</span>
-                <span class="coverage-count">(1/1)</span>
-            </td>
-        </tr>
-        <tr class="very-good">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#initialState">src/app/modules/features/customers/state/reducers/customer.reducer.ts</a>
+                        <a href="./miscellaneous/variables.html#initialState">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
             </td>
             <td>variable</td>
             <td>initialState</td>
@@ -430,10 +439,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#customersIsLoaded">src/app/modules/features/customers/state/selectors/customer.selectors.ts</a>
+                        <a href="./miscellaneous/variables.html#sampleRecordAdapter">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
             </td>
             <td>variable</td>
-            <td>customersIsLoaded</td>
+            <td>sampleRecordAdapter</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/1)</span>
@@ -442,10 +451,10 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#customersIsLoading">src/app/modules/features/customers/state/selectors/customer.selectors.ts</a>
+                        <a href="./miscellaneous/variables.html#sampleRecordSelectors">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
             </td>
             <td>variable</td>
-            <td>customersIsLoading</td>
+            <td>sampleRecordSelectors</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/1)</span>
@@ -454,10 +463,46 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#getCustomersError">src/app/modules/features/customers/state/selectors/customer.selectors.ts</a>
+                        <a href="./miscellaneous/variables.html#sampleRecordsFeature">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
             </td>
             <td>variable</td>
-            <td>getCustomersError</td>
+            <td>sampleRecordsFeature</td>
+            <td align="right" data-sort="0">
+                <span class="coverage-percent">0 %</span>
+                <span class="coverage-count">(0/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./miscellaneous/variables.html#sampleRecordsFeatureKey">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
+            </td>
+            <td>variable</td>
+            <td>sampleRecordsFeatureKey</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="very-good">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./miscellaneous/variables.html#sampleRecordsReducer">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
+            </td>
+            <td>variable</td>
+            <td>sampleRecordsReducer</td>
+            <td align="right" data-sort="100">
+                <span class="coverage-percent">100 %</span>
+                <span class="coverage-count">(1/1)</span>
+            </td>
+        </tr>
+        <tr class="low">
+            <td>
+                <!-- miscellaneous -->
+                        <a href="./miscellaneous/variables.html#">src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</a>
+            </td>
+            <td>variable</td>
+            <td></td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
                 <span class="coverage-count">(0/1)</span>
@@ -466,31 +511,19 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#getCustomerState">src/app/modules/features/customers/state/selectors/customer.selectors.ts</a>
+                        <a href="./injectables/SampleRecordsFacade.html">src/app/modules/features/sample-records/state/sample-records.facade.ts</a>
             </td>
-            <td>variable</td>
-            <td>getCustomerState</td>
+            <td>injectable</td>
+            <td>SampleRecordsFacade</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/1)</span>
+                <span class="coverage-count">(0/7)</span>
             </td>
         </tr>
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#selectCustomerList">src/app/modules/features/customers/state/selectors/customer.selectors.ts</a>
-            </td>
-            <td>variable</td>
-            <td>selectCustomerList</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/1)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./components/EditCellComponent.html">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts</a>
+                        <a href="./components/EditCellComponent.html">src/app/modules/shared/components/tables/table-with-edit-cell/edit-cell/edit-cell.component.ts</a>
             </td>
             <td>component</td>
             <td>EditCellComponent</td>
@@ -502,31 +535,31 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./components/TableWithEditCellComponent.html">src/app/modules/shared/components/tables/table-with-edit-cell/table-with-edit-cell.component.ts</a>
+                        <a href="./components/TableWithEditCellComponent.html">src/app/modules/shared/components/tables/table-with-edit-cell/table-with-edit-cell.component.ts</a>
             </td>
             <td>component</td>
             <td>TableWithEditCellComponent</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/23)</span>
+                <span class="coverage-count">(0/24)</span>
             </td>
         </tr>
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./components/FooterComponent.html">src/app/modules/shared/features/layouts/responsive-side-navigation/footer/footer.component.ts</a>
+                        <a href="./components/FooterComponent.html">src/app/modules/shared/features/layouts/responsive-side-navigation/footer/footer.component.ts</a>
             </td>
             <td>component</td>
             <td>FooterComponent</td>
             <td align="right" data-sort="0">
                 <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/3)</span>
+                <span class="coverage-count">(0/1)</span>
             </td>
         </tr>
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./components/SideNavigationComponent.html">src/app/modules/shared/features/layouts/responsive-side-navigation/side-navigation.component.ts</a>
+                        <a href="./components/SideNavigationComponent.html">src/app/modules/shared/features/layouts/responsive-side-navigation/side-navigation.component.ts</a>
             </td>
             <td>component</td>
             <td>SideNavigationComponent</td>
@@ -538,55 +571,7 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./components/ModalComponent.html">src/app/modules/shared/features/modal/components/modal/modal.component.ts</a>
-            </td>
-            <td>component</td>
-            <td>ModalComponent</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/10)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#closeModals">src/app/modules/shared/features/modal/state/actions/modal.actions.ts</a>
-            </td>
-            <td>variable</td>
-            <td>closeModals</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/1)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#openModals">src/app/modules/shared/features/modal/state/actions/modal.actions.ts</a>
-            </td>
-            <td>variable</td>
-            <td>openModals</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/1)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./injectables/ModalEffects.html">src/app/modules/shared/features/modal/state/effects/modal.effects.ts</a>
-            </td>
-            <td>injectable</td>
-            <td>ModalEffects</td>
-            <td align="right" data-sort="0">
-                <span class="coverage-percent">0 %</span>
-                <span class="coverage-count">(0/4)</span>
-            </td>
-        </tr>
-        <tr class="low">
-            <td>
-                <!-- miscellaneous -->
-                <a href="./interfaces/EditRowInfo.html">src/app/modules/shared/models/edit-row-info.ts</a>
+                        <a href="./interfaces/EditRowInfo.html">src/app/modules/shared/models/edit-row-info.ts</a>
             </td>
             <td>interface</td>
             <td>EditRowInfo</td>
@@ -598,7 +583,7 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/Table.html">src/app/modules/shared/models/table.ts</a>
+                        <a href="./classes/Table.html">src/app/modules/shared/models/table.ts</a>
             </td>
             <td>class</td>
             <td>Table</td>
@@ -610,7 +595,7 @@
         <tr class="medium">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/TableColumn.html">src/app/modules/shared/models/table.ts</a>
+                        <a href="./classes/TableColumn.html">src/app/modules/shared/models/table.ts</a>
             </td>
             <td>class</td>
             <td>TableColumn</td>
@@ -622,7 +607,7 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/TableHeader.html">src/app/modules/shared/models/table.ts</a>
+                        <a href="./classes/TableHeader.html">src/app/modules/shared/models/table.ts</a>
             </td>
             <td>class</td>
             <td>TableHeader</td>
@@ -634,7 +619,7 @@
         <tr class="good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./injectables/TableService.html">src/app/modules/shared/services/tables/table.service.ts</a>
+                        <a href="./injectables/TableService.html">src/app/modules/shared/services/tables/table.service.ts</a>
             </td>
             <td>injectable</td>
             <td>TableService</td>
@@ -646,19 +631,19 @@
         <tr class="medium">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/State.html">src/app/reducers/index.ts</a>
+                        <a href="./interfaces/State.html">src/app/reducers/index.ts</a>
             </td>
             <td>interface</td>
             <td>State</td>
-            <td align="right" data-sort="33">
-                <span class="coverage-percent">33 %</span>
-                <span class="coverage-count">(1/3)</span>
+            <td align="right" data-sort="50">
+                <span class="coverage-percent">50 %</span>
+                <span class="coverage-count">(1/2)</span>
             </td>
         </tr>
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#metaReducers">src/app/reducers/index.ts</a>
+                        <a href="./miscellaneous/variables.html#metaReducers">src/app/reducers/index.ts</a>
             </td>
             <td>variable</td>
             <td>metaReducers</td>
@@ -670,7 +655,7 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#reducers">src/app/reducers/index.ts</a>
+                        <a href="./miscellaneous/variables.html#reducers">src/app/reducers/index.ts</a>
             </td>
             <td>variable</td>
             <td>reducers</td>
@@ -682,9 +667,9 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./classes/RouterSerializer.html">src/app/reducers/router-serializer.ts</a>
+                        <a href="./injectables/RouterSerializer.html">src/app/reducers/router-serializer.ts</a>
             </td>
-            <td>class</td>
+            <td>injectable</td>
             <td>RouterSerializer</td>
             <td align="right" data-sort="100">
                 <span class="coverage-percent">100 %</span>
@@ -694,7 +679,7 @@
         <tr class="very-good">
             <td>
                 <!-- miscellaneous -->
-                <a href="./interfaces/RouterState.html">src/app/reducers/router-serializer.ts</a>
+                        <a href="./interfaces/RouterState.html">src/app/reducers/router-serializer.ts</a>
             </td>
             <td>interface</td>
             <td>RouterState</td>
@@ -706,7 +691,7 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#environment">src/environments/environment.dev.ts</a>
+                        <a href="./miscellaneous/variables.html#environment">src/environments/environment.dev.ts</a>
             </td>
             <td>variable</td>
             <td>environment</td>
@@ -718,7 +703,7 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#environment">src/environments/environment.mock.ts</a>
+                        <a href="./miscellaneous/variables.html#environment">src/environments/environment.mock.ts</a>
             </td>
             <td>variable</td>
             <td>environment</td>
@@ -730,7 +715,7 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#environment">src/environments/environment.prod.ts</a>
+                        <a href="./miscellaneous/variables.html#environment">src/environments/environment.prod.ts</a>
             </td>
             <td>variable</td>
             <td>environment</td>
@@ -742,7 +727,7 @@
         <tr class="low">
             <td>
                 <!-- miscellaneous -->
-                <a href="./miscellaneous/variables.html#environment">src/environments/environment.ts</a>
+                        <a href="./miscellaneous/variables.html#environment">src/environments/environment.ts</a>
             </td>
             <td>variable</td>
             <td>environment</td>
@@ -790,6 +775,19 @@
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
        <script src="./js/libs/custom-elements.min.js"></script>
        <script src="./js/libs/lit-html.js"></script>
 
@@ -801,7 +799,6 @@
        <script src="./js/libs/es6-shim.min.js"></script>
        <script src="./js/libs/EventDispatcher.js"></script>
        <script src="./js/libs/promise.min.js"></script>
-       <script src="./js/libs/zepto.min.js"></script>
 
        <script src="./js/compodoc.js"></script>
 
