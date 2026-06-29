@@ -41,7 +41,7 @@
     "@angular/build": "^20.2.0",
     "@angular/cli": "^20.2.0",
     "@angular/compiler-cli": "^20.2.0",
-    "@compodoc/compodoc": "^1.2.1",
+    "@compodoc/compodoc": "^2.0.0",
     "@ngrx/schematics": "^20.0.0",
     "@types/node": "^22.15.0",
     "jsdom": "^29.0.2",
