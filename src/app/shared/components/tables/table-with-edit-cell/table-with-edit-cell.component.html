@@ -1,33 +1,44 @@
 <div class="mat-elevation-z8">
-    <mat-table #table [dataSource]="dataSource" matSort *ngIf="isDataLoaded">
-
-        <ng-container [matColumnDef]="col" *ngFor="let col of displayedColumns;let i = index; trackBy: trackByFn;">
-
-            <mat-header-cell *matHeaderCellDef mat-sort-header> {{headers[i].name}} </mat-header-cell>
-            <mat-cell *matCellDef="let data">
-                <div *ngIf="!tableColumns[i].icon && col!='toggleRow'">
-                    <a (click)="openDialog(data, col, $event)" *ngIf="dataTable.isEditable(col)">
-                        <div class="editable">{{ data[col] }}</div>
-                    </a>
-                    <a *ngIf="!dataTable.isEditable(col)"
-                        [routerLink]="dataTable.hasLink(col) ? null : dataTable.columnLinks.get(col)">
-                        {{ data[col] }} {{dataTable.columnLinks.get(col)}}
-                    </a>
-                </div>
-                <a (click)="iconClicked(data[col])" *ngIf="tableColumns[i].icon">
-                    <mat-icon color="primary" class="icon-btn icon-md" svgIcon="{{displayedColumns[i]}}"></mat-icon>
-                </a>
-                <div class="rowToggleBtn md-collapse" [hidden]="col!='toggleRow'"
-                    *ngIf="!tableColumns[i].icon && col=='toggleRow'">
-                    <mat-icon class="more-icon fill-inherit primary-text" svgIcon="menu-more"></mat-icon>
-                </div>
-            </mat-cell>
+  @if (isDataLoaded) {
+    <mat-table #table [dataSource]="dataSource" matSort>
+      @for (col of displayedColumns; track trackByFn(i, col); let i = $index) {
+        <ng-container [matColumnDef]="col">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> {{headers[i].name}} </mat-header-cell>
+          <mat-cell *matCellDef="let data">
+            @if (!tableColumns[i].icon && col!='toggleRow') {
+              <div>
+                @if (dataTable.isEditable(col)) {
+                  <a (click)="openDialog(data, col, $event)">
+                    <div class="editable">{{ data[col] }}</div>
+                  </a>
+                }
+                @if (!dataTable.isEditable(col)) {
+                  <a
+                    [routerLink]="dataTable.hasLink(col) ? null : dataTable.columnLinks.get(col)">
+                    {{ data[col] }} {{dataTable.columnLinks.get(col)}}
+                  </a>
+                }
+              </div>
+            }
+            @if (tableColumns[i].icon) {
+              <a (click)="iconClicked(data[col])">
+                <mat-icon color="primary" class="icon-btn icon-md" svgIcon="{{displayedColumns[i]}}"></mat-icon>
+              </a>
+            }
+            @if (!tableColumns[i].icon && col=='toggleRow') {
+              <div class="rowToggleBtn md-collapse" [hidden]="col!='toggleRow'"
+                >
+                <mat-icon class="more-icon fill-inherit primary-text" svgIcon="menu-more"></mat-icon>
+              </div>
+            }
+          </mat-cell>
         </ng-container>
-
-        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      }
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
+  }
 
-    <mat-paginator [pageSizeOptions]=" [5, 10, 25, 100]">
-    </mat-paginator>
+  <mat-paginator [pageSizeOptions]=" [5, 10, 25, 100]">
+  </mat-paginator>
 </div>

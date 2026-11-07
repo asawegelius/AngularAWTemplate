@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Optional } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -10,12 +10,11 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'app-edit-cell',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule
-  ],
+],
   templateUrl: './edit-cell.component.html',
   styleUrls: ['./edit-cell.component.scss']
 })

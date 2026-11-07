@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
@@ -16,14 +16,13 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   selector: 'app-table-with-edit-cell',
   standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     MatDialogModule,
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule
-  ],
+],
   templateUrl: './table-with-edit-cell.component.html',
   styleUrls: ['./table-with-edit-cell.component.scss']
 })
