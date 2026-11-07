@@ -1,7 +1,7 @@
 <div class="mat-elevation-z8">
   @if (isDataLoaded) {
     <mat-table #table [dataSource]="dataSource" matSort>
-      @for (col of displayedColumns; track trackByFn(i, col); let i = $index) {
+      @for (col of displayedColumns; track col; let i = $index) {
         <ng-container [matColumnDef]="col">
           <mat-header-cell *matHeaderCellDef mat-sort-header> {{headers[i].name}} </mat-header-cell>
           <mat-cell *matCellDef="let data">

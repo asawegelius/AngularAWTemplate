@@ -85,12 +85,6 @@ export class TableWithEditCellComponent<T> implements OnInit, AfterViewInit, OnD
     });
   }
 
-  trackByFn(index: any, item: any) {
-    return item.id; // unique id corresponding to the item
-  }
-
-
-
   ngOnInit() {
     this.dataSource = new MatTableDataSource<T>([]);
     this.subscribe();
