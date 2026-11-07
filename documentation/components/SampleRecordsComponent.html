@@ -138,7 +138,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts</code>
+    <code>src/app/features/sample-records/components/sample-records/sample-records.component.ts</code>
 </p>
 
 
@@ -166,6 +166,12 @@
 
 
 
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/SampleRecordsTableService.html" target="_self" >SampleRecordsTableService</a></code>
+                </td>
+            </tr>
 
 
             <tr>
@@ -287,7 +293,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:24</a></div>
                             </td>
                         </tr>
 
@@ -343,7 +349,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:21</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:22</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -377,8 +383,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:28</a></div>
                         </td>
                     </tr>
 
@@ -414,8 +420,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="55"
-                                    class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:55</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:56</a></div>
                         </td>
                     </tr>
 
@@ -451,8 +457,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="51"
-                                    class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:51</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="52"
+                                    class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -530,7 +536,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -562,7 +568,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/modules/features/sample-records/components/sample-records/sample-records.component.ts:23</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/features/sample-records/components/sample-records/sample-records.component.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -578,16 +584,17 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DestroyRef, Component, Input, OnInit, inject } from &#x27;@angular/core&#x27;;
 import { takeUntilDestroyed } from &#x27;@angular/core/rxjs-interop&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import { EditRowInfo } from &#x27;src/app/modules/shared/models/edit-row-info&#x27;;
-import { Table, TableColumn, TableHeader } from &#x27;src/app/modules/shared/models/table&#x27;;
-import { TableWithEditCellComponent } from &#x27;src/app/modules/shared/components/tables/table-with-edit-cell/table-with-edit-cell.component&#x27;;
+import { EditRowInfo } from &#x27;@shared/components/tables/edit-row-info&#x27;;
+import { Table, TableColumn, TableHeader } from &#x27;@shared/components/tables/table&#x27;;
+import { TableWithEditCellComponent } from &#x27;@shared/components/tables/table-with-edit-cell/table-with-edit-cell.component&#x27;;
 import { SampleRecord } from &#x27;../../models/sample-record.interface&#x27;;
-import { SampleRecordsTableService } from &#x27;../../services/sample-records-table.service&#x27;;
+import { SampleRecordsTableService } from &#x27;./sample-records-table.service&#x27;;
 
 @Component({
   selector: &#x27;app-sample-records&#x27;,
   standalone: true,
   imports: [TableWithEditCellComponent],
+  providers: [SampleRecordsTableService],
   templateUrl: &#x27;./sample-records.component.html&#x27;,
   styleUrls: [&#x27;./sample-records.component.scss&#x27;]
 })

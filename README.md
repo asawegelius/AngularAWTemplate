@@ -63,14 +63,51 @@ If you want to run the mock API locally as well:
 
 ## Architecture
 
-The template uses Angular's standalone application model rather than root `NgModule` bootstrap.
+The template uses Angular's standalone application model and organizes code by responsibility and feature area. The structure is inspired by [Angular Best Practice File Structure Principles 2026](https://medium.com/@bolik/angular-best-practice-file-structure-principles-2026-41f1d1383cda).
 
 - Application bootstrap is configured in `src/app/app.config.ts`.
 - Top-level routes are defined in `src/app/app.routes.ts`.
 - Feature routes are lazy-loaded and can register their own providers, state, and effects.
 - Shared UI building blocks are also standalone components instead of wrapper modules.
 
-The current sample feature lives under `src/app/modules/features/sample-records` and demonstrates the default architectural direction of the template.
+```text
+src/app/
+  core/                              # Application-wide infrastructure
+    config/app-config.ts             # Typed APP_CONFIG injection token
+    http/                            # API URLs, reusable HTTP access, call state
+    routing/                         # Router state serialization
+    state/app-state.ts               # Root infrastructure reducers
+  shared/                            # Reusable presentation code
+    components/tables/               # Table components, models and data source
+  layout/                            # Application shell and navigation
+    side-navigation/
+    footer/
+  features/
+    sample-records/
+      pages/sample-records-page/      # Routed container using the facade
+      components/sample-records/     # Feature UI and its table data source
+      data-access/                   # Feature API client and endpoint paths
+      models/                        # Feature data contracts
+      state/                         # NgRx actions, reducer, selectors and effects
+      facade/                        # Component-facing feature API
+      testing/                       # Feature test fixtures
+      sample-records.routes.ts       # Feature providers, state and effects
+  app.component.*
+  app.config.ts
+  app.routes.ts
+```
+
+Dependency rules:
+
+- `core/` contains infrastructure shared across the application. It does not import features, layout, or shared UI.
+- `shared/` contains presentation components and their supporting types. It does not import core, layout, or business features.
+- `features/` owns business-specific code and may import `core/` and `shared/`. Features do not import one another's internals.
+- `layout/` owns the application shell, navigation links, and footer. It can use core and shared building blocks; feature screens are rendered through the router outlet.
+- Root application files compose the layers. `app.routes.ts` lazy-loads each feature's route configuration.
+
+Use `@core/*` and `@shared/*` for imports across layers, and relative imports within a feature or layer. Keep tests beside the code they exercise. Related table models and the generic table data source live with the table UI instead of in global `models/` or `services/` folders.
+
+When adding a feature, start with its route file and routed page. Add `data-access/`, `state/`, `facade/`, and other folders as responsibilities appear. Register feature services, state, and effects in the feature routes. Add infrastructure areas such as `core/auth/` or `core/access/` when the application needs them.
 
 ## State Management
 
@@ -87,31 +124,31 @@ The sample feature demonstrates a layered NgRx pattern:
 
 Relevant files:
 
-- `src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts`
-- `src/app/modules/features/sample-records/state/effects/sample-record.effects.ts`
-- `src/app/modules/features/sample-records/state/selectors/sample-record.selectors.ts`
-- `src/app/modules/features/sample-records/state/sample-records.facade.ts`
+- `src/app/features/sample-records/state/sample-record.reducer.ts`
+- `src/app/features/sample-records/state/sample-record.effects.ts`
+- `src/app/features/sample-records/state/sample-record.selectors.ts`
+- `src/app/features/sample-records/facade/sample-records.facade.ts`
 
-The app also includes root NgRx setup in `src/app/app.config.ts`, including router-store integration and devtools.
+The app also includes root NgRx setup in `src/app/app.config.ts`, including router-store integration and devtools. Root infrastructure state lives in `core/state/app-state.ts`; business state stays in its feature. The sample API client and facade are provided by the lazy feature route, while each sample table component provides its own table data source.
 
 ## API Layer
 
 The API layer is intentionally simple and explicit.
 
-- `src/app/modules/core/features/API/services/api-url.service.ts` joins the configured API base URL with endpoint paths.
-- `src/app/modules/core/features/API/utils/endpoints.ts` contains endpoint constants.
-- `src/app/modules/core/features/API/services/resource.service.ts` provides reusable CRUD-style behavior for feature API services.
+- `src/app/core/config/app-config.ts` exposes the typed `APP_CONFIG` token, defaulting to the selected environment's API URL. Override the token in application providers to supply runtime settings.
+- `src/app/core/http/api-url.service.ts` joins the configured API base URL with endpoint paths.
+- `src/app/core/http/resource.service.ts` provides reusable CRUD-style behavior for feature API services.
+- Feature endpoint constants live in their own `data-access/` folder so core has no knowledge of business resources.
 
 The sample feature API service shows the intended usage:
 
-- `src/app/modules/features/sample-records/services/sample-record-api.service.ts`
+- `src/app/features/sample-records/data-access/sample-record-api.service.ts`
 
 Example pattern:
 
 ```ts
-@Injectable({
-  providedIn: 'root'
-})
+// Register ProductApiService in the product feature's route providers.
+@Injectable()
 export class ProductApiService extends ResourceService<Product> {
   constructor(
     protected httpClient: HttpClient,
@@ -132,6 +169,8 @@ The template uses Angular's unit-test target with Vitest as the test runner.
 
 - Run all tests once with `npm run test:ci`
 - Run tests in watch mode with `npm run test`
+
+`src/app/app.routes.spec.ts` exercises the lazy feature with the real route providers, NgRx state and effects, and a mocked HTTP backend. It covers default and fallback redirects, record rendering, and API failures.
 
 The current local desktop environment can require elevated execution for Angular build and test commands because of a local `spawn EPERM` issue. That is an environment limitation, not a project-level requirement.
 

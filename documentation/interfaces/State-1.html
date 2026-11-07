@@ -140,7 +140,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</code>
+            <code>src/app/features/sample-records/state/sample-record.reducer.ts</code>
         </p>
 
 
@@ -228,9 +228,9 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { createFeature, createReducer, createSelector, on } from &#x27;@ngrx/store&#x27;;
 import { createEntityAdapter, EntityState } from &#x27;@ngrx/entity&#x27;;
-import { SampleRecord } from &#x27;../../models/sample-record.interface&#x27;;
-import * as SampleRecordActions from &#x27;../actions/sample-record.actions&#x27;;
-import { CallState, LoadingState, getError } from &#x27;src/app/modules/core/utils/call-state&#x27;;
+import { SampleRecord } from &#x27;../models/sample-record.interface&#x27;;
+import * as SampleRecordActions from &#x27;./sample-record.actions&#x27;;
+import { CallState, LoadingState, getError } from &#x27;@core/http/call-state&#x27;;
 
 /**
  * The key for the sample-record feature state.

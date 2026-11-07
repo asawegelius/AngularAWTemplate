@@ -13,7 +13,7 @@ export const APP_ROUTES: Routes = [
   },
   {
     path: 'sample-records',
-    loadChildren: () => import('./modules/features/sample-records/sample-records.routes').then(m => m.SAMPLE_RECORDS_ROUTES)
+    loadChildren: () => import('./features/sample-records/sample-records.routes').then(m => m.SAMPLE_RECORDS_ROUTES)
   },
   {
     path: '**',

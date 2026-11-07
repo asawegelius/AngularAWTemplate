@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SideNavigationComponent } from './modules/shared/features/layouts/responsive-side-navigation/side-navigation.component';
+import { SideNavigationComponent } from './layout/side-navigation/side-navigation.component';
 
 /**
  * The root component of the application.

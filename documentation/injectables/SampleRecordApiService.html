@@ -133,7 +133,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/features/sample-records/services/sample-record-api.service.ts</code>
+            <code>src/app/features/sample-records/data-access/sample-record-api.service.ts</code>
         </p>
 
 
@@ -224,7 +224,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/modules/features/sample-records/services/sample-record-api.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/features/sample-records/data-access/sample-record-api.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -316,7 +316,7 @@
                     </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in         <code><a href="../injectables/ResourceService.html#source" target="_self" >ResourceService:31</a></code>
+                                <div class="io-line">Defined in         <code><a href="../injectables/ResourceService.html#source" target="_self" >ResourceService:29</a></code>
 </div>
                         </td>
                     </tr>
@@ -1146,16 +1146,14 @@ By default, this method returns the entity object as is.</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
 import { Injectable } from &#x27;@angular/core&#x27;;
 import { SampleRecord } from &#x27;../models/sample-record.interface&#x27;;
-import { ResourceService } from &#x27;src/app/modules/core/features/API/services/resource.service&#x27;;
-import { ApiUrlService } from &#x27;src/app/modules/core/features/API/services/api-url.service&#x27;;
-import { API_ENDPOINTS } from &#x27;src/app/modules/core/features/API/utils/endpoints&#x27;;
+import { ResourceService } from &#x27;@core/http/resource.service&#x27;;
+import { ApiUrlService } from &#x27;@core/http/api-url.service&#x27;;
+import { API_ENDPOINTS } from &#x27;./sample-record.endpoints&#x27;;
 
 /**
  * A service to handle HTTP requests to the sample records API endpoint.
  */
-@Injectable({
-  providedIn: &#x27;root&#x27;
-})
+@Injectable()
 export class SampleRecordApiService extends ResourceService&lt;SampleRecord&gt; {
 
   /**

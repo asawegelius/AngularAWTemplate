@@ -6,6 +6,14 @@ The format is inspired by Keep a Changelog, and this repository uses Semantic Ve
 
 ## [Unreleased]
 
+### Changed
+
+- Reorganized the standalone application into top-level `core`, `shared`, `layout`, and `features` areas, removing the legacy `modules` hierarchy.
+- Split sample records into pages, components, data access, models, state, facade, and test fixtures. Feature endpoints now live with their API client.
+- Scoped feature API and facade providers to the lazy route and table data sources to individual components.
+- Added typed application API configuration and `@core/*` and `@shared/*` import aliases.
+- Updated architecture documentation and added integration coverage for lazy routing, data loading, rendering, and API failures.
+
 ## [0.1.0-beta.1] - 2026-04-26
 
 ### Added
