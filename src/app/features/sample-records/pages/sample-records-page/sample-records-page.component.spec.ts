@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { SampleRecordsComponent } from '../../components/sample-records/sample-records.component';
@@ -9,6 +9,7 @@ import type { Mocked } from 'vitest';
 @Component({
   selector: 'app-sample-records',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: ''
 })
 export class SampleRecordsStubComponent {

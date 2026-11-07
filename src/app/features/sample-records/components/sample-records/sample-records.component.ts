@@ -1,4 +1,4 @@
-import { DestroyRef, Component, Input, OnInit, inject } from '@angular/core';
+import { DestroyRef, Component, Input, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
 import { EditRowInfo } from '@shared/components/tables/edit-row-info';
@@ -13,6 +13,7 @@ import { SampleRecordsTableService } from './sample-records-table.service';
   imports: [TableWithEditCellComponent],
   providers: [SampleRecordsTableService],
   templateUrl: './sample-records.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./sample-records.component.scss']
 })
 export class SampleRecordsComponent implements OnInit {

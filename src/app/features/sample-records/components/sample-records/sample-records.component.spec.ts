@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SampleRecordsTableService } from './sample-records-table.service';
 import { EditRowInfo } from '@shared/components/tables/edit-row-info';
@@ -9,6 +9,7 @@ import { SampleRecordsComponent } from './sample-records.component';
 @Component({
   selector: 'app-table-with-edit-cell',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: ''
 })
 export class TableWithEditCellStubComponent {

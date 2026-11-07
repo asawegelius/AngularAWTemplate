@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Optional } from '@angular/core';
+import { Component, Inject, OnInit, Optional, ChangeDetectionStrategy } from '@angular/core';
 
 import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
     MatInputModule
 ],
   templateUrl: './edit-cell.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./edit-cell.component.scss']
 })
 export class EditCellComponent implements OnInit {

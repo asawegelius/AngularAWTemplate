@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SideNavigationComponent } from './layout/side-navigation/side-navigation.component';
 
 /**
@@ -10,6 +10,7 @@ import { SideNavigationComponent } from './layout/side-navigation/side-navigatio
   standalone: true,
   imports: [SideNavigationComponent],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent { }

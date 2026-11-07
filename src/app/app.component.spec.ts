@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { SideNavigationComponent } from './layout/side-navigation/side-navigation.component';
@@ -6,6 +6,7 @@ import { SideNavigationComponent } from './layout/side-navigation/side-navigatio
 @Component({
   selector: 'app-side-navigation',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: ''
 })
 export class SideNavigationStubComponent {}

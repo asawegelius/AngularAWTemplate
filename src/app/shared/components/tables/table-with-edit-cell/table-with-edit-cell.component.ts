@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -24,6 +24,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
     MatTableModule
 ],
   templateUrl: './table-with-edit-cell.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./table-with-edit-cell.component.scss']
 })
 export class TableWithEditCellComponent<T> implements OnInit, AfterViewInit, OnDestroy {
