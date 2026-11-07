@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { SampleRecordsComponent } from '../../components/sample-records/sample-records.component';
 import { SampleRecordsFacade } from '../../facade/sample-records.facade';
 
@@ -12,6 +12,7 @@ import { SampleRecordsFacade } from '../../facade/sample-records.facade';
   standalone: true,
   imports: [SampleRecordsComponent],
   templateUrl: './sample-records-page.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./sample-records-page.component.scss']
 })
 export class SampleRecordsPageComponent implements OnInit {

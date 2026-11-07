@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+
+import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatDialog, MatDialogConfig, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -16,15 +16,15 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
   selector: 'app-table-with-edit-cell',
   standalone: true,
   imports: [
-    CommonModule,
     RouterLink,
     MatDialogModule,
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule
-  ],
+],
   templateUrl: './table-with-edit-cell.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./table-with-edit-cell.component.scss']
 })
 export class TableWithEditCellComponent<T> implements OnInit, AfterViewInit, OnDestroy {
@@ -85,12 +85,6 @@ export class TableWithEditCellComponent<T> implements OnInit, AfterViewInit, OnD
       }
     });
   }
-
-  trackByFn(index: any, item: any) {
-    return item.id; // unique id corresponding to the item
-  }
-
-
 
   ngOnInit() {
     this.dataSource = new MatTableDataSource<T>([]);

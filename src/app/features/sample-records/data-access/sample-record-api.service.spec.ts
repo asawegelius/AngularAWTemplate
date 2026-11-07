@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { APP_CONFIG } from '@core/config/app-config';
 import { SampleRecordApiService } from './sample-record-api.service';
@@ -11,7 +11,7 @@ describe('SampleRecordApiService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        provideHttpClient(),
+        provideHttpClient(withXhr()),
         provideHttpClientTesting(),
         SampleRecordApiService,
         { provide: APP_CONFIG, useValue: { apiUrl: 'https://api.example.com/v1/' } }

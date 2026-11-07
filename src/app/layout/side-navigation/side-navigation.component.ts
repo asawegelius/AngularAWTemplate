@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatListModule } from '@angular/material/list';
@@ -22,6 +22,7 @@ import { FooterComponent } from '../footer/footer.component';
     MatListModule
   ],
   templateUrl: './side-navigation.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./side-navigation.component.scss']
 })
 export class SideNavigationComponent implements OnDestroy {
