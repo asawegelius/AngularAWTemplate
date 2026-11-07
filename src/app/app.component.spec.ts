@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
-import { SideNavigationComponent } from './modules/shared/features/layouts/responsive-side-navigation/side-navigation.component';
+import { SideNavigationComponent } from './layout/side-navigation/side-navigation.component';
 
 @Component({
   selector: 'app-side-navigation',

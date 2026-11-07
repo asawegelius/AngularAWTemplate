@@ -159,14 +159,46 @@ Runs the unit-test suite once without watch mode.</li>
 Generates the static documentation site in <code>documentation/</code>.</li>
 </ul>
 <h2>Architecture</h2>
-<p>The template uses Angular&#39;s standalone application model rather than root <code>NgModule</code> bootstrap.</p>
+<p>The template uses Angular&#39;s standalone application model and organizes code by responsibility and feature area. The structure is inspired by <a href="https://medium.com/@bolik/angular-best-practice-file-structure-principles-2026-41f1d1383cda">Angular Best Practice File Structure Principles 2026</a>.</p>
 <ul>
 <li>Application bootstrap is configured in <code>src/app/app.config.ts</code>.</li>
 <li>Top-level routes are defined in <code>src/app/app.routes.ts</code>.</li>
 <li>Feature routes are lazy-loaded and can register their own providers, state, and effects.</li>
 <li>Shared UI building blocks are also standalone components instead of wrapper modules.</li>
 </ul>
-<p>The current sample feature lives under <code>src/app/modules/features/sample-records</code> and demonstrates the default architectural direction of the template.</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-text">src/app/
+  core/                              # Application-wide infrastructure
+    config/app-config.ts             # Typed APP_CONFIG injection token
+    http/                            # API URLs, reusable HTTP access, call state
+    routing/                         # Router state serialization
+    state/app-state.ts               # Root infrastructure reducers
+  shared/                            # Reusable presentation code
+    components/tables/               # Table components, models and data source
+  layout/                            # Application shell and navigation
+    side-navigation/
+    footer/
+  features/
+    sample-records/
+      pages/sample-records-page/      # Routed container using the facade
+      components/sample-records/     # Feature UI and its table data source
+      data-access/                   # Feature API client and endpoint paths
+      models/                        # Feature data contracts
+      state/                         # NgRx actions, reducer, selectors and effects
+      facade/                        # Component-facing feature API
+      testing/                       # Feature test fixtures
+      sample-records.routes.ts       # Feature providers, state and effects
+  app.component.*
+  app.config.ts
+  app.routes.ts</code></pre></div><p>Dependency rules:</p>
+<ul>
+<li><code>core/</code> contains infrastructure shared across the application. It does not import features, layout, or shared UI.</li>
+<li><code>shared/</code> contains presentation components and their supporting types. It does not import core, layout, or business features.</li>
+<li><code>features/</code> owns business-specific code and may import <code>core/</code> and <code>shared/</code>. Features do not import one another&#39;s internals.</li>
+<li><code>layout/</code> owns the application shell, navigation links, and footer. It can use core and shared building blocks; feature screens are rendered through the router outlet.</li>
+<li>Root application files compose the layers. <code>app.routes.ts</code> lazy-loads each feature&#39;s route configuration.</li>
+</ul>
+<p>Use <code>@core/*</code> and <code>@shared/*</code> for imports across layers, and relative imports within a feature or layer. Keep tests beside the code they exercise. Related table models and the generic table data source live with the table UI instead of in global <code>models/</code> or <code>services/</code> folders.</p>
+<p>When adding a feature, start with its route file and routed page. Add <code>data-access/</code>, <code>state/</code>, <code>facade/</code>, and other folders as responsibilities appear. Register feature services, state, and effects in the feature routes. Add infrastructure areas such as <code>core/auth/</code> or <code>core/access/</code> when the application needs them.</p>
 <h2>State Management</h2>
 <p>This template is intended for enterprise applications, so NgRx remains the primary state-management approach.</p>
 <p>The sample feature demonstrates a layered NgRx pattern:</p>
@@ -180,27 +212,27 @@ Generates the static documentation site in <code>documentation/</code>.</li>
 </ul>
 <p>Relevant files:</p>
 <ul>
-<li><code>src/app/modules/features/sample-records/state/reducers/sample-record.reducer.ts</code></li>
-<li><code>src/app/modules/features/sample-records/state/effects/sample-record.effects.ts</code></li>
-<li><code>src/app/modules/features/sample-records/state/selectors/sample-record.selectors.ts</code></li>
-<li><code>src/app/modules/features/sample-records/state/sample-records.facade.ts</code></li>
+<li><code>src/app/features/sample-records/state/sample-record.reducer.ts</code></li>
+<li><code>src/app/features/sample-records/state/sample-record.effects.ts</code></li>
+<li><code>src/app/features/sample-records/state/sample-record.selectors.ts</code></li>
+<li><code>src/app/features/sample-records/facade/sample-records.facade.ts</code></li>
 </ul>
-<p>The app also includes root NgRx setup in <code>src/app/app.config.ts</code>, including router-store integration and devtools.</p>
+<p>The app also includes root NgRx setup in <code>src/app/app.config.ts</code>, including router-store integration and devtools. Root infrastructure state lives in <code>core/state/app-state.ts</code>; business state stays in its feature. The sample API client and facade are provided by the lazy feature route, while each sample table component provides its own table data source.</p>
 <h2>API Layer</h2>
 <p>The API layer is intentionally simple and explicit.</p>
 <ul>
-<li><code>src/app/modules/core/features/API/services/api-url.service.ts</code> joins the configured API base URL with endpoint paths.</li>
-<li><code>src/app/modules/core/features/API/utils/endpoints.ts</code> contains endpoint constants.</li>
-<li><code>src/app/modules/core/features/API/services/resource.service.ts</code> provides reusable CRUD-style behavior for feature API services.</li>
+<li><code>src/app/core/config/app-config.ts</code> exposes the typed <code>APP_CONFIG</code> token, defaulting to the selected environment&#39;s API URL. Override the token in application providers to supply runtime settings.</li>
+<li><code>src/app/core/http/api-url.service.ts</code> joins the configured API base URL with endpoint paths.</li>
+<li><code>src/app/core/http/resource.service.ts</code> provides reusable CRUD-style behavior for feature API services.</li>
+<li>Feature endpoint constants live in their own <code>data-access/</code> folder so core has no knowledge of business resources.</li>
 </ul>
 <p>The sample feature API service shows the intended usage:</p>
 <ul>
-<li><code>src/app/modules/features/sample-records/services/sample-record-api.service.ts</code></li>
+<li><code>src/app/features/sample-records/data-access/sample-record-api.service.ts</code></li>
 </ul>
 <p>Example pattern:</p>
-<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">&#64;Injectable({
-  providedIn: &#39;root&#39;
-})
+<b>Example :</b><div><pre class="line-numbers"><code class="language-ts">// Register ProductApiService in the product feature&#39;s route providers.
+&#64;Injectable()
 export class ProductApiService extends ResourceService&lt;Product&gt; {
   constructor(
     protected httpClient: HttpClient,
@@ -218,6 +250,7 @@ export class ProductApiService extends ResourceService&lt;Product&gt; {
 <li>Run all tests once with <code>npm run test:ci</code></li>
 <li>Run tests in watch mode with <code>npm run test</code></li>
 </ul>
+<p><code>src/app/app.routes.spec.ts</code> exercises the lazy feature with the real route providers, NgRx state and effects, and a mocked HTTP backend. It covers default and fallback redirects, record rendering, and API failures.</p>
 <p>The current local desktop environment can require elevated execution for Angular build and test commands because of a local <code>spawn EPERM</code> issue. That is an environment limitation, not a project-level requirement.</p>
 <h2>Generated Documentation</h2>
 <p>Static API and architecture documentation is generated with Compodoc.</p>

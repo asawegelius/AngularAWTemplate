@@ -133,7 +133,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/features/sample-records/state/effects/sample-record.effects.ts</code>
+            <code>src/app/features/sample-records/state/sample-record.effects.ts</code>
         </p>
 
 
@@ -186,7 +186,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/modules/features/sample-records/state/effects/sample-record.effects.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/features/sample-records/state/sample-record.effects.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -293,7 +293,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/modules/features/sample-records/state/effects/sample-record.effects.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/features/sample-records/state/sample-record.effects.ts:35</a></div>
                         </td>
                     </tr>
 
@@ -317,9 +317,9 @@ or a failure action with an error message if the request fails.</p>
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { Actions, createEffect, ofType } from &#x27;@ngrx/effects&#x27;;
 import { catchError, map, mergeMap } from &#x27;rxjs/operators&#x27;;
-import * as SampleRecordActions from &#x27;../actions/sample-record.actions&#x27;;
+import * as SampleRecordActions from &#x27;./sample-record.actions&#x27;;
 import { of } from &#x27;rxjs&#x27;;
-import { SampleRecordApiService } from &#x27;../../services/sample-record-api.service&#x27;;
+import { SampleRecordApiService } from &#x27;../data-access/sample-record-api.service&#x27;;
 
 
 

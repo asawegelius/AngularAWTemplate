@@ -8,8 +8,8 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { APP_ROUTES } from './app.routes';
-import { reducers, metaReducers } from './reducers';
-import { RouterSerializer } from './reducers/router-serializer';
+import { reducers, metaReducers } from '@core/state/app-state';
+import { RouterSerializer } from '@core/routing/router-serializer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

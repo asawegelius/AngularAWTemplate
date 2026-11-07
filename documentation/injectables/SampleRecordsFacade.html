@@ -133,7 +133,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/modules/features/sample-records/state/sample-records.facade.ts</code>
+            <code>src/app/features/sample-records/facade/sample-records.facade.ts</code>
         </p>
 
 
@@ -206,7 +206,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/features/sample-records/state/sample-records.facade.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/features/sample-records/facade/sample-records.facade.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -269,8 +269,8 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/app/modules/features/sample-records/state/sample-records.facade.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="15"
+                                    class="link-to-prism">src/app/features/sample-records/facade/sample-records.facade.ts:15</a></div>
                         </td>
                     </tr>
 
@@ -317,7 +317,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/modules/features/sample-records/state/sample-records.facade.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/features/sample-records/facade/sample-records.facade.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -349,7 +349,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/modules/features/sample-records/state/sample-records.facade.ts:12</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/features/sample-records/facade/sample-records.facade.ts:10</a></div>
                         </td>
                     </tr>
 
@@ -381,7 +381,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/modules/features/sample-records/state/sample-records.facade.ts:11</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/features/sample-records/facade/sample-records.facade.ts:9</a></div>
                         </td>
                     </tr>
 
@@ -413,7 +413,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/modules/features/sample-records/state/sample-records.facade.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/features/sample-records/facade/sample-records.facade.ts:8</a></div>
                         </td>
                     </tr>
 
@@ -428,12 +428,10 @@
     <div class="tab-pane fade  tab-source-code" id="source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 import { Store } from &#x27;@ngrx/store&#x27;;
-import { loadSampleRecords } from &#x27;./actions/sample-record.actions&#x27;;
-import * as fromSampleRecords from &#x27;./selectors/sample-record.selectors&#x27;;
+import { loadSampleRecords } from &#x27;../state/sample-record.actions&#x27;;
+import * as fromSampleRecords from &#x27;../state/sample-record.selectors&#x27;;
 
-@Injectable({
-  providedIn: &#x27;root&#x27;
-})
+@Injectable()
 export class SampleRecordsFacade {
   readonly sampleRecords$ &#x3D; this.store.select(fromSampleRecords.selectSampleRecordList);
   readonly isLoading$ &#x3D; this.store.select(fromSampleRecords.sampleRecordsIsLoading);
