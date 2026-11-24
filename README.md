@@ -1,15 +1,15 @@
 # AngularAWTemplate
 
-AngularAWTemplate is an Angular 20 template for enterprise-style applications. It is designed for larger, long-lived systems where consistency, explicit structure, and maintainable feature patterns matter more than minimal setup.
+AngularAWTemplate is an Angular 22 template for enterprise-style applications. It is designed for larger, long-lived systems where consistency, explicit structure, and maintainable feature patterns matter more than minimal setup.
 
 The template is intentionally opinionated:
 
 - standalone Angular application bootstrap
 - route-based lazy loading
-- Angular Material for UI building blocks
-- NgRx Store, Effects, Entity, Router Store, and DevTools for application state
-- Vitest-based unit testing
-- a mock API workflow for local development
+- Angular Material 22 for UI building blocks
+- NgRx 22 Store, Effects, Entity, Router Store, and DevTools for application state
+- TypeScript 6 and Vitest 5
+- a mock API workflow using json-server 0.17
 
 ## Table of Contents
 
@@ -28,19 +28,19 @@ The template is intentionally opinionated:
 
 ## Requirements
 
-- Node.js `^22.12.0 || ^24.0.0`
+- Node.js `^22.22.3 || ^24.15.0`
 - npm `>=10`
 
 ## Getting Started
 
 1. Clone the repository.
-2. Install dependencies with `npm install`.
-3. Start the development application with `npm run start`.
+2. Install locked dependencies with `npm ci`.
+3. Start the development application with `npm run start` and open `http://localhost:4200`. The development environment expects an API at `http://localhost:8080`.
 
-If you want to run the mock API locally as well:
+For the mock workflow, stop the development server and run these commands in separate terminals.
 
-1. Start the mock backend with `npm run mock:api`.
-2. Start the Angular app against the mock environment with `npm run mock`.
+1. Start the mock backend with `npm run mock:api`. It serves the fixture at `http://localhost:3000/sample-records`.
+2. Start the Angular app with `npm run mock` and open `http://localhost:4200`.
 
 ## Available Scripts
 
@@ -50,14 +50,22 @@ If you want to run the mock API locally as well:
   Runs the Angular app with the `mock` configuration.
 - `npm run mock:api`
   Starts `json-server` with the data in `mock-api/db.json`.
+- `npm run smoke:startup`
+  Runs the [HTTP startup smoke test](#startup-smoke-test). It needs ports 3000, 4200, and 4201 available.
 - `npm run build`
   Creates a production build.
+- `npm run ng -- extract-i18n --output-path dist/i18n`
+  Extracts translation messages into `dist/i18n/messages.xlf`.
 - `npm run watch`
   Runs a development build in watch mode.
 - `npm run test`
   Runs the Angular unit-test target.
 - `npm run test:ci`
   Runs the unit-test suite once without watch mode.
+- `npm run check:architecture`
+  Checks the application dependency rules.
+- `npm run test:architecture`
+  Tests the dependency rules against permitted and prohibited imports in an isolated fixture project.
 - `npm run compodoc`
   Generates the static documentation site in `documentation/`.
 
@@ -97,15 +105,21 @@ src/app/
   app.routes.ts
 ```
 
-Dependency rules:
+Dependency rules
 
-- `core/` contains infrastructure shared across the application. It does not import features, layout, or shared UI.
-- `shared/` contains presentation components and their supporting types. It does not import core, layout, or business features.
-- `features/` owns business-specific code and may import `core/` and `shared/`. Features do not import one another's internals.
-- `layout/` owns the application shell, navigation links, and footer. It can use core and shared building blocks; feature screens are rendered through the router outlet.
-- Root application files compose the layers. `app.routes.ts` lazy-loads each feature's route configuration.
+- `core/` contains infrastructure shared across the application. It can use other core files and environment configuration.
+- `shared/` contains presentation components and their supporting types and is independent of the other application layers.
+- `features/` owns business-specific code. Each feature can use its own files, `core/`, and `shared/`.
+- `layout/` owns the application shell, navigation links, and footer. It can use core and shared building blocks. The router outlet renders feature screens.
+- `src/main.ts` and files directly in `src/app/` compose the layers and are entry points. `app.routes.ts` lazy-loads each feature's route configuration.
 
 Use `@core/*` and `@shared/*` for imports across layers, and relative imports within a feature or layer. Keep tests beside the code they exercise. Related table models and the generic table data source live with the table UI instead of in global `models/` or `services/` folders.
+
+Run `npm run check:architecture` locally. The `architecture` CI job runs the same command. Dependency Cruiser resolves TypeScript aliases and relative paths and checks static imports, literal dynamic imports, re-exports, and type-only imports, including imports in tests.
+
+Run `npm run test:architecture` to verify changes to the rules. The same CI job runs this suite, which uses the project's Dependency Cruiser configuration and TypeScript aliases to check fixtures in a temporary directory.
+
+Each new directory under `src/app/features/` automatically gets its own boundary. To introduce a new layer or an explicit public interface between features, update the dependency rules here and in `.dependency-cruiser.cjs` together.
 
 When adding a feature, start with its route file and routed page. Add `data-access/`, `state/`, `facade/`, and other folders as responsibilities appear. Register feature services, state, and effects in the feature routes. Add infrastructure areas such as `core/auth/` or `core/access/` when the application needs them.
 
@@ -172,11 +186,19 @@ The template uses Angular's unit-test target with Vitest as the test runner.
 
 `src/app/app.routes.spec.ts` exercises the lazy feature with the real route providers, NgRx state and effects, and a mocked HTTP backend. It covers default and fallback redirects, record rendering, and API failures.
 
-The current local desktop environment can require elevated execution for Angular build and test commands because of a local `spawn EPERM` issue. That is an environment limitation, not a project-level requirement.
+### Startup smoke test
+
+`npm run smoke:startup` starts the development server, mock server, and mock API. It requests `/sample-records` from both Angular servers and checks for the application shell in the HTML. A separate HTTP request to the mock API checks that the response contains the records from `mock-api/db.json`. The check bounds each startup wait and shuts down the processes it started.
+
+Browser rendering, client-side navigation, browser-to-API requests, and the real development API are outside its coverage. The route integration tests above exercise Angular behavior with a mocked HTTP backend.
+
+### CI coverage
+
+Both supported Node.js majors run the production build, translation extraction, startup smoke test, and unit tests. The matrix adds two parallel jobs and verifies the locked dependencies and Angular tooling on both runtimes. The architecture check and its fixture tests run once on Node.js 22 because they validate the same source dependency graph on either runtime.
 
 ## Generated Documentation
 
-Static API and architecture documentation is generated with Compodoc.
+Static API and architecture documentation is generated with Compodoc 2.
 
 - Source: TypeScript files included by `tsconfig.doc.json`
 - Output: `documentation/`
@@ -192,6 +214,8 @@ Build the application with:
 npm run build
 ```
 
+The production build fetches the Google Fonts stylesheets referenced in `src/index.html` for inlining.
+
 The production output is written to:
 
 - `dist/AngularTemplate`
@@ -200,4 +224,4 @@ Deploy the contents of that folder to your web server or hosting platform.
 
 ## License
 
-AngularAWTemplate is licensed under the MIT License.
+The repository contains the GNU General Public License version 3 text. Previous versions of this README stated MIT, and the npm package metadata has no `license` field. The intended license is pending maintainer confirmation. [License file](LICENSE)

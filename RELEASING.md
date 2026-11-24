@@ -6,7 +6,7 @@ This repository is currently in a phase 1 workflow where `develop` is the only p
 
 1. Create a `feature/*` branch from `develop`.
 2. Open a pull request back into `develop`.
-3. Wait for the `build` and `test` checks to pass.
+3. Wait for the build and test checks on Node.js 22 and 24 and the `architecture` check to pass. See [Branch protection](BRANCH_PROTECTION.md) for the check names.
 4. Merge through the pull request.
 
 Approval requirements are intentionally disabled in this phase so the workflow works for a solo maintainer.

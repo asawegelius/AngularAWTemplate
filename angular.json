@@ -94,13 +94,13 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "AngularTemplate:build:production"
+              "buildTarget": "AngularTemplate:build:production"
             },
             "development": {
-              "browserTarget": "AngularTemplate:build:development"
+              "buildTarget": "AngularTemplate:build:development"
             },
             "mock": {
-              "browserTarget": "AngularTemplate:build:mock"
+              "buildTarget": "AngularTemplate:build:mock"
             }
           },
           "defaultConfiguration": "development"
@@ -108,7 +108,7 @@
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
           "options": {
-            "browserTarget": "AngularTemplate:build"
+            "buildTarget": "AngularTemplate:build:production"
           }
         },
         "test": {

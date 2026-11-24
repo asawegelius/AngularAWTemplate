@@ -13,8 +13,16 @@ permissions:
 
 jobs:
   build:
-    name: build
+    name: ${{ matrix.check }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - node: 22
+            check: build
+          - node: 24
+            check: build (Node.js 24)
 
     steps:
       - name: Checkout repository
@@ -23,7 +31,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version: ${{ matrix.node }}
           cache: npm
 
       - name: Install dependencies
@@ -31,9 +39,42 @@ jobs:
 
       - name: Build application
         run: npm run build
+      - name: Extract translations
+        run: npm run ng -- extract-i18n --output-path dist/i18n
+      - name: Check development and mock startup
+        run: npm run smoke:startup
+        timeout-minutes: 6
 
   test:
-    name: test
+    name: ${{ matrix.check }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - node: 22
+            check: test
+          - node: 24
+            check: test (Node.js 24)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test:ci
+
+  architecture:
+    name: architecture
     runs-on: ubuntu-latest
 
     steps:
@@ -49,5 +90,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run unit tests
-        run: npm run test:ci
+      - name: Check dependency boundaries
+        run: npm run check:architecture
+      - name: Test dependency rules
+        run: npm run test:architecture

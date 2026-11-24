@@ -19,7 +19,12 @@ Enable the following settings for `develop` in GitHub:
 Use these checks from the CI workflow:
 
 - `build`
+- `build (Node.js 24)`
 - `test`
+- `test (Node.js 24)`
+- `architecture`
+
+The `build` and `test` check names refer to Node.js 22. Both build checks include translation extraction and the startup smoke test. The `architecture` check validates the application graph and runs the dependency rule fixtures.
 
 Approvals stay off on purpose because a pull request author cannot approve their own pull request. In a solo workflow, PR + CI gives control without creating a dead end.
 

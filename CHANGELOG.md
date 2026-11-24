@@ -6,6 +6,16 @@ The format is inspired by Keep a Changelog, and this repository uses Semantic Ve
 
 ## [Unreleased]
 
+### Added
+
+- Added a startup smoke check for the development app, mock app, and mock API, plus translation extraction in CI.
+- Added a CI architecture check and automated tests for permitted and prohibited dependencies between application layers and features.
+- Added Node.js 24 to CI alongside Node.js 22 for builds, startup checks, and unit tests.
+
+### Fixed
+
+- Fixed the Angular CLI serve and translation-extraction targets and aligned the documented tooling and Node.js requirements with the locked dependencies.
+
 ### Changed
 
 - Reorganized the standalone application into top-level `core`, `shared`, `layout`, and `features` areas, removing the legacy `modules` hierarchy.
