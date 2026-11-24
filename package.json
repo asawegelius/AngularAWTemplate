@@ -12,6 +12,7 @@
     "test": "ng test",
     "test:ci": "ng test --watch=false",
     "check:architecture": "depcruise --config .dependency-cruiser.cjs src",
+    "test:architecture": "node --test scripts/architecture.test.mjs",
     "compodoc": "compodoc -p tsconfig.doc.json"
   },
   "private": true,

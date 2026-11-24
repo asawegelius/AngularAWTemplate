@@ -51,7 +51,7 @@ For the mock workflow, stop the development server and run these commands in sep
 - `npm run mock:api`
   Starts `json-server` with the data in `mock-api/db.json`.
 - `npm run smoke:startup`
-  Checks that both Angular servers respond and the mock API returns the sample records. The check starts and stops its own processes and needs ports 3000, 4200, and 4201 available.
+  Runs the [HTTP startup smoke test](#startup-smoke-test). It needs ports 3000, 4200, and 4201 available.
 - `npm run build`
   Creates a production build.
 - `npm run ng -- extract-i18n --output-path dist/i18n`
@@ -64,6 +64,8 @@ For the mock workflow, stop the development server and run these commands in sep
   Runs the unit-test suite once without watch mode.
 - `npm run check:architecture`
   Checks the application dependency rules.
+- `npm run test:architecture`
+  Tests the dependency rules against permitted and prohibited imports in an isolated fixture project.
 - `npm run compodoc`
   Generates the static documentation site in `documentation/`.
 
@@ -114,6 +116,8 @@ Dependency rules
 Use `@core/*` and `@shared/*` for imports across layers, and relative imports within a feature or layer. Keep tests beside the code they exercise. Related table models and the generic table data source live with the table UI instead of in global `models/` or `services/` folders.
 
 Run `npm run check:architecture` locally. The `architecture` CI job runs the same command. Dependency Cruiser resolves TypeScript aliases and relative paths and checks static imports, literal dynamic imports, re-exports, and type-only imports, including imports in tests.
+
+Run `npm run test:architecture` to verify changes to the rules. The same CI job runs this suite, which uses the project's Dependency Cruiser configuration and TypeScript aliases to check fixtures in a temporary directory.
 
 Each new directory under `src/app/features/` automatically gets its own boundary. To introduce a new layer or an explicit public interface between features, update the dependency rules here and in `.dependency-cruiser.cjs` together.
 
@@ -181,6 +185,16 @@ The template uses Angular's unit-test target with Vitest as the test runner.
 - Run tests in watch mode with `npm run test`
 
 `src/app/app.routes.spec.ts` exercises the lazy feature with the real route providers, NgRx state and effects, and a mocked HTTP backend. It covers default and fallback redirects, record rendering, and API failures.
+
+### Startup smoke test
+
+`npm run smoke:startup` starts the development server, mock server, and mock API. It requests `/sample-records` from both Angular servers and checks for the application shell in the HTML. A separate HTTP request to the mock API checks that the response contains the records from `mock-api/db.json`. The check bounds each startup wait and shuts down the processes it started.
+
+Browser rendering, client-side navigation, browser-to-API requests, and the real development API are outside its coverage. The route integration tests above exercise Angular behavior with a mocked HTTP backend.
+
+### CI coverage
+
+Both supported Node.js majors run the production build, translation extraction, startup smoke test, and unit tests. The matrix adds two parallel jobs and verifies the locked dependencies and Angular tooling on both runtimes. The architecture check and its fixture tests run once on Node.js 22 because they validate the same source dependency graph on either runtime.
 
 ## Generated Documentation
 

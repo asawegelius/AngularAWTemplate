@@ -9,7 +9,8 @@ The format is inspired by Keep a Changelog, and this repository uses Semantic Ve
 ### Added
 
 - Added a startup smoke check for the development app, mock app, and mock API, plus translation extraction in CI.
-- Added a CI architecture check for the dependency boundaries between application layers and features.
+- Added a CI architecture check and automated tests for permitted and prohibited dependencies between application layers and features.
+- Added Node.js 24 to CI alongside Node.js 22 for builds, startup checks, and unit tests.
 
 ### Fixed
 
