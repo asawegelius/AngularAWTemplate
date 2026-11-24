@@ -6,6 +6,15 @@ The format is inspired by Keep a Changelog, and this repository uses Semantic Ve
 
 ## [Unreleased]
 
+### Added
+
+- Added a startup smoke check for the development app, mock app, and mock API, plus translation extraction in CI.
+- Added a CI architecture check for the dependency boundaries between application layers and features.
+
+### Fixed
+
+- Fixed the Angular CLI serve and translation-extraction targets and aligned the documented tooling and Node.js requirements with the locked dependencies.
+
 ### Changed
 
 - Reorganized the standalone application into top-level `core`, `shared`, `layout`, and `features` areas, removing the legacy `modules` hierarchy.

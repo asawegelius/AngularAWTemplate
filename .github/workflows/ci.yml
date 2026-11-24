@@ -31,6 +31,11 @@ jobs:
 
       - name: Build application
         run: npm run build
+      - name: Extract translations
+        run: npm run ng -- extract-i18n --output-path dist/i18n
+      - name: Check development and mock startup
+        run: npm run smoke:startup
+        timeout-minutes: 6
 
   test:
     name: test
@@ -51,3 +56,23 @@ jobs:
 
       - name: Run unit tests
         run: npm run test:ci
+
+  architecture:
+    name: architecture
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check dependency boundaries
+        run: npm run check:architecture
